@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'account/style/materialize.min.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+
+    <style>
+        .container{
+            min-width: 100%;
+        }
+
+        .container > .row {
+            margin: 0;
+        }
+
+
+        .container > .row > .col {
+            padding: 0;
+        }
+
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+
+        *{
+            font-family: 'myFont';
+        }
+
+        @font-face {
+            font-family: 'myFont';
+            src: url('/static/account/fonts/myFont.ttf');
+        }
+    </style>
+
+    {% block style %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+    <div class="container">
+
+        <!--navbar-->
+        <div class="row white-text">
+            <div class="col s12 m12 l12 #26a69a teal lighten-1" style="height: 70px;">
+                <div class="col s12 m12 l10 offset-l1 valign-wrapper" style="height: 100%;">
+
+                    <!--left side-->
+                    <div class="col m6 l6">
+                        <div class="col m5 center-align" style="font-size: 16px;">
+                            <p>Istehar Logo</p>
+                        </div>
+
+                        <div class="col m3 center-align" style="font-size: 16px;">
+                            <p>All ads</p>
+                        </div>
+                    </div>
+                    <!--end left side-->
+
+                    <!--right side-->
+                    <div class="col m6 l6">
+                       <div class="col m5 center-align right" style="font-size: 16px; margin-top: 5px;">
+                            <a class="waves-effect waves-light btn #eeff41 lime accent-2 black-text">Post your ad</a>
+                        </div>
+
+                        <div class="col m3 center-align right" style="margin-top: 5px;">
+                            <div class="chip #00796b teal darken-2 white-text">
+                                Log in
+                            </div>
+                        </div>
+                    </div>
+                    <!--end right side-->
+
+                </div>
+            </div>
+        </div>
+        <!--end navbar-->
+
+
+        {% block body %}
+
+        {% endblock %}
+
+
+    </div>
+
+    <!--js-->
+    <script type="text/javascript" src="{% static 'account/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'account/js/materialize.min.js' %}"></script>
+
+    {% block script %}
+
+    {% endblock %}
+</body>
+</html>
