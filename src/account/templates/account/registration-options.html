@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration | Istehar{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+                        <div class="col m6 l6" style="">
+                            <h5>Sign up on Istehar</h5>
+                            <p>
+                                The largest marketplace in Bangladesh.
+                            </p>
+
+                            <div class="" style="margin-top: 50px;">
+                                <p>Start posting your own ads.</p>
+
+                                <p style="margin-top: 20px;">Mark ads as favorite and view them later.</p>
+
+                                <p style="margin-top: 20px;">View and manage your ads at your convenience.</p>
+                            </div>
+                        </div>
+
+                        <div class="col m6 l6 center-align" style="border-left: 1px solid #333;">
+                            <a class="waves-effect waves-light blue btn">Login With Facebook</a>
+
+                            <p style="margin-top: 10px; margin-bottom: 10px;">or</p>
+
+                            <a href="{% url 'account:registration' %}" style="margin-bottom: 10px;" class="waves-effect waves-light #26a69a teal lighten-1 btn">Sign up using Email</a>
+                            <p class="col s12 m10 offset-m1 l8 offset-l2" style="font-size: 12px;">
+                                By signing up for an account you agree to our
+                                <a href="#">
+                                    Terms and Conditions
+                                </a>
+                            </p>
+
+                            <div class="col s12 m12 l12 divider" style="color: #333; margin-top: 20px; margin-bottom: 20px;">
+                            </div>
+
+                            <div class="col s12 m12 l12">
+                                <p>
+                                    Already have an account?
+                                </p>
+
+                                <a href="{% url 'account:login' %}" style="margin-top: 20px; border: 1px solid #333; margin-bottom: 10px;" class="waves-effect waves-light white black-text btn">Log in</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -11,12 +11,43 @@ def logout_request(request):
     return redirect('account:login')
 
 
+#site registration options
+class RegistrationOptions(View):
+    template_name = 'account/registration-options.html'
+
+    def get(self, request):
+
+        return render(request, self.template_name)
+
+
 #site registration
 class Registration(View):
     template_name = 'account/registration.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+
+        registration_form = forms.RegistrationForm()
+
+        variables = {
+            'registration_form': registration_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+
+        registration_form = forms.RegistrationForm(request.POST or None)
+
+        if registration_form.is_valid():
+            registration_form.registration()
+
+            return redirect('account:login')
+
+        variables = {
+            'registration_form': registration_form,
+        }
+
+        return render(request, self.template_name, variables)
 
 
 
