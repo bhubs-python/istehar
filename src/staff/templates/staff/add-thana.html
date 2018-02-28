@@ -1,0 +1,46 @@
+{% extends 'staff-base.html' %}
+
+{% block title %}Add Thana | Istehar{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+                        <h5>Enter thana name</h5>
+
+                        <div class="col m12 l12 center-align">
+
+                            <form method="post" style="">
+                                {% csrf_token %}
+
+                                <div class="input-field col s12 m12 l12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    {{ thana_form.name }}
+                                    <label for="icon_prefix white-text">Name</label>
+                                </div>
+
+                                {% if thana_form.non_field_errors %}
+                                    {% for error in thana_form.non_field_errors %}
+                                        <div class="col s12 m12 l12 center-align valign-wrapper red" style="height: 40px; border: 1px solid red; margin-bottom: 20px; margin-top: 10px;">
+                                            <p class="col s12 m12 l12 white-text" style="font-size: 14px;">
+                                                {{ error }}
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                <div class="col s12 m12 l12 center-align">
+                                    <button class="btn waves-effect waves-light" type="submit" style="">Add
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'staff-base.html' %}
+
+{% block title %}Add District, Division List | Istehar{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2 white" style="margin-top: 40px; padding: 20px;">
+        <h5><u>All Divisions ( {{ count }} )</u></h5>
+
+
+        {% for division in divisions %}
+            <a href="{% url 'staff:add-district' division=division.name %}" class="waves-effect waves-light btn" style="margin-top: 10px;">{{ division.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

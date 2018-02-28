@@ -8,9 +8,9 @@
     <div class="col s12 m10 offset-m1 l8 offset-l2 white" style="margin-top: 40px; padding: 20px;">
         <h5><u>Location Operations: </u></h5>
 
-        <a class="waves-effect waves-light btn" style="margin-top: 10px;">Add Division</a>
-        <a class="waves-effect waves-light btn" style="margin-top: 10px;">Add District</a>
-        <a class="waves-effect waves-light btn" style="margin-top: 10px;">Add Thana</a>
+        <a href="{% url 'staff:add-division' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add Division</a>
+        <a href="{% url 'staff:add-district-division-list' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add District</a>
+        <a href="{% url 'staff:add-thana-division-list' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add Thana</a>
     </div>
 </div>
 

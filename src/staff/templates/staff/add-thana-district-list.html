@@ -1,0 +1,18 @@
+{% extends 'staff-base.html' %}
+
+{% block title %}Add Thana, District List | Istehar{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2 white" style="margin-top: 40px; padding: 20px;">
+        <h5><u>All District ( {{ count }} )</u></h5>
+
+
+        {% for district in districts %}
+            <a href="{% url 'staff:add-thana' division=district.division.name district=district.id %}" class="waves-effect waves-light btn" style="margin-top: 10px;">{{ district.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
