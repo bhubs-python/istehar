@@ -1,6 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth.views import login, logout
 
+from . import forms
+
+
+# logout
+def logout_request(request):
+    logout(request)
+    return redirect('account:login')
 
 
 #site registration
@@ -9,3 +17,36 @@ class Registration(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+
+#site registration
+class Login(View):
+    template_name = 'account/login.html'
+
+    def get(self, request):
+
+        login_form = forms.LoginForm()
+
+        variables = {
+            'login_form': login_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+
+        login_form = forms.LoginForm(request.POST or None)
+
+        if login_form.is_valid():
+            user = login_form.login()
+
+            if user:
+                login(request, user)
+                return redirect('account:registration')
+
+        variables = {
+            'login_form': login_form,
+        }
+
+        return render(request, self.template_name, variables)

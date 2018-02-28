@@ -3,5 +3,5 @@
 {% block title %}Registration | Istehar{% endblock %}
 
 {% block body %}
-    <h3>Welcome</h3>
+    <h3>{{ request.user.username | upper }}</h3>
 {% endblock %}

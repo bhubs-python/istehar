@@ -74,6 +74,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = ['account.models.DualModelBackend']
+
 
 LANGUAGE_CODE = 'en-us'
 

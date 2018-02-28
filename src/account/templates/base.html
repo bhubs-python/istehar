@@ -27,9 +27,6 @@
         *{
             padding: 0px;
             margin: 0px;
-        }
-
-        *{
             font-family: 'myFont';
         }
 
@@ -45,8 +42,8 @@
 
 </head>
 
-<body>
-    <div class="container">
+<body class="#eceff1 blue-grey lighten-5">
+    <div class="container" style="height: 600px;">
 
         <!--navbar-->
         <div class="row white-text">
@@ -67,15 +64,23 @@
 
                     <!--right side-->
                     <div class="col m6 l6">
-                       <div class="col m5 center-align right" style="font-size: 16px; margin-top: 5px;">
+                        <div class="col m5 center-align right" style="font-size: 16px; margin-top: 5px;">
                             <a class="waves-effect waves-light btn #eeff41 lime accent-2 black-text">Post your ad</a>
                         </div>
 
-                        <div class="col m3 center-align right" style="margin-top: 5px;">
-                            <div class="chip #00796b teal darken-2 white-text">
-                                Log in
+                        {% if user.is_authenticated %}
+                            <div class="col m3 center-align right" style="margin-top: 5px;">
+                                <div class="chip #00796b teal darken-2 white-text">
+                                    {{ request.user.username }}
+                                </div>
                             </div>
-                        </div>
+                        {% else %}
+                            <div class="col m3 center-align right" style="margin-top: 5px;">
+                                <div class="chip #00796b teal darken-2 white-text">
+                                    <a class="white-text" href="{% url 'account:login' %}">Log in</a>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                     <!--end right side-->
 
