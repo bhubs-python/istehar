@@ -26,8 +26,8 @@
                             {% ifequal thana.district district %}
                                 <p class="col s12 m8 offset-m2 l8 offset-l2" style="font-size: 16px;">
                                     ** {{ thana.name | title }}
-                                    <a href="#" class="black-text" style="font-size: 14px;">( Edit )</a>
-                                    <a href="#" class="black-text" style="font-size: 14px;">( Delete )</a>
+                                    <a href="{% url 'staff:thana-edit' thana=thana.id %}" class="black-text" style="font-size: 14px;">( Edit )</a>
+                                    <a href="{% url 'staff:thana-delete' thana=thana.id %}" class="black-text" style="font-size: 14px;">( Delete )</a>
                                 </p>
                             {% endifequal %}
                         {% endfor %}

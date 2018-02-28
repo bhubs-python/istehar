@@ -72,3 +72,23 @@ class ThanaForm(forms.Form):
         deploy.save()
 
 
+
+#division edit form
+class DivisionEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Division
+        fields = ('name', )
+
+
+#district edit form
+class DistrictEditForm(forms.ModelForm):
+    class Meta:
+        model = models.District
+        fields = ('name', )
+
+
+#thana edit form
+class ThanaEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Thana
+        fields = ('name', )

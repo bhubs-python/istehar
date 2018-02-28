@@ -69,6 +69,72 @@ class DivisionView(View):
 
 
 
+#division edit
+class DivisionEdit(View):
+    template_name = 'staff/division-edit.html'
+
+    def get(self, request, division):
+        get_object_or_404(models.Division, id=division)
+
+        division_edit_form = forms.DivisionEditForm(instance=models.Division.objects.get(id=division))
+
+        variables = {
+            'division_edit_form': division_edit_form,
+            'division': division,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, division):
+        get_object_or_404(models.Division, id=division)
+
+        division_edit_form = forms.DivisionEditForm(request.POST or None, instance=models.Division.objects.get(id=division))
+
+        if division_edit_form.is_valid():
+            division_edit_form.save()
+
+        variables = {
+            'division_edit_form': division_edit_form,
+            'division': division,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#division delete
+class DivisionDelete(View):
+    template_name = 'staff/division-delete.html'
+
+    def get(self, request, division):
+        get_object_or_404(models.Division, id=division)
+
+        variables = {
+            'division': division,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, division):
+        get_object_or_404(models.Division, id=division)
+
+        if request.POST.get('yes') == 'yes':
+            division_obj = models.Division.objects.get(id=division)
+            division_obj.delete()
+
+            return redirect('staff:division-view')
+        elif request.POST.get('no') == 'no':
+            return redirect('staff:division-view')
+
+        variables = {
+            'division': division,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+
 #=============================================================================
 #=============================================================================
 #                             end add division module
@@ -149,6 +215,72 @@ class DistrictView(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+#district edit
+class DistrictEdit(View):
+    template_name = 'staff/district-edit.html'
+
+    def get(self, request, district):
+        get_object_or_404(models.District, id=district)
+
+        district_edit_form = forms.DistrictEditForm(instance=models.District.objects.get(id=district))
+
+        variables = {
+            'district_edit_form': district_edit_form,
+            'district': district,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, district):
+        get_object_or_404(models.District, id=district)
+
+        district_edit_form = forms.DivisionEditForm(request.POST or None, instance=models.District.objects.get(id=district))
+
+        if district_edit_form.is_valid():
+            district_edit_form.save()
+
+        variables = {
+            'district_edit_form': district_edit_form,
+            'district': district,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#district delete
+class DistrictDelete(View):
+    template_name = 'staff/district-delete.html'
+
+    def get(self, request, district):
+        get_object_or_404(models.District, id=district)
+
+        variables = {
+            'district': district,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, district):
+        get_object_or_404(models.District, id=district)
+
+        if request.POST.get('yes') == 'yes':
+            district_obj = models.District.objects.get(id=district)
+            district_obj.delete()
+
+            return redirect('staff:district-view')
+        elif request.POST.get('no') == 'no':
+            return redirect('staff:district-view')
+
+        variables = {
+            'district': district,
+        }
+
+        return render(request, self.template_name, variables)
+
 
 
 
@@ -256,6 +388,72 @@ class ThanaView(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+#district edit
+class ThanaEdit(View):
+    template_name = 'staff/thana-edit.html'
+
+    def get(self, request, thana):
+        get_object_or_404(models.Thana, id=thana)
+
+        thana_edit_form = forms.ThanaEditForm(instance=models.Thana.objects.get(id=thana))
+
+        variables = {
+            'thana_edit_form': thana_edit_form,
+            'thana': thana,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, thana):
+        get_object_or_404(models.Thana, id=thana)
+
+        thana_edit_form = forms.ThanaEditForm(request.POST or None, instance=models.Thana.objects.get(id=thana))
+
+        if thana_edit_form.is_valid():
+            thana_edit_form.save()
+
+        variables = {
+            'thana_edit_form': thana_edit_form,
+            'thana': thana,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#thana delete
+class ThanaDelete(View):
+    template_name = 'staff/thana-delete.html'
+
+    def get(self, request, thana):
+        get_object_or_404(models.Thana, id=thana)
+
+        variables = {
+            'thana': thana,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, thana):
+        get_object_or_404(models.Thana, id=thana)
+
+        if request.POST.get('yes') == 'yes':
+            thana_obj = models.Thana.objects.get(id=thana)
+            thana_obj.delete()
+
+            return redirect('staff:thana-view')
+        elif request.POST.get('no') == 'no':
+            return redirect('staff:thana-view')
+
+        variables = {
+            'thana': thana,
+        }
+
+        return render(request, self.template_name, variables)
+
 
 
 

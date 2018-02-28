@@ -13,8 +13,8 @@
             <div class="col s12 m12 l12">
                 <p style="font-size: 25px;">
                     {{ forloop.counter }}. {{ division.name | title }}
-                    <a href="#" class="black-text" style="font-size: 14px;">( Edit )</a>
-                    <a href="#" class="black-text" style="font-size: 14px;">( Delete )</a>
+                    <a href="{% url 'staff:division-edit' division=division.id %}" class="black-text" style="font-size: 14px;">( Edit )</a>
+                    <a href="{% url 'staff:division-delete' division=division.id %}" class="black-text" style="font-size: 14px;">( Delete )</a>
                 </p>
             </div>
         {% endfor %}

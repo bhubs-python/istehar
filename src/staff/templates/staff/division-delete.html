@@ -1,0 +1,44 @@
+{% extends 'staff-base.html' %}
+
+{% block title %}Delete Division | Istehar{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+                        <h5>Want to delete this division {{ division }} </h5>
+
+                        <div class="col m12 l12 center-align">
+
+                            <form method="post" style="">
+                                {% csrf_token %}
+
+                                <input type="hidden" name="yes" value="yes">
+
+                                <div class="col s12 m12 l12 center-align" style="margin-bottom: 20px; margin-top: 20px;">
+                                    <button class="btn waves-effect waves-light" type="submit" style="">Yes
+                                    </button>
+                                </div>
+                            </form>
+
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <input type="hidden" name="no" value="no">
+
+                                <div class="col s12 m12 l12 center-align">
+                                    <button class="btn waves-effect waves-light" type="submit" style="">No
+                                    </button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

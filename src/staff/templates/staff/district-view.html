@@ -19,8 +19,8 @@
                     {% ifequal district.division division %}
                         <p class="col s12 m10 offset-m1 l10 offset-l1" style="font-size: 20px;">
                             * {{ district.name | title }}
-                            <a href="#" class="black-text" style="font-size: 14px;">( Edit )</a>
-                            <a href="#" class="black-text" style="font-size: 14px;">( Delete )</a>
+                            <a href="{% url 'staff:district-edit' district=district.id %}" class="black-text" style="font-size: 14px;">( Edit )</a>
+                            <a href="{% url 'staff:district-delete' district=district.id %}" class="black-text" style="font-size: 14px;">( Delete )</a>
                         </p>
                     {% endifequal %}
                 {% endfor %}
