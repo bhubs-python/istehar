@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 import re
 from django.contrib.auth.models import User
 
-from .models import DualModelBackend
+from .models import MultiLoginBackend
 
 
 class RegistrationForm(forms.Form):
@@ -71,7 +71,7 @@ class LoginForm(forms.Form):
             if len(password) < 8:
                 raise forms.ValidationError("Password is too short!")
             else:
-                user = DualModelBackend.authenticate(self, username=username, password=password)
+                user = MultiLoginBackend.authenticate(self, username=username, password=password)
                 if not user or not user.is_active:
                     raise forms.ValidationError("Username or Password not matched!")
         return self.cleaned_data
@@ -81,5 +81,5 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
 
-        user = DualModelBackend.authenticate(self, username=username, password=password)
+        user = MultiLoginBackend.authenticate(self, username=username, password=password)
         return user

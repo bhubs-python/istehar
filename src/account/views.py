@@ -74,7 +74,7 @@ class Login(View):
 
             if user:
                 login(request, user)
-                return redirect('account:registration')
+                return redirect('home:index')
 
         variables = {
             'login_form': login_form,

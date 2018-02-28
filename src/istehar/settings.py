@@ -17,6 +17,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'account.apps.AccountConfig',
+    'home.apps.HomeConfig',
+
+    'staff.apps.StaffConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +77,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = ['account.models.DualModelBackend']
+AUTHENTICATION_BACKENDS = ['account.models.MultiLoginBackend']
 
 
 LANGUAGE_CODE = 'en-us'

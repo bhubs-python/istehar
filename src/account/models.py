@@ -5,7 +5,7 @@ from django.db.models import Q
 
 
 
-class DualModelBackend(ModelBackend):
+class MultiLoginBackend(ModelBackend):
 
     def authenticate(self, username=None, password=None, **kwargs):
         UserModel = get_user_model()
