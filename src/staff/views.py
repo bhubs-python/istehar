@@ -15,6 +15,13 @@ class Home(View):
 
 
 
+#=============================================================================
+#=============================================================================
+#                             start add division module
+#=============================================================================
+#=============================================================================
+
+
 #add division
 class AddDivision(View):
     template_name = 'staff/add-division.html'
@@ -41,6 +48,33 @@ class AddDivision(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+#division view
+class DivisionView(View):
+    template_name = 'staff/division-view.html'
+
+    def get(self, request):
+
+        divisions = models.Division.objects.all()
+        count = models.Division.objects.all().count()
+
+        variables = {
+            'divisions': divisions,
+            'count': count,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#=============================================================================
+#=============================================================================
+#                             end add division module
+#=============================================================================
+#=============================================================================
+
 
 
 #=============================================================================
@@ -92,6 +126,26 @@ class AddDistrict(View):
 
         variables = {
             'district_form': district_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#district view
+class DistrictView(View):
+    template_name = 'staff/district-view.html'
+
+    def get(self, request):
+
+        divisions = models.Division.objects.all()
+        districts = models.District.objects.all()
+        count = models.District.objects.all().count()
+
+        variables = {
+            'divisions': divisions,
+            'districts': districts,
+            'count': count,
         }
 
         return render(request, self.template_name, variables)
@@ -177,6 +231,28 @@ class AddThana(View):
 
         variables = {
             'thana_form': thana_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#thana view
+class ThanaView(View):
+    template_name = 'staff/thana-view.html'
+
+    def get(self, request):
+
+        divisions = models.Division.objects.all()
+        districts = models.District.objects.all()
+        thanas = models.Thana.objects.all()
+        count = models.Thana.objects.all().count()
+
+        variables = {
+            'divisions': divisions,
+            'districts': districts,
+            'thanas': thanas,
+            'count': count,
         }
 
         return render(request, self.template_name, variables)

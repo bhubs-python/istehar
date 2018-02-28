@@ -8,9 +8,18 @@
     <div class="col s12 m10 offset-m1 l8 offset-l2 white" style="margin-top: 40px; padding: 20px;">
         <h5><u>Location Operations: </u></h5>
 
-        <a href="{% url 'staff:add-division' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add Division</a>
-        <a href="{% url 'staff:add-district-division-list' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add District</a>
-        <a href="{% url 'staff:add-thana-division-list' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add Thana</a>
+        <div class="col s12 m12 l12">
+            <a href="{% url 'staff:add-division' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add Division</a>
+            <a href="{% url 'staff:add-district-division-list' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add District</a>
+            <a href="{% url 'staff:add-thana-division-list' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">Add Thana</a>
+        </div>
+
+        <div class="col s12 m12 l12">
+            <a href="{% url 'staff:division-view' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">View Division</a>
+            <a href="{% url 'staff:district-view' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">View District</a>
+            <a href="{% url 'staff:thana-view' %}" class="waves-effect waves-light btn" style="margin-top: 10px;">View Thana</a>
+        </div>
+
     </div>
 </div>
 

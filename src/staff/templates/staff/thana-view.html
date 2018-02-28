@@ -1,0 +1,41 @@
+{% extends 'staff-base.html' %}
+
+{% block title %}Thana View | Istehar{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2 white" style="margin-top: 40px; padding: 20px;">
+        <h5><u>All Thana ( {{ count }} )</u></h5>
+
+
+        {% for division in divisions %}
+            <div class="col s12 m12 l12" style="margin-bottom: 30px;">
+                <p class="col s12 m12 l12" style="font-size: 25px;">
+                    {{ forloop.counter }}. {{ division.name | title }}
+                </p>
+
+                {% for district in districts %}
+                    {% ifequal district.division division %}
+                        <p class="col s12 m10 offset-m1 l10 offset-l1" style="font-size: 20px;">
+                            * {{ district.name | title }}
+                        </p>
+
+
+                        {% for thana in thanas %}
+                            {% ifequal thana.district district %}
+                                <p class="col s12 m8 offset-m2 l8 offset-l2" style="font-size: 16px;">
+                                    ** {{ thana.name | title }}
+                                    <a href="#" class="black-text" style="font-size: 14px;">( Edit )</a>
+                                    <a href="#" class="black-text" style="font-size: 14px;">( Delete )</a>
+                                </p>
+                            {% endifequal %}
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

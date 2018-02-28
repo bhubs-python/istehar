@@ -1,0 +1,24 @@
+{% extends 'staff-base.html' %}
+
+{% block title %}Division View | Istehar{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2 white" style="margin-top: 40px; padding: 20px;">
+        <h5><u>All Divisions ( {{ count }} )</u></h5>
+
+
+        {% for division in divisions %}
+            <div class="col s12 m12 l12">
+                <p style="font-size: 25px;">
+                    {{ forloop.counter }}. {{ division.name | title }}
+                    <a href="#" class="black-text" style="font-size: 14px;">( Edit )</a>
+                    <a href="#" class="black-text" style="font-size: 14px;">( Delete )</a>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
