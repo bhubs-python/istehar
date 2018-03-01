@@ -24,4 +24,4 @@ class Thana(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return str(self.division.name) + "-" + str(self.district.name) + ":" + str(self.name)
+        return str(self.district.name) + ":" + str(self.name)

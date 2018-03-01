@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Resume | Istehar{% endblock %}
+{% block title %}Add Education | Istehar{% endblock %}
 
 {% block body %}
     <div class="row" style="margin-top: 40px;">
@@ -84,46 +84,58 @@
                             </div>
 
                             <div class="col s12 m12 l12" style="margin-top: 20px;">
-                                <p><b>Welcome</b></p>
                                 <p class="" style="margin-top: 10px;">
-                                    Create a free resume on istehar to showcase your skills and get your dream job. Make sure to complete your resume in order to stand out from the crowd; employers like to see details!
+                                    Let's start with adding some details about yourself.
                                 </p>
                             </div>
 
                             <div class="col s12 m12 l12" style="margin-top: 20px;">
-                                <h5>Personal details</h5>
+                                <h5>Education</h5>
 
                                 <p class="divider"></p>
 
+                                <p class="" style="margin-top: 20px; margin-bottom: 10px;">
+                                    Fill in the details about your education.
+                                </p>
+
                                 <div class="col s12 m12 l12" style="margin-top: 30px;">
-                                    {% if personals %}
-                                        {% for personal in personals %}
-                                            <div class="col m2 l2" style="">
-                                                <img src="{{ personal.photo.url }}" width="100%" alt="no-image">
-                                            </div>
+                                    <form method="post">
+                                        {% csrf_token %}
 
-                                            <div class="col m10 l10">
-                                                <p style="font-size: 18px;">{{ request.user.username | title }}</p>
-
-                                                {% if personal.phone %}
-                                                    <p style="font-size: 14px;">{{ personal.phone }}</p>
-                                                {% else %}
-                                                    <p style="font-size: 14px;">{{ personal.email }}</p>
-                                                {% endif %}
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="col m2 l2" style="">
-                                            <img src="/media/no-img.jpg" width="100%" alt="no-image">
+                                        <div class="input-field col s12 m6 l6">
+                                            {{ add_education_form.education_level }}
+                                            <label>Choose education level</label>
                                         </div>
 
-                                        <div class="col m10 l10">
-                                            <p style="font-size: 18px;">{{ request.user.username | title }}</p>
-                                            <p style="font-size: 14px;">{{ request.user.email }}</p>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            {{ add_education_form.education_specialization }}
+                                            <label>Choose educational specialization</label>
                                         </div>
-                                    {% endif %}
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">account_balance</i>
+                                            {{ add_education_form.institute_university }}
+                                            <label for="icon_prefix white-text">Institute / Universite</label>
+                                        </div>
+
+
+                                        {% if add_education_form.non_field_errors %}
+                                            {% for error in add_education_form.non_field_errors %}
+                                                <div class="col s12 m12 l12 center-align valign-wrapper red" style="height: 40px; border: 1px solid red; margin-bottom: 20px; margin-top: 30px;">
+                                                    <p class="col s12 m12 l12 white-text" style="font-size: 14px;">
+                                                        {{ error }}
+                                                    </p>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        <div class="col s12 m12 l12">
+                                            <button type="submit" class="waves-effect waves-light btn white-text" style="margin-top: 20px;">Continue</button>
+                                        </div>
+
+                                    </form>
                                 </div>
-                                <a href="{% url 'account:add-personal' %}" class="waves-effect waves-light btn white-text" style="margin-top: 40px;">Create resume</a>
                             </div>
                         </div>
                     </div>
@@ -131,4 +143,15 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
+
 {% endblock %}

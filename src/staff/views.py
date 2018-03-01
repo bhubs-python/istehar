@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from . import serializers
+from django.db.models import Q
 
 from . import models
 from . import forms
@@ -462,4 +466,60 @@ class ThanaDelete(View):
 #                             start add thana module
 #=============================================================================
 #=============================================================================
+
+
+
+
+
+#=============================================================================
+#=============================================================================
+#                             start api module
+#=============================================================================
+#=============================================================================
+
+
+
+
+#district list api view
+class DistrictAPI(APIView):
+    def get(self, request):
+        if request.GET.get("division"):
+            division = request.GET.get("division")
+
+            division_obj = models.District.objects.filter(division__id=division)
+
+            serializer = serializers.DistrictSerializer(division_obj, many=True)
+
+            return Response(serializer.data)
+        else:
+            return redirect('account:login')
+
+
+#thana list api view
+class ThanaAPI(APIView):
+    def get(self, request):
+        if request.GET.get("division") and request.GET.get('district'):
+            division = request.GET.get("division")
+            district = request.GET.get("district")
+
+            thana_obj = models.Thana.objects.filter(Q(district__division__id=division) & Q(district__id=district))
+
+            serializer = serializers.DistrictSerializer(thana_obj, many=True)
+
+            return Response(serializer.data)
+        else:
+            return redirect('account:login')
+
+
+
+#=============================================================================
+#=============================================================================
+#                             end api module
+#=============================================================================
+#=============================================================================
+
+
+
+
+
 
