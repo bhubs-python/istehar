@@ -53,7 +53,7 @@
                     <!--left side-->
                     <div class="col m6 l6">
                         <div class="col m5 center-align" style="font-size: 16px;">
-                            <p>Istehar Logo</p>
+                            <a class="white-text" href="{% url 'home:index' %}">Istehar Logo</a>
                         </div>
 
                         <div class="col m3 center-align" style="font-size: 16px;">
@@ -71,7 +71,7 @@
                         {% if user.is_authenticated %}
                             <div class="col m3 center-align right" style="margin-top: 5px;">
                                 <div class="chip #00796b teal darken-2 white-text">
-                                    {{ request.user.username }}
+                                    <a class="white-text" href="{% url 'account:dashboard' %}">{{ request.user.username }}</a>
                                 </div>
                             </div>
                         {% else %}

@@ -8,5 +8,10 @@ urlpatterns = [
     url(r'^registration/', views.Registration.as_view(), name='registration'),
     url(r'^login/', views.Login.as_view(), name='login'),
 
+    #dashboard
+    url(r'^my/dashboard/', views.Dashboard.as_view(), name='dashboard'),
+    url(r'^my/membership/', views.Membership.as_view(), name='membership'),
+    url(r'^my/resume/', views.Resume.as_view(), name='resume'),
+
     url(r'^logout/$', views.logout_request, name='logout'),
 ]

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Resume | Istehar{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+
+                        <!--left side menu-->
+                        <div class="col m3 l3" style="">
+                            <div class="col s12 m12 l12 divider" style="margin-bottom: 10px;"></div>
+
+                            <a class="" href="{% url 'account:dashboard' %}">
+                                <div class="col s12 m12 l12" style="">
+                                    <p class="left" style="font-size: 16px;">
+                                        My account
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a class="" href="{% url 'account:membership' %}">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        My membership
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a class="black-text" href="{% url 'account:resume' %}">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        My resume
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a href="#">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        Favourites
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a href="#">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        Settings
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                        </div>
+                        <!--end left side menu-->
+
+                        <div class="col m9 l9" style="">
+                            <div class="col s12 m12 l12">
+                                <h5>My resume</h5>
+
+                                <p class="divider"></p>
+                            </div>
+
+                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+                                <p><b>Welcome</b></p>
+                                <p class="" style="margin-top: 10px;">
+                                    Create a free resume on istehar to showcase your skills and get your dream job. Make sure to complete your resume in order to stand out from the crowd; employers like to see details!
+                                </p>
+                            </div>
+
+                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+                                <h5>Personal details</h5>
+
+                                <p class="divider"></p>
+
+                                <div class="col s12 m12 l12" style="margin-top: 30px;">
+                                    <div class="col m2 l2" style="">
+                                        <img src="/media/no-img.jpg" width="100%" alt="no-image">
+                                    </div>
+
+                                    <div class="col m10 l10">
+                                        <p style="font-size: 18px;">{{ request.user.username | title }}</p>
+                                        <p style="font-size: 14px;">{{ request.user.email }}</p>
+                                    </div>
+                                </div>
+                                <a class="waves-effect waves-light btn white-text" style="margin-top: 40px;">Create resume</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

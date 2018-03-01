@@ -74,10 +74,54 @@ class Login(View):
 
             if user:
                 login(request, user)
-                return redirect('home:index')
+                return redirect('account:dashboard')
 
         variables = {
             'login_form': login_form,
         }
 
         return render(request, self.template_name, variables)
+
+
+#=============================================================================
+#=============================================================================
+#                             start dashboard module
+#=============================================================================
+#=============================================================================
+
+
+
+#dashboard - ads list
+class Dashboard(View):
+    template_name = 'account/dashboard.html'
+
+    def get(self, request):
+
+        return render(request, self.template_name)
+
+
+#membership
+class Membership(View):
+    template_name = 'account/membership.html'
+
+    def get(self, request):
+
+        return render(request, self.template_name)
+
+
+#resume
+class Resume(View):
+    template_name = 'account/resume.html'
+
+    def get(self, request):
+
+        return render(request, self.template_name)
+
+
+
+
+#=============================================================================
+#=============================================================================
+#                             end dashboard module
+#=============================================================================
+#=============================================================================
