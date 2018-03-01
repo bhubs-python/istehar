@@ -20,7 +20,6 @@ class District(models.Model):
 
 #thana
 class Thana(models.Model):
-    division = models.ForeignKey(Division, on_delete=models.CASCADE, null=True, blank=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50, null=True, blank=True)
 

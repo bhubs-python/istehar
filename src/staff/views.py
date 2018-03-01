@@ -359,7 +359,7 @@ class AddThana(View):
         thana_form = forms.ThanaForm(request.POST or None)
 
         if thana_form.is_valid():
-            thana_form.deploy(division, district)
+            thana_form.deploy(district)
 
         variables = {
             'thana_form': thana_form,

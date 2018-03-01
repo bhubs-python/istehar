@@ -59,16 +59,15 @@ class ThanaForm(forms.Form):
         name = self.cleaned_data.get('name')
 
         if len(name) == 0:
-            raise forms.ValidationError('Enter district name!')
+            raise forms.ValidationError('Enter thana name!')
 
 
-    def deploy(self, division, district):
+    def deploy(self, district):
         name = self.cleaned_data.get('name')
 
-        division_obj = models.Division.objects.get(name=division)
         district_obj = models.District.objects.get(id=district)
 
-        deploy = models.Thana(division=division_obj, district=district_obj, name=name)
+        deploy = models.Thana(district=district_obj, name=name)
         deploy.save()
 
 
