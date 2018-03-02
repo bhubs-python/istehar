@@ -182,13 +182,39 @@ class AddPersonal(View):
 
             add_personal_form.deploy(request, district, thana)
 
-            return redirect('account:add-education')
+            return redirect('account:add-professional')
 
         variables = {
             'add_personal_form': add_personal_form,
         }
         return render(request, self.template_name, variables)
 
+
+#add Professionale
+class AddProfessional(View):
+    template_name = 'account/add-professional.html'
+
+    def get(self, request):
+        add_professional_form = forms.ProfessionalForm()
+
+        variables = {
+            'add_professional_form': add_professional_form,
+        }
+        return render(request, self.template_name, variables)
+
+
+    def post(self, request):
+        add_professional_form = forms.ProfessionalForm(request.POST or None)
+
+        if add_professional_form.is_valid():
+            add_professional_form.deploy(request)
+
+            #return redirect('account:add-education')
+
+        variables = {
+            'add_professional_form': add_professional_form,
+        }
+        return render(request, self.template_name, variables)
 
 
 

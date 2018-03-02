@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Education | Istehar{% endblock %}
+{% block title %}Add Professional Information | Istehar{% endblock %}
 
 {% block body %}
     <div class="row" style="margin-top: 40px;">
@@ -90,38 +90,73 @@
                             </div>
 
                             <div class="col s12 m12 l12" style="margin-top: 20px;">
-                                <h5>Education</h5>
+                                <h5>Professional details</h5>
 
                                 <p class="divider"></p>
 
-                                <p class="" style="margin-top: 20px; margin-bottom: 10px;">
-                                    Fill in the details about your education.
-                                </p>
+                                <p style="margin-top: 20px;">Mention specifics of your professional experience.</p>
 
                                 <div class="col s12 m12 l12" style="margin-top: 30px;">
+
                                     <form method="post">
                                         {% csrf_token %}
 
                                         <div class="input-field col s12 m6 l6">
-                                            {{ add_education_form.education_level }}
-                                            <label>Choose education level</label>
-                                        </div>
-
-
-                                        <div class="input-field col s12 m6 l6">
-                                            {{ add_education_form.education_specialization }}
-                                            <label>Choose educational specialization</label>
+                                            <i class="material-icons prefix">account_circle</i>
+                                            {{ add_professional_form.experience }}
+                                            <label for="icon_prefix white-text">Total year of experience</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">account_balance</i>
-                                            {{ add_education_form.institute_university }}
-                                            <label for="icon_prefix white-text">Institute / University</label>
+                                            <i class="material-icons prefix">call</i>
+                                            {{ add_professional_form.skill }}
+                                            <label for="icon_prefix white-text">Skills summary (optional) </label>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">create</i>
+                                            {{ add_professional_form.about_yourself }}
+                                            <label for="icon_prefix white-text">About yourself (optional) </label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            {{ add_professional_form.current_industry }}
+                                            <label>Current Industry</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            {{ add_professional_form.current_business_function }}
+                                            <label>Current Business Function </label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">call</i>
+                                            {{ add_professional_form.role_designation }}
+                                            <label for="icon_prefix white-text">Role / Designation (optional) </label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">date_range</i>
+                                            {{ add_professional_form.started_in }}
+                                            <label for="icon_prefix white-text">Started in (optional)</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">create</i>
+                                            {{ add_professional_form.about_current_role }}
+                                            <label for="icon_prefix white-text">About the current role (optional) </label>
                                         </div>
 
 
-                                        {% if add_education_form.non_field_errors %}
-                                            {% for error in add_education_form.non_field_errors %}
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            {{ add_professional_form.current_salary }}
+                                            <label for="icon_prefix white-text">Current salary (per month) (TK) (optional)</label>
+                                        </div>
+
+
+                                        {% if add_professional_form.non_field_errors %}
+                                            {% for error in add_professional_form.non_field_errors %}
                                                 <div class="col s12 m12 l12 center-align valign-wrapper red" style="height: 40px; border: 1px solid red; margin-bottom: 20px; margin-top: 30px;">
                                                     <p class="col s12 m12 l12 white-text" style="font-size: 14px;">
                                                         {{ error }}
@@ -152,6 +187,89 @@
     $(document).ready(function() {
         $('select').material_select();
     });
+
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        format: 'yyyy-mm-dd',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false // Close upon selecting a date,
+    });
+
+
+    $(document).ready( function() {
+        $("#id_division").change( function() {
+
+            var division = $("#id_division").val();
+
+            var container = $('<select onChange="get_thana()" name="district" id="id_district" class="browser-default" />');
+
+            container.append('\
+                <option>'+ "None" +'</option>\
+            ');
+
+            $.ajax({
+                url: '/staff/district/api/',
+                data: { "division":division, },
+                dataType: 'json',
+
+                success: function (data) {
+
+                    length = data.length;
+
+
+                    for(i=0; i<length; i++){
+                        container.append('\
+                            <option value='+data[i].id+' id='+data[i].id+'>'+ data[i].name +'</option>\
+                        ');
+                    };
+
+                    $("#form_district_list").html(container);
+
+                }
+            });
+        });
+    });
+
+
+
+function get_thana(){
+    var divi = $("#id_division").val();
+    var district = $("#id_district").val();
+
+    var container = $('<select name="thana" id="id_thana" class="browser-default" />');
+
+    container.append('\
+        <option>'+ "None" +'</option>\
+    ');
+
+    $.ajax({
+        url: '/staff/thana/api/',
+        data: { "division":divi, "district":district, },
+        dataType: 'json',
+
+        success: function (data) {
+
+            length = data.length;
+
+
+            for(i=0; i<length; i++){
+                container.append('\
+                    <option value='+data[i].id+' id='+data[i].id+'>'+ data[i].name +'</option>\
+                ');
+            };
+
+            $("#form_thana_list").html(container);
+
+        }
+    });
+
+}
+
+
 </script>
 
 {% endblock %}

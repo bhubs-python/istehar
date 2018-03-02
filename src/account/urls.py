@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^my/resume/$', views.Resume.as_view(), name='resume'),
     url(r'^my/resume/add/personal/$', views.AddPersonal.as_view(), name='add-personal'),
     url(r'^my/resume/add/education/$', views.AddEducation.as_view(), name='add-education'),
+    url(r'^my/resume/add/professional/$', views.AddProfessional.as_view(), name='add-professional'),
 
     url(r'^logout/$', views.logout_request, name='logout'),
 ]
