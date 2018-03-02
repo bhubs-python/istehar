@@ -322,5 +322,54 @@ class ProfessionalForm(forms.Form):
 
 
 
+class PastEmploymentForm(forms.Form):
+    company_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    industry = forms.ChoiceField(choices=current_industry_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    business_function = forms.ChoiceField(choices=current_business_function_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    role_designation = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    started_date = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+    end_date = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+    about_role = forms.CharField(required=False, max_length=1000, widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}))
+
+
+    def clean(self):
+        company_name = self.cleaned_data.get('company_name')
+        industry = self.cleaned_data.get('industry')
+        business_function = self.cleaned_data.get('business_function')
+        role_designation = self.cleaned_data.get('role_designation')
+        started_date = self.cleaned_data.get('started_date')
+        end_date = self.cleaned_data.get('end_date')
+        about_role = self.cleaned_data.get('about_role')
+
+        if len(company_name) == 0:
+            raise forms.ValidationError('Enter company name!')
+        else:
+            if len(role_designation) == 0:
+                raise forms.ValidationError('Enter your role / designation')
+            else:
+                if len(started_date) == 0:
+                    raise forms.ValidationError('Select start date!')
+                else:
+                    if len(end_date) == 0:
+                        raise forms.ValidationError('Select end date!')
+
+
+
+    def deploy(self, request):
+        company_name = self.cleaned_data.get('company_name')
+        industry = self.cleaned_data.get('industry')
+        business_function = self.cleaned_data.get('business_function')
+        role_designation = self.cleaned_data.get('role_designation')
+        started_date = self.cleaned_data.get('started_date')
+        end_date = self.cleaned_data.get('end_date')
+        about_role = self.cleaned_data.get('about_role')
+
+        deploy = models.PastEmployment(user=request.user, company_name=company_name, industry=industry, business_function=business_function, role_designation=role_designation, started_date=started_date, end_date=end_date, about_role=about_role)
+        deploy.save()
+
+
+
+
+
 
 

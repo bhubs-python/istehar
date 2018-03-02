@@ -83,7 +83,7 @@ class Professional(models.Model):
 
 #past employments model for resume
 class PastEmployment(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     company_name = models.CharField(max_length=100, null=True, blank=True)
     industry = models.CharField(max_length=100, null=True, blank=True)

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Professional Information | Istehar{% endblock %}
+{% block title %}Add Professional History | Istehar{% endblock %}
 
 {% block body %}
     <div class="row" style="margin-top: 40px;">
@@ -90,11 +90,11 @@
                             </div>
 
                             <div class="col s12 m12 l12" style="margin-top: 20px;">
-                                <h5>Professional details</h5>
+                                <h5>Past employments</h5>
 
                                 <p class="divider"></p>
 
-                                <p style="margin-top: 20px;">Mention specifics of your professional experience.</p>
+                                <p style="margin-top: 20px;">Add details of your previous jobs.</p>
 
                                 <div class="col s12 m12 l12" style="margin-top: 30px;">
 
@@ -102,61 +102,48 @@
                                         {% csrf_token %}
 
                                         <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">access_time</i>
-                                            {{ add_professional_form.experience }}
-                                            <label for="icon_prefix white-text">Total year of experience</label>
+                                            <i class="material-icons prefix">account_balance</i>
+                                            {{ add_past_employment_form.company_name }}
+                                            <label for="icon_prefix white-text">Name of the company</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">format_align_center</i>
-                                            {{ add_professional_form.skill }}
-                                            <label for="icon_prefix white-text">Skills summary (optional) </label>
-                                        </div>
-
-                                        <div class="input-field col s12 m12 l12">
-                                            <i class="material-icons prefix">create</i>
-                                            {{ add_professional_form.about_yourself }}
-                                            <label for="icon_prefix white-text">About yourself (optional) </label>
+                                            {{ add_past_employment_form.industry }}
+                                            <label>Industry (optional)</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
-                                            {{ add_professional_form.current_industry }}
-                                            <label>Current Industry</label>
-                                        </div>
-
-                                        <div class="input-field col s12 m6 l6">
-                                            {{ add_professional_form.current_business_function }}
-                                            <label>Current Business Function </label>
+                                            {{ add_past_employment_form.business_function }}
+                                            <label>Business Function (optional)</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
                                             <i class="material-icons prefix">accessibility</i>
-                                            {{ add_professional_form.role_designation }}
-                                            <label for="icon_prefix white-text">Role / Designation (optional) </label>
+                                            {{ add_past_employment_form.role_designation }}
+                                            <label for="icon_prefix white-text">Role / Designation</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
                                             <i class="material-icons prefix">date_range</i>
-                                            {{ add_professional_form.started_in }}
-                                            <label for="icon_prefix white-text">Started in (optional)</label>
+                                            {{ add_past_employment_form.started_date }}
+                                            <label for="icon_prefix white-text">Started date</label>
                                         </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">date_range</i>
+                                            {{ add_past_employment_form.end_date }}
+                                            <label for="icon_prefix white-text">End date</label>
+                                        </div>
+
 
                                         <div class="input-field col s12 m12 l12">
                                             <i class="material-icons prefix">create</i>
-                                            {{ add_professional_form.about_current_role }}
-                                            <label for="icon_prefix white-text">About the current role (optional) </label>
+                                            {{ add_past_employment_form.about_role }}
+                                            <label for="icon_prefix white-text">About the role (optional) </label>
                                         </div>
 
-
-                                        <div class="input-field col s12 m12 l12">
-                                            <i class="material-icons prefix">attach_money</i>
-                                            {{ add_professional_form.current_salary }}
-                                            <label for="icon_prefix white-text">Current salary (per month) (TK) (optional)</label>
-                                        </div>
-
-
-                                        {% if add_professional_form.non_field_errors %}
-                                            {% for error in add_professional_form.non_field_errors %}
+                                        {% if add_past_employment_form.non_field_errors %}
+                                            {% for error in add_past_employment_form.non_field_errors %}
                                                 <div class="col s12 m12 l12 center-align valign-wrapper red" style="height: 40px; border: 1px solid red; margin-bottom: 20px; margin-top: 30px;">
                                                     <p class="col s12 m12 l12 white-text" style="font-size: 14px;">
                                                         {{ error }}
@@ -166,7 +153,7 @@
                                         {% endif %}
 
                                         <div class="col s12 m12 l12">
-                                            <button type="submit" class="waves-effect waves-light btn white-text" style="margin-top: 20px;">Continue</button>
+                                            <button type="submit" class="waves-effect waves-light btn white-text" style="margin-top: 20px;">Save & Finish</button>
                                         </div>
 
                                     </form>

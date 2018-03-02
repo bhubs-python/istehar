@@ -190,34 +190,6 @@ class AddPersonal(View):
         return render(request, self.template_name, variables)
 
 
-#add Professionale
-class AddProfessional(View):
-    template_name = 'account/add-professional.html'
-
-    def get(self, request):
-        add_professional_form = forms.ProfessionalForm()
-
-        variables = {
-            'add_professional_form': add_professional_form,
-        }
-        return render(request, self.template_name, variables)
-
-
-    def post(self, request):
-        add_professional_form = forms.ProfessionalForm(request.POST or None)
-
-        if add_professional_form.is_valid():
-            add_professional_form.deploy(request)
-
-            #return redirect('account:add-education')
-
-        variables = {
-            'add_professional_form': add_professional_form,
-        }
-        return render(request, self.template_name, variables)
-
-
-
 #add education
 class AddEducation(View):
     template_name = 'account/add-education.html'
@@ -239,6 +211,62 @@ class AddEducation(View):
 
         variables = {
             'add_education_form': add_education_form,
+        }
+        return render(request, self.template_name, variables)
+
+
+
+#add Professionale
+class AddProfessional(View):
+    template_name = 'account/add-professional.html'
+
+    def get(self, request):
+        add_professional_form = forms.ProfessionalForm()
+
+        variables = {
+            'add_professional_form': add_professional_form,
+        }
+        return render(request, self.template_name, variables)
+
+
+    def post(self, request):
+        add_professional_form = forms.ProfessionalForm(request.POST or None)
+
+        if add_professional_form.is_valid():
+            add_professional_form.deploy(request)
+
+            return redirect('account:add-employment-history')
+
+        variables = {
+            'add_professional_form': add_professional_form,
+        }
+        return render(request, self.template_name, variables)
+
+
+
+#add past employment
+class AddPastEmployment(View):
+    template_name = 'account/add-past-employment.html'
+
+    def get(self, request):
+        add_past_employment_form = forms.PastEmploymentForm()
+
+        variables = {
+            'add_past_employment_form': add_past_employment_form,
+        }
+        return render(request, self.template_name, variables)
+
+
+    def post(self, request):
+        add_past_employment_form = forms.PastEmploymentForm(request.POST or None)
+
+        if add_past_employment_form.is_valid():
+            add_past_employment_form.deploy(request)
+
+            return redirect('account:resume')
+
+        variables = {
+            'add_past_employment_form': add_past_employment_form,
         }
         return render(request, self.template_name, variables)
 
