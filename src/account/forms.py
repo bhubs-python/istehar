@@ -302,6 +302,9 @@ class ProfessionalForm(forms.Form):
             else:
                 if current_business_function == 'current_business_function':
                     raise forms.ValidationError('Select Current Business Function!')
+                else:
+                    if len(started_in) == 0:
+                        raise forms.ValidationError('Select start date!')
 
 
     def deploy(self, request):
