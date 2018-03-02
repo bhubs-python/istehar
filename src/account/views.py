@@ -151,9 +151,15 @@ class Resume(View):
 
     def get(self, request):
         personals = models.Personal.objects.filter(user=request.user)
+        educations = models.Education.objects.filter(user=request.user)
+        professionals = models.Professional.objects.filter(user=request.user)
+        past_employments = models.PastEmployment.objects.filter(user=request.user)
 
         variables = {
             'personals': personals,
+            'educations': educations,
+            'professionals': professionals,
+            'past_employments': past_employments,
         }
 
         return render(request, self.template_name, variables)
@@ -208,6 +214,8 @@ class AddEducation(View):
 
         if add_education_form.is_valid():
             add_education_form.deploy(request)
+
+            return redirect('account:add-professional')
 
         variables = {
             'add_education_form': add_education_form,

@@ -83,33 +83,93 @@
                                 <p class="divider"></p>
                             </div>
 
+                            {% if not personals %}
                             <div class="col s12 m12 l12" style="margin-top: 20px;">
                                 <p><b>Welcome</b></p>
                                 <p class="" style="margin-top: 10px;">
                                     Create a free resume on istehar to showcase your skills and get your dream job. Make sure to complete your resume in order to stand out from the crowd; employers like to see details!
                                 </p>
                             </div>
+                            {% endif %}
 
-                            <div class="col s12 m12 l12" style="margin-top: 20px;">
-                                <h5>Personal details</h5>
+                            <!--start personal information-->
+                            <div class="col s12 m12 l12" style="margin-top: 50px;">
 
-                                <p class="divider"></p>
+                                <div class="col s12 m12 l12">
+                                    <h5 class="left">Personal details</h5>
+
+                                    {% if personals %}
+                                        <a href="" class="right waves-effect waves-light btn white-text" style="">Edit</a>
+                                    {% endif %}
+                                </div>
+
+                                <p class="col s12 m12 l12 divider"></p>
 
                                 <div class="col s12 m12 l12" style="margin-top: 30px;">
                                     {% if personals %}
                                         {% for personal in personals %}
-                                            <div class="col m2 l2" style="">
-                                                <img src="{{ personal.photo.url }}" width="100%" alt="no-image">
-                                            </div>
-
-                                            <div class="col m10 l10">
-                                                <p style="font-size: 18px;">{{ request.user.username | title }}</p>
-
-                                                {% if personal.phone %}
-                                                    <p style="font-size: 14px;">{{ personal.phone }}</p>
+                                            <div class="col s12 m12 l12">
+                                                {% if personal.photo %}
+                                                    <div class="col m2 l2" style="">
+                                                        <img src="{{ personal.photo.url }}" width="100%" alt="no-image">
+                                                    </div>
                                                 {% else %}
-                                                    <p style="font-size: 14px;">{{ personal.email }}</p>
+                                                    <div class="col m2 l2" style="">
+                                                        <img src="/media/no-img.jpg" width="100%" alt="no-image">
+                                                    </div>
                                                 {% endif %}
+
+                                                <div class="col m10 l10">
+                                                    <p style="font-size: 18px;">{{ request.user.username | title }}</p>
+
+                                                    {% if personal.phone %}
+                                                        <p style="font-size: 14px;">{{ personal.phone }}</p>
+                                                    {% else %}
+                                                        <p style="font-size: 14px;">{{ personal.email }}</p>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="col s12 m12 l12" style="margin-top: 40px;">
+                                                    <p class="col s12 m6 l6">
+                                                        Name<br>
+                                                        <span style="color: gray;">{{ personal.name | title }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m6 l6">
+                                                        Email<br>
+                                                        <span style="color: gray;">{{ personal.email | lower }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                        Gender<br>
+                                                        <span style="color: gray;">{{ personal.gender | title }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                        Phone number<br>
+                                                        <span style="color: gray;">{{ personal.phone }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m12 l12" style="margin-top: 20px;">
+                                                        Date of birth<br>
+                                                        <span style="color: gray;">{{ personal.date_of_birth }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                        Division<br>
+                                                        <span style="color: gray;">{{ personal.division.name | title }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                        District<br>
+                                                        <span style="color: gray;">{{ personal.district.name | title }}</span>
+                                                    </p>
+
+                                                    <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                        Thana<br>
+                                                        <span style="color: gray;">{{ personal.thana.name | upper }}</span>
+                                                    </p>
+                                                </div>
                                             </div>
                                         {% endfor %}
                                     {% else %}
@@ -123,8 +183,177 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <a href="{% url 'account:add-personal' %}" class="waves-effect waves-light btn white-text" style="margin-top: 40px;">Create resume</a>
                             </div>
+                            <!--end personal information-->
+
+
+
+                            <!--start education information-->
+                            {% if educations %}
+                            <div class="col s12 m12 l12" style="margin-top: 100px;">
+
+                                <div class="col s12 m12 l12">
+                                    <h5 class="left">Education</h5>
+
+                                    <a href="" class="right waves-effect waves-light btn white-text" style="">Edit</a>
+                                </div>
+
+                                <p class="col s12 m12 l12 divider"></p>
+
+                                <div class="col s12 m12 l12" style="margin-top: 30px;">
+                                    {% for education in educations %}
+                                        <div class="col s12 m12 l12">
+                                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+                                                <p class="col s12 m6 l6">
+                                                    Highest education level<br>
+                                                    <span style="color: gray;">{{ education.education_level | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6">
+                                                    Educational specialization<br>
+                                                    <span style="color: gray;">{{ education.education_specialization | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                    Institute / University<br>
+                                                    <span style="color: gray;">{{ education.institute_university | upper }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!--end education information-->
+
+
+
+                            <!--start professional information-->
+                            {% if professionals %}
+                            <div class="col s12 m12 l12" style="margin-top: 100px;">
+
+                                <div class="col s12 m12 l12">
+                                    <h5 class="left">Professional details</h5>
+
+                                    <a href="" class="right waves-effect waves-light btn white-text" style="">Edit</a>
+                                </div>
+
+                                <p class="col s12 m12 l12 divider"></p>
+
+                                <div class="col s12 m12 l12" style="margin-top: 30px;">
+                                    {% for professional in professionals %}
+                                        <div class="col s12 m12 l12">
+                                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+                                                <p class="col s12 m6 l6">
+                                                    Total years of experience<br>
+                                                    <span style="color: gray;">{{ professional.experience }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6">
+                                                    Skills summary<br>
+                                                    <span style="color: gray;">{{ professional.skill }}</span>
+                                                </p>
+
+                                                <p class="col s12 m12 l12" style="margin-top: 20px;">
+                                                    About yourself<br>
+                                                    <span style="color: gray;">{{ professional.about_yourself }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                    Current Industry<br>
+                                                    <span style="color: gray;">{{ professional.current_industry | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                    Current Business Function<br>
+                                                    <span style="color: gray;">{{ professional.current_business_function | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                    Role / Designation<br>
+                                                    <span style="color: gray;">{{ professional.role_designation | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                    Started in<br>
+                                                    <span style="color: gray;">{{ professional.started_in }}</span>
+                                                </p>
+
+                                                <p class="col s12 m12 l12" style="margin-top: 20px;">
+                                                    About the current role<br>
+                                                    <span style="color: gray;">{{ professional.about_current_role }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 20px;">
+                                                    Current salary (per month) (Tk)<br>
+                                                    <span style="color: gray;">{{ professional.current_salary }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!--end professional information-->
+
+
+
+                            <!--start past employment information-->
+                            {% if past_employments %}
+                            <div class="col s12 m12 l12" style="margin-top: 100px;">
+                                <div class="col s12 m12 l12">
+                                    <h5 class="left">Past employments</h5>
+                                </div>
+
+                                <p class="col s12 m12 l12 divider"></p>
+
+                                <div class="col s12 m12 l12" style="margin-top: 30px;">
+                                    {% for past_employment in past_employments %}
+                                        <div class="col s12 m12 l12">
+                                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+                                                <p class="col s12 m8 l8">
+                                                    {{ past_employment.company_name }}<br>
+                                                    <span style="color: gray;">{{ past_employment.started_date }} to {{ past_employment.end_date }}</span>
+                                                </p>
+
+                                                <p class="col s12 m4 l4">
+                                                    <a href="" class="right waves-effect waves-light btn white-text" style="">Edit</a>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 30px;">
+                                                    Industry<br>
+                                                    <span style="color: gray;">{{ past_employment.industry | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m6 l6" style="margin-top: 30px;">
+                                                    Business Function<br>
+                                                    <span style="color: gray;">{{ past_employment.business_function | title }}</span>
+                                                </p>
+
+
+                                                <p class="col s12 m12 l12" style="margin-top: 20px;">
+                                                    Role / Designation<br>
+                                                    <span style="color: gray;">{{ past_employment.role_designation | title }}</span>
+                                                </p>
+
+                                                <p class="col s12 m12 l12" style="margin-top: 20px;">
+                                                    About the role<br>
+                                                    <span style="color: gray;">{{ past_employment.about_role }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!--end past employment information-->
+
+                            {% if not personals %}
+                                <div class="col s12 m12 l12">
+                                    <a href="{% url 'account:add-personal' %}" class="waves-effect waves-light btn white-text" style="margin-top: 40px;">Create resume</a>
+                                </div>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
