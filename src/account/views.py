@@ -188,12 +188,98 @@ class AddPersonal(View):
 
             add_personal_form.deploy(request, district, thana)
 
-            return redirect('account:add-professional')
+            return redirect('account:add-education')
 
         variables = {
             'add_personal_form': add_personal_form,
         }
         return render(request, self.template_name, variables)
+
+
+
+#add personal
+class EditPersonal(View):
+    template_name = 'account/edit-personal.html'
+
+    def get(self, request):
+        personals = models.Personal.objects.filter(user=request.user)
+
+        my_division = None
+        my_district = None
+        for personal in personals:
+            my_division = personal.division
+            my_district = personal.district
+
+        divisions = staff_model.Division.objects.all()
+        districts = staff_model.District.objects.filter(division=my_division)
+        thanas = staff_model.Thana.objects.filter(district=my_district)
+
+        edit_personal_form = forms.EditPersonalForm(instance=models.Personal.objects.get(user=request.user))
+
+        variables = {
+            'edit_personal_form': edit_personal_form,
+
+            'personals': personals,
+
+            'divisions': divisions,
+            'districts': districts,
+            'thanas': thanas,
+        }
+        return render(request, self.template_name, variables)
+
+
+    def post(self, request):
+        personals = models.Personal.objects.filter(user=request.user)
+
+        my_division = None
+        my_district = None
+        for personal in personals:
+            my_division = personal.division
+            my_district = personal.district
+
+        divisions = staff_model.Division.objects.all()
+        districts = staff_model.District.objects.filter(division=my_division)
+        thanas = staff_model.Thana.objects.filter(district=my_district)
+
+        edit_personal_form = forms.EditPersonalForm(request.POST or None, request.FILES, instance=models.Personal.objects.get(user=request.user))
+
+        if edit_personal_form.is_valid():
+            user_division = request.POST.get('division')
+            user_district = request.POST.get('district')
+            user_thana = request.POST.get('thana')
+
+            if user_division == 'none' or user_division == None:
+                division_obj = staff_model.Division.objects.get(name='none')
+            else:
+                division_obj = staff_model.Division.objects.get(id=user_division)
+
+            if user_district == 'none' or user_district == None:
+                district_obj = staff_model.District.objects.get(name='none')
+            else:
+                district_obj = staff_model.District.objects.get(id=user_district)
+
+            if user_thana == 'none' or user_thana == None:
+                thana_obj = staff_model.Thana.objects.get(name='none')
+            else:
+                thana_obj = staff_model.Thana.objects.get(id=user_thana)
+
+            edit_obj = edit_personal_form.save()
+            edit_obj_id = edit_obj.id
+
+            update_location = models.Personal.objects.filter(id=edit_obj_id).update(division=division_obj, district=district_obj, thana=thana_obj)
+
+            return redirect('account:resume')
+
+        variables = {
+            'edit_personal_form': edit_personal_form,
+            'personals': personals,
+
+            'divisions': divisions,
+            'districts': districts,
+            'thanas': thanas,
+        }
+        return render(request, self.template_name, variables)
+
 
 
 #add education

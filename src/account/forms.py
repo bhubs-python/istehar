@@ -6,6 +6,7 @@ from django.db.models import Q
 
 from .models import MultiLoginBackend
 from . import models
+from .models import Personal
 
 from staff import models as staff_model
 
@@ -151,6 +152,19 @@ class PersonalForm(forms.Form):
 
         deploy.save()
 
+
+
+#edit personal form
+class EditPersonalForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        super(EditPersonalForm, self).__init__(*args,**kwargs)
+
+
+    gender = forms.ChoiceField(choices=gender_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    class Meta:
+        model = Personal
+        fields = ('photo', 'name', 'phone', 'email', 'gender', 'date_of_birth',)
 
 
 #add education form
