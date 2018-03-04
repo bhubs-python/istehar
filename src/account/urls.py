@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^my/resume/edit/professional/$', views.EditProfessional.as_view(), name='edit-professional'),
     url(r'^my/resume/edit/employment-history/$', views.EditPastEmployment.as_view(), name='edit-past-employment'),
 
+    url(r'^my/resume/settings/$', views.Settings.as_view(), name='settings'),
+
     url(r'^logout/$', views.logout_request, name='logout'),
 ]

@@ -98,10 +98,14 @@ class PastEmployment(models.Model):
         return str(self.user.username)
 
 
+#permanent location for settings
+class PermanentLocation(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+
+    division = models.ForeignKey(staff_model.Division, models.CASCADE, null=True, blank=True)
+    district = models.ForeignKey(staff_model.District, models.CASCADE, null=True, blank=True)
+    thana = models.ForeignKey(staff_model.Thana, models.CASCADE, null=True, blank=True)
 
 
-
-
-
-
-
+    def __str__(self):
+        return str(self.user.username)

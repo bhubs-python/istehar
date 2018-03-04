@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.views import login, logout
+from django.contrib.auth import update_session_auth_hash
 
 from . import forms
 from staff import models as staff_model
@@ -442,6 +443,96 @@ class EditPastEmployment(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+#settings
+class Settings(View):
+    template_name = 'account/settings.html'
+
+    def get(self, request):
+
+        locations = models.PermanentLocation.objects.filter(user=request.user)
+
+        change_password_form = forms.ChangePasswordForm(request.user)
+
+        my_division = None
+        my_district = None
+        for location in locations:
+            my_division = location.division
+            my_district = location.district
+
+        divisions = staff_model.Division.objects.all()
+        districts = staff_model.District.objects.filter(division=my_division)
+        thanas = staff_model.Thana.objects.filter(district=my_district)
+
+        variables = {
+            'change_password_form': change_password_form,
+            'locations': locations,
+            'divisions': divisions,
+            'districts': districts,
+            'thanas': thanas,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+        locations = models.PermanentLocation.objects.filter(user=request.user)
+        change_password_form = forms.ChangePasswordForm(data=request.POST or None, user=request.user)
+
+        my_division = None
+        my_district = None
+        for location in locations:
+            my_division = location.division
+            my_district = location.district
+
+        divisions = staff_model.Division.objects.all()
+        districts = staff_model.District.objects.filter(division=my_division)
+        thanas = staff_model.Thana.objects.filter(district=my_district)
+
+        if request.POST.get('change_location') == 'change_location':
+            user_division = request.POST.get('division')
+            user_district = request.POST.get('district')
+            user_thana = request.POST.get('thana')
+
+            if user_division == 'none' or user_division == None:
+                division_obj = staff_model.Division.objects.get(name='none')
+            else:
+                division_obj = staff_model.Division.objects.get(id=user_division)
+
+            if user_district == 'none' or user_district == None:
+                district_obj = staff_model.District.objects.get(name='none')
+            else:
+                district_obj = staff_model.District.objects.get(id=user_district)
+
+            if user_thana == 'none' or user_thana == None:
+                thana_obj = staff_model.Thana.objects.get(name='none')
+            else:
+                thana_obj = staff_model.Thana.objects.get(id=user_thana)
+
+
+            update_location = models.PermanentLocation.objects.filter(user=request.user).update(division=division_obj, district=district_obj, thana=thana_obj)
+
+            return redirect('account:settings')
+
+
+        if request.POST.get('change_password') == 'change_password':
+            if change_password_form.is_valid():
+                change_password_form.save()
+                update_session_auth_hash(request, change_password_form.user)
+
+                return redirect('account:settings')
+
+        variables = {
+            'change_password_form': change_password_form,
+            'locations': locations,
+            'divisions': divisions,
+            'districts': districts,
+            'thanas': thanas,
+        }
+
+        return render(request, self.template_name, variables)
+
 
 
 #=============================================================================

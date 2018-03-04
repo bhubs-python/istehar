@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 import re
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib.auth.forms import PasswordChangeForm
 
 from .models import MultiLoginBackend
 from . import models
@@ -425,5 +426,20 @@ class EditPastEmploymentForm(forms.ModelForm):
 
 
 
+#change password form
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(label='Old Password', max_length=20, required=False, widget=forms.PasswordInput(attrs={'class': 'validate'}))
+    new_password1 = forms.CharField(label='New Password', max_length=20, required=False, widget=forms.PasswordInput(attrs={'class': 'validate'}))
+    new_password2 = forms.CharField(label='Confirm Password', max_length=20, required=False, widget=forms.PasswordInput(attrs={'class': 'validate'}))
 
+    def clean(self):
+        old_password = self.cleaned_data.get('old_password')
+        new_password1 = self.cleaned_data.get('new_password1')
+        new_password2 = self.cleaned_data.get('new_password2')
+
+        if len(new_password1) < 8:
+            raise forms.ValidationError("Password is too short!")
+        else:
+            if new_password1 != new_password2:
+                raise forms.ValidationError("Password not matched!")
 
