@@ -310,6 +310,32 @@ class AddEducation(View):
 
 
 
+#edit education
+class EditEducation(View):
+    template_name = 'account/edit-education.html'
+
+    def get(self, request):
+        edit_education_form = forms.EditEducationForm(instance=models.Education.objects.get(user=request.user))
+
+        variables = {
+            'edit_education_form': edit_education_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+        edit_education_form = forms.EditEducationForm(request.POST or None, instance=models.Education.objects.get(user=request.user))
+
+        if edit_education_form.is_valid():
+            edit_education_form.save()
+
+        variables = {
+            'edit_education_form': edit_education_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+
 #add Professionale
 class AddProfessional(View):
     template_name = 'account/add-professional.html'
@@ -334,6 +360,32 @@ class AddProfessional(View):
         variables = {
             'add_professional_form': add_professional_form,
         }
+        return render(request, self.template_name, variables)
+
+
+#edit professional
+class EditProfessional(View):
+    template_name = 'account/edit-professional.html'
+
+    def get(self, request):
+        edit_professional_form = forms.EditProfessionalForm(instance=models.Professional.objects.get(user=request.user))
+
+        variables = {
+            'edit_professional_form': edit_professional_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+        edit_professional_form = forms.EditProfessionalForm(request.POST or None, instance=models.Professional.objects.get(user=request.user))
+
+        if edit_professional_form.is_valid():
+            edit_professional_form.save()
+
+        variables = {
+            'edit_professional_form': edit_professional_form,
+        }
+
         return render(request, self.template_name, variables)
 
 
@@ -364,6 +416,32 @@ class AddPastEmployment(View):
         }
         return render(request, self.template_name, variables)
 
+
+
+#edit past employment
+class EditPastEmployment(View):
+    template_name = 'account/edit-past-employment.html'
+
+    def get(self, request):
+        edit_past_employment_form = forms.EditPastEmploymentForm(instance=models.PastEmployment.objects.get(user=request.user))
+
+        variables = {
+            'edit_past_employment_form': edit_past_employment_form,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+        edit_past_employment_form = forms.EditPastEmploymentForm(request.POST or None, instance=models.PastEmployment.objects.get(user=request.user))
+
+        if edit_past_employment_form.is_valid():
+            edit_past_employment_form.save()
+
+        variables = {
+            'edit_past_employment_form': edit_past_employment_form,
+        }
+
+        return render(request, self.template_name, variables)
 
 
 #=============================================================================

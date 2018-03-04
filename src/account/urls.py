@@ -23,6 +23,9 @@ urlpatterns = [
     url(r'^my/resume/add/employment-history/$', views.AddPastEmployment.as_view(), name='add-employment-history'),
 
     url(r'^my/resume/edit/personal/$', views.EditPersonal.as_view(), name='edit-personal'),
+    url(r'^my/resume/edit/education/$', views.EditEducation.as_view(), name='edit-education'),
+    url(r'^my/resume/edit/professional/$', views.EditProfessional.as_view(), name='edit-professional'),
+    url(r'^my/resume/edit/employment-history/$', views.EditPastEmployment.as_view(), name='edit-past-employment'),
 
     url(r'^logout/$', views.logout_request, name='logout'),
 ]

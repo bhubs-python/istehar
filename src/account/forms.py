@@ -228,6 +228,17 @@ class EducationForm(forms.Form):
 
 
 
+#edit education
+class EditEducationForm(forms.ModelForm):
+    education_level = forms.ChoiceField(choices=education_level, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    education_specialization = forms.ChoiceField(choices=educational_specialization, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    class Meta:
+        model = models.Education
+        fields = ('education_level', 'education_specialization', 'institute_university', )
+
+
+
 #add professional form
 current_industry_list = (
     ('current_industry', 'Current Industry'),
@@ -338,6 +349,20 @@ class ProfessionalForm(forms.Form):
 
 
 
+#edit professional
+class EditProfessionalForm(forms.ModelForm):
+    current_industry = forms.ChoiceField(choices=current_industry_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    current_business_function = forms.ChoiceField(choices=current_business_function_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    about_yourself = forms.CharField(required=False, max_length=1000, widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}))
+    about_current_role = forms.CharField(required=False, max_length=1000, widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}))
+    started_in = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+
+    class Meta:
+        model = models.Professional
+        fields = ('experience', 'skill', 'about_yourself', 'current_industry', 'current_business_function', 'role_designation', 'started_in', 'about_current_role', 'current_salary', )
+
+
+
 
 class PastEmploymentForm(forms.Form):
     company_name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
@@ -385,6 +410,18 @@ class PastEmploymentForm(forms.Form):
         deploy.save()
 
 
+#edit past employment
+class EditPastEmploymentForm(forms.ModelForm):
+    industry = forms.ChoiceField(choices=current_industry_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    business_function = forms.ChoiceField(choices=current_business_function_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    about_role = forms.CharField(required=False, max_length=1000, widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}))
+    started_date = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+    end_date = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+
+
+    class Meta:
+        model = models.PastEmployment
+        fields = ('company_name', 'industry', 'business_function', 'role_designation', 'started_date', 'end_date', 'about_role', )
 
 
 

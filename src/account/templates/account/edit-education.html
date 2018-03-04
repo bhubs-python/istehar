@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Education | Istehar{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+
+                        <!--left side menu-->
+                        <div class="col m3 l3" style="">
+                            <div class="col s12 m12 l12 divider" style="margin-bottom: 10px;"></div>
+
+                            <a class="" href="{% url 'account:dashboard' %}">
+                                <div class="col s12 m12 l12" style="">
+                                    <p class="left" style="font-size: 16px;">
+                                        My account
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a class="" href="{% url 'account:membership' %}">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        My membership
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a class="black-text" href="{% url 'account:resume' %}">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        My resume
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a href="#">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        Favourites
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                            <a href="#">
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                    <p class="left" style="font-size: 16px;">
+                                        Settings
+                                    </p>
+
+                                    <p class="right"> > </p>
+                                </div>
+                            </a>
+
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                        </div>
+                        <!--end left side menu-->
+
+                        <div class="col m9 l9" style="">
+                            <div class="col s12 m12 l12">
+                                <h5>My resume</h5>
+
+                                <p class="divider"></p>
+                            </div>
+
+                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+
+
+                            </div>
+
+                            <div class="col s12 m12 l12" style="margin-top: 20px;">
+                                <h5>Edit Education</h5>
+
+                                <p class="divider"></p>
+
+                                <p class="" style="margin-top: 20px; margin-bottom: 10px;">
+                                    Edit your education.
+                                </p>
+
+                                <div class="col s12 m12 l12" style="margin-top: 30px;">
+                                    <form method="post">
+                                        {% csrf_token %}
+
+                                        <div class="input-field col s12 m6 l6">
+                                            {{ edit_education_form.education_level }}
+                                            <label>Choose education level</label>
+                                        </div>
+
+
+                                        <div class="input-field col s12 m6 l6">
+                                            {{ edit_education_form.education_specialization }}
+                                            <label>Choose educational specialization</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">account_balance</i>
+                                            {{ edit_education_form.institute_university }}
+                                            <label for="icon_prefix white-text">Institute / University</label>
+                                        </div>
+
+
+                                        {% if edit_education_form.non_field_errors %}
+                                            {% for error in edit_education_form.non_field_errors %}
+                                                <div class="col s12 m12 l12 center-align valign-wrapper red" style="height: 40px; border: 1px solid red; margin-bottom: 20px; margin-top: 30px;">
+                                                    <p class="col s12 m12 l12 white-text" style="font-size: 14px;">
+                                                        {{ error }}
+                                                    </p>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        <div class="col s12 m12 l12">
+                                            <button type="submit" class="waves-effect waves-light btn white-text" style="margin-top: 20px;">Update</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>
+
+{% endblock %}

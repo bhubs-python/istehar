@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit Personal Information | Istehar{% endblock %}
+{% block title %}Edit Professional History | Istehar{% endblock %}
 
 {% block body %}
     <div class="row" style="margin-top: 40px;">
@@ -88,128 +88,60 @@
                             </div>
 
                             <div class="col s12 m12 l12" style="margin-top: 20px;">
-                                <h5>Edit Personal details</h5>
+                                <h5>Edit Past employments</h5>
 
                                 <p class="divider"></p>
 
+                                <p style="margin-top: 20px;">Edit details of your previous jobs.</p>
+
                                 <div class="col s12 m12 l12" style="margin-top: 30px;">
 
-                                    {% for personal in personals %}
-
-                                    {% if personal.photo %}
-                                        <div class="col m2 l2" style="">
-                                            <img src="{{ personal.photo.url }}" width="100%" alt="no-image">
-                                        </div>
-                                    {% else %}
-                                        <div class="col m2 l2" style="">
-                                            <img src="/media/no-img.jpg" width="100%" alt="no-image">
-                                        </div>
-                                    {% endif %}
-
-                                    <form method="post" enctype="multipart/form-data">
+                                    <form method="post">
                                         {% csrf_token %}
 
-                                        <div class="col m10 l10">
-                                            <div class="input-field col s12 m8 l8">
-                                                <div class="file-field input-field">
-                                                    <div class="btn">
-                                                        <span>Select Picture</span>
-                                                        {{ edit_personal_form.photo }}
-                                                    </div>
-
-                                                    <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="input-field col s12 m6 l6" style="margin-top: 130px;">
-                                            <i class="material-icons prefix">account_circle</i>
-                                            {{ edit_personal_form.name }}
-                                            <label for="icon_prefix white-text">Name</label>
-                                        </div>
-
-                                        <div class="input-field col s12 m6 l6" style="margin-top: 130px;">
-                                            <i class="material-icons prefix">call</i>
-                                            {{ edit_personal_form.phone }}
-                                            <label for="icon_prefix white-text">Phone</label>
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">account_balance</i>
+                                            {{ edit_past_employment_form.company_name }}
+                                            <label for="icon_prefix white-text">Name of the company</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">email</i>
-                                            {{ edit_personal_form.email }}
-                                            <label for="icon_prefix white-text">Email</label>
+                                            {{ edit_past_employment_form.industry }}
+                                            <label>Industry (optional)</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
-                                            {{ edit_personal_form.gender }}
-                                            <label>Gender</label>
+                                            {{ edit_past_employment_form.business_function }}
+                                            <label>Business Function (optional)</label>
                                         </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">accessibility</i>
+                                            {{ edit_past_employment_form.role_designation }}
+                                            <label for="icon_prefix white-text">Role / Designation</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">date_range</i>
+                                            {{ edit_past_employment_form.started_date }}
+                                            <label for="icon_prefix white-text">Started date</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">date_range</i>
+                                            {{ edit_past_employment_form.end_date }}
+                                            <label for="icon_prefix white-text">End date</label>
+                                        </div>
+
 
                                         <div class="input-field col s12 m12 l12">
-                                            <i class="material-icons prefix">date_range</i>
-                                            {{ edit_personal_form.date_of_birth }}
-                                            <label for="icon_prefix white-text">Birthdate</label>
+                                            <i class="material-icons prefix">create</i>
+                                            {{ edit_past_employment_form.about_role }}
+                                            <label for="icon_prefix white-text">About the role (optional) </label>
                                         </div>
 
-                                        <div class="col m12 l12" id="form_division" style="margin-top: 20px;">
-                                            Select Division
-
-                                            <div id="form_division_list">
-                                                <select name="division" id="id_division" class="browser-default">
-                                                    <option selected value="none" id="none">None</option>
-                                                    {% for division in divisions %}
-                                                        {% ifequal personal.division division %}
-                                                            <option selected value="{{ division.id }}" id="{{ division.id }}">{{ division.name | title }}</option>
-                                                        {% else %}
-                                                            <option value="{{ division.id }}" id="{{ division.id }}">{{ division.name | title }}</option>
-                                                        {% endifequal %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col m12 l12" id="form_district" style="margin-top: 20px;">
-                                            Select District
-
-                                            <div id="form_district_list">
-                                                <select onChange="get_thana()" name="district" id="id_district" class="browser-default">
-                                                    <option selected value="none" id="none">None</option>
-                                                    {% for district in districts %}
-                                                        {% ifequal personal.district district %}
-                                                            <option selected value="{{ district.id }}" id="{{ district.id }}">{{ district.name | title }}</option>
-                                                        {% else %}
-                                                            <option value="{{ district.id }}" id="{{ district.id }}">{{ district.name | title }}</option>
-                                                        {% endifequal %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col m12 l12" id="form_thana" style="margin-top: 20px;">
-                                            Select Thana
-
-                                            <div id="form_thana_list">
-                                                <select name="thana" id="id_thana" class="browser-default">
-                                                    <option selected value="none" id="none">None</option>
-                                                    {% for thana in thanas %}
-                                                        {% ifequal personal.thana thana %}
-                                                            <option selected value="{{ thana.id }}" id="{{ thana.id }}">{{ thana.name | title }}</option>
-                                                        {% else %}
-                                                            <option value="{{ thana.id }}" id="{{ thana.id }}">{{ thana.name | title }}</option>
-                                                        {% endifequal %}
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        {{ edit_personal_form.errors }}
-                                        {{ edit_personal_form.non_field_errors }}
-
-
-                                        {% if edit_personal_form.non_field_errors %}
-                                            {% for error in edit_personal_form.non_field_errors %}
+                                        {% if edit_past_employment_form.non_field_errors %}
+                                            {% for error in edit_past_employment_form.non_field_errors %}
                                                 <div class="col s12 m12 l12 center-align valign-wrapper red" style="height: 40px; border: 1px solid red; margin-bottom: 20px; margin-top: 30px;">
                                                     <p class="col s12 m12 l12 white-text" style="font-size: 14px;">
                                                         {{ error }}
@@ -223,7 +155,6 @@
                                         </div>
 
                                     </form>
-                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -262,7 +193,7 @@
             var container = $('<select onChange="get_thana()" name="district" id="id_district" class="browser-default" />');
 
             container.append('\
-                <option value="none">'+ "None" +'</option>\
+                <option>'+ "None" +'</option>\
             ');
 
             $.ajax({
@@ -271,7 +202,7 @@
                 dataType: 'json',
 
                 success: function (data) {
-                    console.log(data);
+
                     length = data.length;
 
 
@@ -297,7 +228,7 @@ function get_thana(){
     var container = $('<select name="thana" id="id_thana" class="browser-default" />');
 
     container.append('\
-        <option value="none">'+ "None" +'</option>\
+        <option>'+ "None" +'</option>\
     ');
 
     $.ajax({
