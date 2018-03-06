@@ -511,7 +511,10 @@ class Settings(View):
                 thana_obj = staff_model.Thana.objects.get(id=user_thana)
 
 
-            update_location = models.PermanentLocation.objects.filter(user=request.user).update(division=division_obj, district=district_obj, thana=thana_obj)
+            #update_location = models.PermanentLocation.objects.filter(user=request.user).update(division=division_obj, district=district_obj, thana=thana_obj)
+
+            update_or_create_location = models.PermanentLocation.objects.update_or_create(user=request.user, defaults={'division': division_obj, 'district': district_obj, 'thana': thana_obj})
+
 
             return redirect('account:settings')
 
