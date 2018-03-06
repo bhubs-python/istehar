@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Posting category | Istehar{% endblock %}
+
+{% block style %}
+    <style>
+        a:hover{
+            color: gray;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m10 offset-m1 l10 offset-l1">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+                        <div class="col m12 l12" style="">
+                            <div class="col s12 m12 l12 " style="margin-top: 10px;">
+                                {% if type == 'sell_item_or_service' %}
+                                    <h5 style="color: gray;">Sell an item or service</h5>
+                                {% endif %}
+
+                                {% if type == 'offer_property_for_rent' %}
+                                    <h5 style="color: gray;">Offer a property for rent</h5>
+                                {% endif %}
+
+                                {% if type == 'post_job_vacancy' %}
+                                    <h5 style="color: gray;">Post a job vacancy</h5>
+                                {% endif %}
+
+
+                                <div class="divider">
+
+                                </div>
+
+                            </div>
+
+
+                            <!--start category-->
+                            <div class="col m4 l4" style="margin-top: 20px;">
+                                <p style="font-size: 20px; color: gray;">Select a category...</p>
+
+                                <div class="col m12 l12" style="margin-top: 10px; padding: 20px;">
+
+                                    <div class="col s12 m12 l12 divider" style=""></div>
+
+                                    {% for category in categories %}
+                                        <a class="" style="cursor: pointer;">
+                                            <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                                <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
+                                                    {{ category.name | title }}
+                                                </p>
+
+                                                <p class="right"> > </p>
+                                            </div>
+                                        </a>
+
+                                        <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!--end category-->
+
+
+                            <!--start sub category-->
+                            <div class="col m4 l4" style="margin-top: 20px;">
+                                <p id="select_subcatagory_text" style="font-size: 20px; color: gray; display: none;">Select a subcategory...</p>
+
+                                <div class="col m12 l12" style="margin-top: 10px; padding: 20px;">
+
+                                    <div class="col s12 m12 l12">
+                                        <div id="display_divider" class="col s12 m12 l12 divider" style="display: none;"></div>
+                                    </div>
+
+                                    <div id="main_category" class="">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end sub category-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+    $(document).ready( function() {
+        $(".main_category").click( function() {
+
+            var main_category = $(this).attr('value');
+
+
+            var container = $('<div class="main_category col s12 m12 l12" name="main_category" id="main_category" />');
+
+            $.ajax({
+                url: '/staff/subcategory/api/',
+                data: { "type":main_category, },
+                dataType: 'json',
+
+                success: function (data) {
+                    console.log(data);
+                    length = data.length;
+
+
+                    for(i=0; i<length; i++){
+                        container.append('\
+                            <a class="" href="">\
+                                <div class="col s12 m12 l12" style="margin-top: 10px;">\
+                                    <p class="left" style="font-size: 14px;">\
+                                        ' + data[i].name + '\
+                                    </p>\
+                                    \
+                                    <p class="right"> > </p>\
+                                </div>\
+                            </a>\
+                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>\
+                        ');
+                    };
+
+                    $("#main_category").html(container);
+
+                    $("#select_subcatagory_text").css("display", "block");
+                    $("#display_divider").css("display", "block");
+
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock %}

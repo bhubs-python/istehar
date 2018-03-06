@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Posting ad on | Istehar{% endblock %}
+
+{% block style %}
+    <style>
+        a:hover{
+            color: gray;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m10 offset-m1 l10 offset-l1">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+                        <div class="col m12 l12" style="">
+                            <div class="col s12 m12 l12 center-align" style="margin-top: 10px;">
+                                <h5>Welcome {{ request.user.username }}! Let's post an ad. Choose any option below:</h5>
+                            </div>
+
+                            <div class="col m6 l6" style="margin-top: 20px;">
+                                <div class="col m10 offset-m1 l10 offset-l1 center-align" style="padding: 20px; border: 2px solid gray; min-height: 280px;">
+
+                                    <p style="color: gray; font-size: 18px; margin-bottom: 40px; margin-top: 10px;">Sell something:</p>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-bottom: 10px;"></div>
+
+                                    <a class="" href="{% url 'home:post-category' %}?type=sell_item_or_service">
+                                        <div class="col s12 m12 l12" style="">
+                                            <p class="left" style="font-size: 16px;">
+                                                Sell an item or service
+                                            </p>
+
+                                            <p class="right"> > </p>
+                                        </div>
+                                    </a>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                                    <a class="" href="{% url 'home:post-category' %}?type=offer_property_for_rent">
+                                        <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                            <p class="left" style="font-size: 16px;">
+                                                Offer a property for rent
+                                            </p>
+
+                                            <p class="right"> > </p>
+                                        </div>
+                                    </a>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                                    <a class="" href="{% url 'home:post-category' %}?type=post_job_vacancy">
+                                        <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                            <p class="left" style="font-size: 16px;">
+                                                Post a job vacancy
+                                            </p>
+
+                                            <p class="right"> > </p>
+                                        </div>
+                                    </a>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+                                </div>
+                            </div>
+
+                            <div class="col m6 l6" style="margin-top: 20px;">
+                                <div class="col m10 offset-m1 l10 offset-l1 center-align" style="padding: 20px; border: 2px solid gray; min-height: 280px;">
+
+                                    <p style="color: gray; font-size: 18px; margin-bottom: 40px; margin-top: 10px;">Look for something:</p>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-bottom: 10px;"></div>
+
+                                    <a class="" href="{% url 'account:dashboard' %}">
+                                        <div class="col s12 m12 l12" style="">
+                                            <p class="left" style="font-size: 16px;">
+                                                Look for property to rent
+                                            </p>
+
+                                            <p class="right"> > </p>
+                                        </div>
+                                    </a>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+
+                                    <a class="" href="{% url 'account:dashboard' %}">
+                                        <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                            <p class="left" style="font-size: 16px;">
+                                                Look for something to buy
+                                            </p>
+
+                                            <p class="right"> > </p>
+                                        </div>
+                                    </a>
+
+                                    <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

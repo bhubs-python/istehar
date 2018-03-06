@@ -48,5 +48,7 @@ urlpatterns = [
     url(r'^district/api/$', views.DistrictAPI.as_view(), name='district-api'),
     url(r'^thana/api/$', views.ThanaAPI.as_view(), name='thana-api'),
 
+    url(r'^subcategory/api/$', views.SubCategoryAPI.as_view(), name='subcategory-api'),
+
 
 ]

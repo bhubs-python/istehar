@@ -8,6 +8,8 @@ from django.db.models import Q
 from . import models
 from . import forms
 
+from home import models as home_model
+
 
 #staff home page
 class Home(View):
@@ -510,6 +512,20 @@ class ThanaAPI(APIView):
         else:
             return redirect('account:login')
 
+
+#subcategory list api view
+class SubCategoryAPI(APIView):
+    def get(self, request):
+        if request.GET.get("type"):
+            type = request.GET.get("type")
+
+            subcategory_obj = home_model.SubCatagory.objects.filter(Q(catagory__id=type))
+
+            serializer = serializers.SubCategorySerializer(subcategory_obj, many=True)
+
+            return Response(serializer.data)
+        else:
+            return redirect('account:login')
 
 
 #=============================================================================
