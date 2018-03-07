@@ -63,7 +63,6 @@
                             </div>
                             <!--end category-->
 
-
                             <!--start sub category-->
                             <div class="col m4 l4" style="margin-top: 20px;">
                                 <p id="select_subcatagory_text" style="font-size: 20px; color: gray; display: none;">Select a subcategory...</p>
@@ -114,7 +113,11 @@
 
                     for(i=0; i<length; i++){
                         container.append('\
-                            <a class="" href="{% url 'home:post-location' %}?type={{ type }}&subcategory='+ data[i].id +'">\
+                            {% if location %}\
+                                <a class="" href="{% url 'home:post-location' %}?type={{ type }}&subcategory='+ data[i].id +'&location={{ location }}">\
+                            {% else %}\
+                                <a class="" href="{% url 'home:post-location' %}?type={{ type }}&subcategory='+ data[i].id +'">\
+                            {% endif %}\
                                 <div class="col s12 m12 l12" style="margin-top: 10px;">\
                                     <p class="left" style="font-size: 12px;">\
                                         ' + data[i].name + '\

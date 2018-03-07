@@ -30,6 +30,13 @@
                                     <h5 style="color: gray;">Post a job vacancy</h5>
                                 {% endif %}
 
+                                {% if subcategories %}
+                                    {% for subcategory in subcategories %}
+                                        <p class="col s12 m12 l12" style="color: gray;">
+                                            1. Category: {{ subcategory.catagory.name | title }} -> {{ subcategory.name | title }} <a href="{% url 'home:post-category' %}?type={{ type }}">Change</a>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
 
                                 <div class="divider">
 
@@ -131,7 +138,7 @@
 
                     for(i=0; i<length; i++){
                         container.append('\
-                            <a class="" href="#">\
+                            <a class="" style="cursor: pointer;">\
                                 <div class="col s12 m12 l12" style="margin-top: 10px;">\
                                     <p onClick="get_thana('+ data[i].id +')" id="district" value="'+ data[i].id +'" class="left" style="font-size: 12px;">\
                                         ' + data[i].name + '\
@@ -175,7 +182,7 @@
 
                 for(i=0; i<length; i++){
                     container.append('\
-                        <a class="" href="#">\
+                        <a class="" href="{% url 'home:post-details' %}?type={{ type }}&subcategory={{ subcategory }}&location='+ data[i].id +'">\
                             <div class="col s12 m12 l12" style="margin-top: 10px;">\
                                 <p id="thana" class="left" style="font-size: 12px;">\
                                     ' + data[i].name + '\

@@ -30,6 +30,23 @@
                                     <h5 style="color: gray;">Post a job vacancy</h5>
                                 {% endif %}
 
+                                {% if subcategories %}
+                                    {% for s in subcategories %}
+                                        <p class="col s12 m12 l12" style="color: gray;">
+                                            1. Category: {{ s.catagory.name | title }} -> {{ s.name | title }} <a href="{% url 'home:post-category' %}?type={{ type }}&subcategory={{ subcategory }}&location={{ location }}">Change</a>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
+
+
+                                {% if locations %}
+                                    {% for l in locations %}
+                                        <p class="col s12 m12 l12" style="color: gray;">
+                                            2. Location: {{ l.district.division.name | title }} -> {{ l.district.name | title }} -> {{ l.name | title }} <a href="{% url 'home:post-location' %}?type={{ type }}&subcategory={{ subcategory }}">Change</a>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
+
 
                                 <div class="divider">
 

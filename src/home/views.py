@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
 
 from . import models
@@ -31,6 +31,7 @@ class PostCategory(View):
     def get(self, request):
 
         type = request.GET.get('type')
+        location = request.GET.get('location')
 
         categories = None
         if type:
@@ -38,6 +39,7 @@ class PostCategory(View):
 
         variables = {
             'type': type,
+            'location': location,
 
             'categories': categories,
         }
@@ -54,14 +56,29 @@ class PostLocation(View):
         type = request.GET.get('type')
         subcategory = request.GET.get('subcategory')
 
+        location = request.GET.get('location')
+
+        if location:
+            url = '/post-ad/details/?type=' + type + '&subcategory='+ subcategory + '&location=' + location
+            return HttpResponseRedirect(url)
+
+        subcategories = None
+        if subcategory:
+            subcategories = models.SubCatagory.objects.filter(id=subcategory)
+
+
         divisions = None
         if type:
             divisions = staff_model.Division.objects.all()
 
         variables = {
             'type': type,
+            'subcategory': subcategory,
 
             'divisions': divisions,
+
+            'subcategories': subcategories,
+
         }
 
         return render(request, self.template_name, variables)
@@ -74,14 +91,24 @@ class PostDetails(View):
     def get(self, request):
 
         type = request.GET.get('type')
+        subcategory = request.GET.get('subcategory')
+        location = request.GET.get('location')
 
-        if type:
-            categories = models.Catagory.objects.filter(type_of=type)
+        subcategories = None
+        if subcategory:
+            subcategories = models.SubCatagory.objects.filter(id=subcategory)
+
+        locations = None
+        if location:
+            locations = staff_model.Thana.objects.filter(id=location)
 
         variables = {
             'type': type,
+            'subcategory': subcategory,
+            'location': location,
 
-            'categories': categories,
+            'subcategories': subcategories,
+            'locations': locations,
         }
 
         return render(request, self.template_name, variables)
