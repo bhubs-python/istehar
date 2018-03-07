@@ -95,6 +95,8 @@
 
     $(document).ready( function() {
         $(".main_category").click( function() {
+            $(".main_category").css("color", "gray");
+            $(this).css("color", "black");
 
             var main_category = $(this).attr('value');
 
@@ -107,7 +109,6 @@
                 dataType: 'json',
 
                 success: function (data) {
-                    console.log(data);
                     length = data.length;
 
 
@@ -115,7 +116,7 @@
                         container.append('\
                             <a class="" href="">\
                                 <div class="col s12 m12 l12" style="margin-top: 10px;">\
-                                    <p class="left" style="font-size: 14px;">\
+                                    <p class="left" style="font-size: 12px;">\
                                         ' + data[i].name + '\
                                     </p>\
                                     \
