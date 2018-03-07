@@ -509,6 +509,15 @@ class ThanaAPI(APIView):
             serializer = serializers.DistrictSerializer(thana_obj, many=True)
 
             return Response(serializer.data)
+        elif request.GET.get('district'):
+            district = request.GET.get("district")
+
+            thana_obj = models.Thana.objects.filter(Q(district__id=district))
+
+            serializer = serializers.DistrictSerializer(thana_obj, many=True)
+
+            return Response(serializer.data)
+
         else:
             return redirect('account:login')
 

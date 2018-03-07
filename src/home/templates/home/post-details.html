@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Posting details | Istehar{% endblock %}
+
+{% block style %}
+    <style>
+        a:hover{
+            color: gray;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12 m10 offset-m1 l10 offset-l1">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <div class="row">
+                        <div class="col m12 l12" style="">
+                            <div class="col s12 m12 l12 " style="margin-top: 10px;">
+                                {% if type == 'sell_item_or_service' %}
+                                    <h5 style="color: gray;">Sell an item or service</h5>
+                                {% endif %}
+
+                                {% if type == 'offer_property_for_rent' %}
+                                    <h5 style="color: gray;">Offer a property for rent</h5>
+                                {% endif %}
+
+                                {% if type == 'post_job_vacancy' %}
+                                    <h5 style="color: gray;">Post a job vacancy</h5>
+                                {% endif %}
+
+
+                                <div class="divider">
+
+                                </div>
+
+                            </div>
+
+
+                            <!--start category-->
+                            <div class="col m4 l4" style="margin-top: 20px;">
+
+                            </div>
+                            <!--end category-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+
+</script>
+{% endblock %}

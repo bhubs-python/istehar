@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Posting category | Istehar{% endblock %}
+{% block title %}Posting location | Istehar{% endblock %}
 
 {% block style %}
     <style>
@@ -40,17 +40,17 @@
 
                             <!--start category-->
                             <div class="col m4 l4" style="margin-top: 20px;">
-                                <p style="font-size: 20px; color: gray;">Select a category...</p>
+                                <p style="font-size: 20px; color: gray;">Select a division...</p>
 
                                 <div class="col m12 l12" style="margin-top: 10px; padding: 20px;">
 
                                     <div class="col s12 m12 l12 divider" style=""></div>
 
-                                    {% for category in categories %}
+                                    {% for division in divisions %}
                                         <a class="" style="cursor: pointer;">
                                             <div class="col s12 m12 l12" style="margin-top: 10px;">
-                                                <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
-                                                    {{ category.name | title }}
+                                                <p class="left main_division" id="{{ division.id }}" value="{{ division.id }}" style="font-size: 14px;">
+                                                    {{ division.name | title }}
                                                 </p>
 
                                                 <p class="right"> > </p>
@@ -66,7 +66,7 @@
 
                             <!--start sub category-->
                             <div class="col m4 l4" style="margin-top: 20px;">
-                                <p id="select_subcatagory_text" style="font-size: 20px; color: gray; display: none;">Select a subcategory...</p>
+                                <p id="select_subcatagory_text" style="font-size: 20px; color: gray; display: none;">Select a district...</p>
 
                                 <div class="col m12 l12" style="margin-top: 10px; padding: 20px;">
 
@@ -74,7 +74,24 @@
                                         <div id="display_divider" class="col s12 m12 l12 divider" style="display: none;"></div>
                                     </div>
 
-                                    <div id="main_category" class="">
+                                    <div id="main_district" class="">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end sub category-->
+
+                            <!--start sub category-->
+                            <div class="col m4 l4" style="margin-top: 20px;">
+                                <p id="select_thana_text" style="font-size: 20px; color: gray; display: none;">Select a thana...</p>
+
+                                <div class="col m12 l12" style="margin-top: 10px; padding: 20px;">
+
+                                    <div class="col s12 m12 l12">
+                                        <div id="thana_divider" class="col s12 m12 l12 divider" style="display: none;"></div>
+                                    </div>
+
+                                    <div id="main_thana" class="">
 
                                     </div>
                                 </div>
@@ -94,18 +111,18 @@
 <script>
 
     $(document).ready( function() {
-        $(".main_category").click( function() {
-            $(".main_category").css("color", "gray");
+        $(".main_division").click( function() {
+            $(".main_division").css("color", "gray");
             $(this).css("color", "black");
 
-            var main_category = $(this).attr('value');
+            var main_division = $(this).attr('value');
 
 
-            var container = $('<div class="main_category col s12 m12 l12" name="main_category" id="main_category" />');
+            var container = $('<div class="main_district col s12 m12 l12" name="main_district" id="main_district" />');
 
             $.ajax({
-                url: '/staff/subcategory/api/',
-                data: { "type":main_category, },
+                url: '/staff/district/api/',
+                data: { "division":main_division, },
                 dataType: 'json',
 
                 success: function (data) {
@@ -114,9 +131,9 @@
 
                     for(i=0; i<length; i++){
                         container.append('\
-                            <a class="" href="{% url 'home:post-location' %}?type={{ type }}&subcategory='+ data[i].id +'">\
+                            <a class="" href="#">\
                                 <div class="col s12 m12 l12" style="margin-top: 10px;">\
-                                    <p class="left" style="font-size: 12px;">\
+                                    <p onClick="get_thana('+ data[i].id +')" id="district" value="'+ data[i].id +'" class="left" style="font-size: 12px;">\
                                         ' + data[i].name + '\
                                     </p>\
                                     \
@@ -127,7 +144,7 @@
                         ');
                     };
 
-                    $("#main_category").html(container);
+                    $("#main_district").html(container);
 
                     $("#select_subcatagory_text").css("display", "block");
                     $("#display_divider").css("display", "block");
@@ -136,6 +153,50 @@
             });
         });
     });
+
+
+
+
+    function get_thana(district_id){
+
+        $(".select_thana_text").css("color", "gray");
+        $(this).css("color", "black");
+
+        var container = $('<div class="main_thana col s12 m12 l12" name="main_thana" id="main_thana" />');
+
+        $.ajax({
+            url: '/staff/thana/api/',
+            data: { "district":district_id, },
+            dataType: 'json',
+
+            success: function (data) {
+                length = data.length;
+
+
+                for(i=0; i<length; i++){
+                    container.append('\
+                        <a class="" href="#">\
+                            <div class="col s12 m12 l12" style="margin-top: 10px;">\
+                                <p id="thana" class="left" style="font-size: 12px;">\
+                                    ' + data[i].name + '\
+                                </p>\
+                                \
+                                <p class="right"> > </p>\
+                            </div>\
+                        </a>\
+                        <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>\
+                    ');
+                };
+
+                $("#main_thana").html(container);
+
+                $("#select_thana_text").css("display", "block");
+                $("#thana_divider").css("display", "block");
+
+            }
+        });
+
+    }
 
 </script>
 {% endblock %}
