@@ -4,6 +4,8 @@ from django.views import View
 from . import models
 from staff import models as staff_model
 
+from . import forms
+
 
 
 #site home page
@@ -95,12 +97,22 @@ class PostDetails(View):
         location = request.GET.get('location')
 
         subcategories = None
+        s_category = None
         if subcategory:
             subcategories = models.SubCatagory.objects.filter(id=subcategory)
+
+            for sub_category in subcategories:
+                s_category = sub_category.name
+
 
         locations = None
         if location:
             locations = staff_model.Thana.objects.filter(id=location)
+
+        #mobile phone form
+        form = None
+        if s_category == 'mobile phones':
+            form = forms.MobilePhoneForm()
 
         variables = {
             'type': type,
@@ -109,6 +121,50 @@ class PostDetails(View):
 
             'subcategories': subcategories,
             'locations': locations,
+
+            'form': form,
+            's_category': s_category,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+
+        type = request.GET.get('type')
+        subcategory = request.GET.get('subcategory')
+        location = request.GET.get('location')
+
+        subcategories = None
+        s_category = None
+        if subcategory:
+            subcategories = models.SubCatagory.objects.filter(id=subcategory)
+
+            for sub_category in subcategories:
+                s_category = sub_category.name
+
+
+        locations = None
+        if location:
+            locations = staff_model.Thana.objects.filter(id=location)
+
+        #mobile phone form
+        form = None
+        if s_category == 'mobile phones':
+            form = forms.MobilePhoneForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+        variables = {
+            'type': type,
+            'subcategory': subcategory,
+            'location': location,
+
+            'subcategories': subcategories,
+            'locations': locations,
+
+            'form': form,
+            's_category': s_category,
         }
 
         return render(request, self.template_name, variables)

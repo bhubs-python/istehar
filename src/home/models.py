@@ -33,7 +33,6 @@ class SubCatagory(models.Model):
 #universal product post
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    category = models.ForeignKey(Catagory, on_delete=models.CASCADE, null=True, blank=True)
     subcategory = models.ForeignKey(SubCatagory, on_delete=models.CASCADE, null=True, blank=True)
     location = models.ForeignKey(staff_model.Thana, on_delete=None, blank=True, null=True)
 
@@ -54,7 +53,7 @@ class Product(models.Model):
 
     photos = models.ImageField(upload_to='product/', default='no-img.jpg', blank=True, null=True)
 
-    codition = models.CharField(max_length=20, null=True, blank=True)
+    condition = models.CharField(max_length=20, null=True, blank=True)
     brand = models.CharField(max_length=100, null=True, blank=True)
 
     title = models.CharField(max_length=255, null=True, blank=True)
@@ -94,5 +93,5 @@ class MobilePhone(models.Model):
 
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 

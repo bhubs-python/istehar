@@ -56,8 +56,140 @@
 
 
                             <!--start category-->
-                            <div class="col m4 l4" style="margin-top: 20px;">
+                            <div class="col m6 l6" style="margin-top: 50px;">
+                                {% if s_category == 'mobile phones' %}
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
 
+                                        <h5>Add Photo: </h5>
+                                        <div class="input-field col s12 m12 l12">
+                                            <div class="file-field input-field">
+                                                <div class="btn">
+                                                    <span>Photo</span>
+                                                    {{ form.photos }}
+                                                </div>
+
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            {{ form.condition }}
+                                            <label>Select condition</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            {{ form.brand }}
+                                            <label for="icon_prefix white-text">Brand</label>
+                                        </div>
+
+
+                                        <div class="col s12 m12 l12" style="margin-top: 20px; margin-bottom: 20px;">
+                                            <h5>Features: </h5>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="bluetooth" id="bluetooth" />
+                                                <label for="bluetooth">Bluetooth</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="camera" id="camera" />
+                                                <label for="camera">Camera</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="dual_lens_camera" id="dual_lens_camera" />
+                                                <label for="dual_lens_camera">Dual-Lens Camera</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="dual_sim" id="dual_sim" />
+                                                <label for="dual_sim">Dual Sim</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="expandable_memory" id="expandable_memory" />
+                                                <label for="expandable_memory">Expandable Memory</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="finger_print" id="finger_print" />
+                                                <label for="finger_print">Fingerprint Sensor</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="gps" id="gps" />
+                                                <label for="gps">GPS</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="physical_keyboard" id="physical_keyboard" />
+                                                <label for="physical_keyboard">Physical Keyboard</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="motion_sensor" id="motion_sensor" />
+                                                <label for="motion_sensor">Motion Sensor</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="three_g" id="three_g" />
+                                                <label for="three_g">3G</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="four_g" id="four_g" />
+                                                <label for="four_g">4G</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="gsm" id="gsm" />
+                                                <label for="gsm">GSM</label>
+                                            </p>
+
+                                            <p class="col s4">
+                                                <input type="checkbox" name="touch_screen" id="touch_screen" />
+                                                <label for="touch_screen">Touch Screen</label>
+                                            </p>
+                                        </div>
+
+
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            {{ form.title }}
+                                            <label for="icon_prefix white-text">Title</label>
+                                        </div>
+
+                                        <div style="" class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">create</i>
+                                            {{ form.description }}
+                                            <label for="icon_prefix white-text">Description</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            {{ form.model }}
+                                            <label for="icon_prefix white-text">Model</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            {{ form.authenticity }}
+                                            <label>Select authenticity</label>
+                                        </div>
+
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">account_circle</i>
+                                            {{ form.price }}
+                                            <label for="icon_prefix white-text">Price</label>
+                                        </div>
+
+                                        <button type="submit" name="change_location" value="change_location" class="waves-effect waves-light btn white-text" style="margin-top: 30px;">Post</button>
+
+                                    </form>
+                                {% endif %}
                             </div>
                             <!--end category-->
 
@@ -73,6 +205,9 @@
 
 <script>
 
+     $(document).ready(function() {
+        $('select').material_select();
+      });
 
 </script>
 {% endblock %}
