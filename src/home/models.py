@@ -30,7 +30,7 @@ class SubCatagory(models.Model):
 
 
 
-#product post
+#universal product post
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Catagory, on_delete=models.CASCADE, null=True, blank=True)
@@ -58,7 +58,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=100, null=True, blank=True)
 
     title = models.CharField(max_length=255, null=True, blank=True)
-    description = models.TextField(max_length=1000, null=True, blank=True)
+    description = models.TextField(max_length=5000, null=True, blank=True)
 
     model = models.CharField(max_length=100, null=True, blank=True)
 
@@ -71,3 +71,28 @@ class Product(models.Model):
         return str(self.user.username)
 
     phone_number = models.CharField(max_length=30, null=True, blank=True)
+
+
+
+#catagory :::::: mobile phones
+class MobilePhone(models.Model):
+    bluetooth = models.BooleanField(default=False)
+    camera = models.BooleanField(default=False)
+    dual_lens_camera = models.BooleanField(default=False)
+    dual_sim = models.BooleanField(default=False)
+    expandable_memory = models.BooleanField(default=False)
+    fingerprint_sensor = models.BooleanField(default=False)
+    gps = models.BooleanField(default=False)
+    physical_keyboard = models.BooleanField(default=False)
+    motion_sensors = models.BooleanField(default=False)
+
+    three_g = models.BooleanField(default=False)
+    four_g = models.BooleanField(default=False)
+
+    gsm = models.BooleanField(default=False)
+    touch_screen = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.id
+
