@@ -60,7 +60,12 @@
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
 
-                                    <h5>Add Photo: </h5>
+                                    <h5 class="col s12 m12 l12" style="margin-top: 10px; margin-bottom: 10px;">Fill in the details</h5>
+                                    <div class="col s12 m12 l12 divider">
+
+                                    </div>
+
+                                    <h5 class="col s12 m12 l12" style="margin-top: 30px;" style="">Add Photo: </h5>
                                     <div class="input-field col s12 m12 l12">
                                         <div class="file-field input-field">
                                             <div class="btn">
@@ -79,7 +84,14 @@
                                         <label>Select condition</label>
                                     </div>
 
-                                    {% if s_category == 'mobile phones' %}
+                                    {% if s_category == 'computers & tablets' %}
+                                    <div class="input-field col s12 m12 l12">
+                                        {{ form.device_type }}
+                                        <label>Select device type</label>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if s_category != 'mobile phone accessories' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.brand }}
@@ -172,7 +184,7 @@
                                     </div>
 
 
-                                    {% if s_category == 'mobile phones' %}
+                                    {% if s_category != 'mobile phone accessories' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}

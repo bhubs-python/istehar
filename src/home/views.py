@@ -113,8 +113,16 @@ class PostDetails(View):
         form = None
         if s_category == 'mobile phones':
             form = forms.MobilePhoneForm()
+
+
+        #mobile phone accessories form
         elif s_category == 'mobile phone accessories':
             form = forms.MobilePhoneAccessoriesForm()
+
+
+        #computer and tablet form
+        elif s_category == 'computers & tablets':
+            form = forms.ComputerTabletForm()
 
         variables = {
             'type': type,
@@ -163,6 +171,14 @@ class PostDetails(View):
         #mobile phone accessories form
         elif s_category == 'mobile phone accessories':
             form = forms.MobilePhoneAccessoriesForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #computer tablet form
+        elif s_category == 'computers & tablets':
+            form = forms.ComputerTabletForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)

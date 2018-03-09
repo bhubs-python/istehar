@@ -168,7 +168,7 @@ class MobilePhoneForm(forms.Form):
 
 
 #mobile phone accessories form
-class MobilePhoneAccessoriesForm(MobilePhoneForm):
+class MobilePhoneAccessoriesForm(forms.Form):
     photos = forms.ImageField(required=False)
     condition = forms.ChoiceField(choices=condition_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
     title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
@@ -209,4 +209,40 @@ class MobilePhoneAccessoriesForm(MobilePhoneForm):
         location_obj = staff_model.Thana.objects.get(id=location)
 
         deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+        deploy.save()
+
+
+#computer and tablet forms
+device_type_list = (
+    ('desktop_computer', 'Desktop Computer'),
+    ('laptop_notebook', 'Laptop / Notebook'),
+    ('tablet', 'Tablet'),
+)
+class ComputerTabletForm(MobilePhoneForm):
+    device_type = forms.ChoiceField(choices=device_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        brand = self.cleaned_data.get('brand')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        model = self.cleaned_data.get('model')
+        authenticity = self.cleaned_data.get('authenticity')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        device_type = self.cleaned_data.get('device_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, model=model, authenticity=authenticity, price=price, phone_number=phone_number)
+
+        computer_tablet = models.ComputerTablet(device_type=device_type)
+        computer_tablet.save()
+
+        deploy.product_object = computer_tablet
         deploy.save()
