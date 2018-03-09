@@ -124,6 +124,12 @@ class PostDetails(View):
         elif s_category == 'computers & tablets':
             form = forms.ComputerTabletForm()
 
+
+        #computer accessories form
+        elif s_category == 'computer accessories':
+            form = forms.ComputerAccessoriesForm()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -179,6 +185,14 @@ class PostDetails(View):
         #computer tablet form
         elif s_category == 'computers & tablets':
             form = forms.ComputerTabletForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #computer accessories form
+        elif s_category == 'computer accessories':
+            form = forms.ComputerAccessoriesForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)

@@ -246,3 +246,47 @@ class ComputerTabletForm(MobilePhoneForm):
 
         deploy.product_object = computer_tablet
         deploy.save()
+
+
+
+#computer accessories form
+item_type_list = (
+    ('blog_domain_website', 'Blog / Domain / Website'),
+    ('graphics_card', 'Graphics Card'),
+    ('hard_drive', 'Hard Drive'),
+    ('keyboard', 'Keyboard'),
+    ('modem_router', 'Modem / Router'),
+    ('monitor', 'Monitor'),
+    ('motherboard', 'Motherboard'),
+    ('mouse', 'Mouse'),
+    ('printer_scanner', 'Printer / Scanner'),
+    ('processor', 'Processor'),
+    ('ram', 'RAM'),
+    ('software', 'Software'),
+    ('other', 'Other'),
+)
+class ComputerAccessoriesForm(MobilePhoneAccessoriesForm):
+    item_type = forms.ChoiceField(choices=item_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        computer_acc = models.ComputerAccessories(item_type=item_type)
+        computer_acc.save()
+
+        deploy.product_object = computer_acc
+        deploy.save()
