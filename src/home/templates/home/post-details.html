@@ -193,7 +193,7 @@
                                     </div>
 
 
-                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' %}
+                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}
@@ -205,6 +205,16 @@
                                         <label>Select authenticity</label>
                                     </div>
                                     {% endif %}
+
+                                    {% if s_category == 'tvs' %}
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.model }}
+                                        <label for="icon_prefix white-text">Model</label>
+                                    </div>
+                                    {% endif %}
+
+
 
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>

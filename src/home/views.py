@@ -130,6 +130,11 @@ class PostDetails(View):
             form = forms.ComputerAccessoriesForm()
 
 
+        #tv form
+        elif s_category == 'tvs':
+            form = forms.TvForm()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -193,6 +198,14 @@ class PostDetails(View):
         #computer accessories form
         elif s_category == 'computer accessories':
             form = forms.ComputerAccessoriesForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #tv form
+        elif s_category == 'tvs':
+            form = forms.TvForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
