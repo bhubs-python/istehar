@@ -113,6 +113,8 @@ class PostDetails(View):
         form = None
         if s_category == 'mobile phones':
             form = forms.MobilePhoneForm()
+        elif s_category == 'mobile phone accessories':
+            form = forms.MobilePhoneAccessoriesForm()
 
         variables = {
             'type': type,
@@ -147,6 +149,8 @@ class PostDetails(View):
         if location:
             locations = staff_model.Thana.objects.filter(id=location)
 
+
+
         #mobile phone form
         form = None
         if s_category == 'mobile phones':
@@ -154,6 +158,16 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #mobile phone accessories form
+        elif s_category == 'mobile phone accessories':
+            form = forms.MobilePhoneAccessoriesForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
 
         variables = {
             'type': type,

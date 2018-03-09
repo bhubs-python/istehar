@@ -26,6 +26,7 @@ class MobilePhoneForm(forms.Form):
     authenticity = forms.ChoiceField(choices=authenticity_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
 
     price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
 
 
     def clean(self):
@@ -37,6 +38,7 @@ class MobilePhoneForm(forms.Form):
         model = self.cleaned_data.get('model')
         authenticity = self.cleaned_data.get('authenticity')
         price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
 
 
         if photos == None:
@@ -56,6 +58,9 @@ class MobilePhoneForm(forms.Form):
                         else:
                             if price == None:
                                 raise forms.ValidationError('Enter product price!')
+                            else:
+                                if len(phone_number) == 0:
+                                    raise forms.ValidationError('Enter phone number!')
 
 
     def deploy(self, request, subcategory, location):
@@ -67,6 +72,7 @@ class MobilePhoneForm(forms.Form):
         model = self.cleaned_data.get('model')
         authenticity = self.cleaned_data.get('authenticity')
         price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
 
         #category_obj = models.Catagory.objects.get(id=category)
         subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
@@ -151,8 +157,7 @@ class MobilePhoneForm(forms.Form):
         else:
             touch_screen = False
 
-        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, model=model, authenticity=authenticity, price=price)
-        #product_id = deploy.save()
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, model=model, authenticity=authenticity, price=price, phone_number=phone_number)
 
         phone = models.MobilePhone(bluetooth=bluetooth, camera=camera, dual_lens_camera=dual_lens_camera, dual_sim=dual_sim, expandable_memory=expandable_memory, fingerprint_sensor=fingerprint_sensor, gps=gps, physical_keyboard=physical_keyboard, motion_sensors=motion_sensors, three_g=three_g, four_g=four_g, gsm=gsm, touch_screen=touch_screen)
         phone.save()
@@ -160,3 +165,48 @@ class MobilePhoneForm(forms.Form):
         deploy.product_object = phone
         deploy.save()
 
+
+
+#mobile phone accessories form
+class MobilePhoneAccessoriesForm(MobilePhoneForm):
+    photos = forms.ImageField(required=False)
+    condition = forms.ChoiceField(choices=condition_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    def clean(self):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        if photos == None:
+            raise forms.ValidationError('Select product photo!')
+        else:
+            if condition == None:
+                raise forms.ValidationError('Select product condition!')
+            else:
+                if price == None:
+                    raise forms.ValidationError('Enter product price!')
+                else:
+                    if len(phone_number) == 0:
+                        raise forms.ValidationError('Enter phone number!')
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+        deploy.save()
