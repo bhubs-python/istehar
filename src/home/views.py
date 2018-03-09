@@ -135,6 +135,11 @@ class PostDetails(View):
             form = forms.TvForm()
 
 
+        #tv accessories
+        elif s_category == 'tv & video accessories':
+            form = forms.TvAccessoriesForm()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -211,6 +216,12 @@ class PostDetails(View):
                 form.deploy(request, subcategory, location)
 
 
+        #tv accessories
+        elif s_category == 'tv & video accessories':
+            form = forms.TvAccessoriesForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
         variables = {
             'type': type,

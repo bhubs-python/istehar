@@ -342,3 +342,37 @@ class TvForm(forms.Form):
 
         deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, model=model, price=price, phone_number=phone_number)
         deploy.save()
+
+
+
+#tv accessories form
+tv_item_type_list = (
+    ('projector', 'Projector'),
+    ('video_player', 'Video Player'),
+    ('other', 'Other'),
+)
+class TvAccessoriesForm(MobilePhoneAccessoriesForm):
+    item_type = forms.ChoiceField(choices=tv_item_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        tv_acc = models.TvAccessories(item_type=item_type)
+        tv_acc.save()
+
+        deploy.product_object = tv_acc
+        deploy.save()

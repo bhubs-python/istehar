@@ -116,3 +116,13 @@ class ComputerAccessories(models.Model):
         return str(self.item_type)
 
 
+
+#category :::::::::::::::::: tv accessories
+class TvAccessories(models.Model):
+    item_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.item_type)
+
+
