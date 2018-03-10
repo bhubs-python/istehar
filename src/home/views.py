@@ -150,6 +150,11 @@ class PostDetails(View):
             form = forms.AudioMP3Form()
 
 
+        #lighting form
+        elif s_category == 'lighting':
+            form = forms.LightingForm()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -245,6 +250,14 @@ class PostDetails(View):
         #audio and mp3
         elif s_category == 'audio & MP3':
             form = forms.AudioMP3Form(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #lighting form
+        elif s_category == 'lighting':
+            form = forms.LightingForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
