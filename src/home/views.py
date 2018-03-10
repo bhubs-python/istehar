@@ -145,6 +145,11 @@ class PostDetails(View):
             form = forms.CameraCamcoderForm()
 
 
+        #audio and mp3
+        elif s_category == 'audio & MP3':
+            form = forms.AudioMP3Form()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -232,6 +237,14 @@ class PostDetails(View):
         #camera and camcoders
         elif s_category == 'cameras & camcorders':
             form = forms.CameraCamcoderForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #audio and mp3
+        elif s_category == 'audio & MP3':
+            form = forms.AudioMP3Form(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)

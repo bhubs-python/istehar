@@ -136,3 +136,12 @@ class CameraCamcoder(models.Model):
         return str(self.item_type)
 
 
+#category :::::::::::::::::: audio and mp3
+class AudioMP3(models.Model):
+    item_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.item_type)
+
+

@@ -107,14 +107,14 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if s_category == 'cameras & camcorders' %}
+                                    {% if s_category == 'cameras & camcorders' or s_category == 'audio & MP3' %}
                                     <div class="input-field col s12 m12 l12">
                                         {{ form.item_type }}
                                         <label>Select item type</label>
                                     </div>
                                     {% endif %}
 
-                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tv & video accessories' %}
+                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tv & video accessories' and s_category != 'audio & MP3' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.brand }}
@@ -207,7 +207,7 @@
                                     </div>
 
 
-                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' %}
+                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}
