@@ -155,6 +155,16 @@ class PostDetails(View):
             form = forms.LightingForm()
 
 
+        #video games and console form
+        elif s_category == 'video games & consoles':
+            form = forms.VideoGameForm()
+
+
+        #other electronics form
+        elif s_category == 'other electronics':
+            form = forms.OtherElectronicForm()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -258,6 +268,22 @@ class PostDetails(View):
         #lighting form
         elif s_category == 'lighting':
             form = forms.LightingForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #video games and console form
+        elif s_category == 'video games & consoles':
+            form = forms.VideoGameForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #other electronics form
+        elif s_category == 'other electronics':
+            form = forms.OtherElectronicForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
