@@ -376,3 +376,41 @@ class TvAccessoriesForm(MobilePhoneAccessoriesForm):
 
         deploy.product_object = tv_acc
         deploy.save()
+
+
+
+#camera and camcoder form
+camera_camcoder_item_type_list = (
+    ('digital_camera', 'Digital camera'),
+    ('digital_camcoder', 'Digital camcoder'),
+    ('camera_accessory', 'Camera accessory'),
+    ('security_surveillance_camera', 'Security and surveillance camera'),
+    ('other', 'Other'),
+)
+class CameraCamcoderForm(MobilePhoneAccessoriesForm):
+    item_type = forms.ChoiceField(choices=camera_camcoder_item_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    brand = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        brand = self.cleaned_data.get('brand')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, price=price, phone_number=phone_number)
+
+        camera_camcoder = models.CameraCamcoder(item_type=item_type)
+        camera_camcoder.save()
+
+        deploy.product_object = camera_camcoder
+        deploy.save()

@@ -140,6 +140,11 @@ class PostDetails(View):
             form = forms.TvAccessoriesForm()
 
 
+        #camera and camcoders
+        elif s_category == 'cameras & camcorders':
+            form = forms.CameraCamcoderForm()
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -222,6 +227,15 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #camera and camcoders
+        elif s_category == 'cameras & camcorders':
+            form = forms.CameraCamcoderForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
         variables = {
             'type': type,
