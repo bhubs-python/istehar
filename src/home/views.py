@@ -165,6 +165,25 @@ class PostDetails(View):
             form = forms.OtherElectronicForm()
 
 
+        #===============================================
+        #        end electronic category
+        #===============================================
+
+        #===============================================
+        #        start cars and vehicles category
+        #===============================================
+
+
+        #car
+        elif s_category == 'cars':
+            form = forms.CarForm()
+
+
+        #===============================================
+        #       end cars and vehicles category
+        #===============================================
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -287,6 +306,32 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #===============================================
+        #        end electronic category
+        #===============================================
+
+
+        #===============================================
+        #        start cars and vehicles category
+        #===============================================
+
+
+        #car
+        elif s_category == 'cars':
+            form = forms.CarForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       end cars and vehicles category
+        #===============================================
+
 
 
         variables = {

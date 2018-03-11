@@ -4,6 +4,15 @@ from . import models
 from staff import models as staff_model
 
 
+
+
+#======================================================================================
+#======================================================================================
+#                              start electronics category
+#======================================================================================
+#======================================================================================
+
+
 #mobile phone forms
 condition_list = (
     ('used', 'Used'),
@@ -503,3 +512,98 @@ class OtherElectronicForm(MobilePhoneAccessoriesForm):
 
         deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
         deploy.save()
+
+
+#======================================================================================
+#======================================================================================
+#                              end electronics category
+#======================================================================================
+#======================================================================================
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start cars and vehicles
+#======================================================================================
+#======================================================================================
+
+
+#car form
+car_body_type_list = (
+    ('saloon', 'Saloon'),
+    ('hatchback', 'Hatchback'),
+    ('estate', 'Estate'),
+    ('convertible', 'Convertible'),
+    ('coupe_sports', 'Coupe / Sports'),
+    ('suv_4x4', 'SUV / 4 X 4'),
+    ('MPV', 'MPV'),
+)
+
+car_fuel_type_list = (
+    ('diesel', 'Diesel'),
+    ('petrol', 'Petrol'),
+    ('cng', 'CNG'),
+    ('octane', 'Octane'),
+    ('other_fuel_type', 'Other fuel type'),
+)
+
+car_transmission_type_list = (
+    ('manual', 'Manual'),
+    ('automatic', 'Automatic'),
+    ('other', 'Other transmission'),
+)
+
+class CarForm(MobilePhoneAccessoriesForm):
+    model_year = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+    registration_year = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+
+    transmission = forms.ChoiceField(choices=car_transmission_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    body_type = forms.ChoiceField(choices=car_body_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    fuel_type = forms.ChoiceField(choices=car_fuel_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    brand = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    model = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    engine_capacity = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    kilometer_run = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        brand = self.cleaned_data.get('brand')
+        model = self.cleaned_data.get('model')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        model_year = self.cleaned_data.get('model_year')
+        registration_year = self.cleaned_data.get('registration_year')
+        transmission = self.cleaned_data.get('transmission')
+        body_type = self.cleaned_data.get('body_type')
+        fuel_type = self.cleaned_data.get('fuel_type')
+        engine_capacity = self.cleaned_data.get('engine_capacity')
+        kilometer_run = self.cleaned_data.get('kilometer_run')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, model=model, price=price, phone_number=phone_number)
+
+        cars = models.Car(model_year=model_year, registration_year=registration_year, transmission=transmission, body_type=body_type, fuel_type=fuel_type, engine_capacity=engine_capacity, kilometer_run=kilometer_run)
+        cars.save()
+
+        deploy.product_object = cars
+        deploy.save()
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end cars and vehicles
+#======================================================================================
+#======================================================================================
+
+

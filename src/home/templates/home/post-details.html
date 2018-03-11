@@ -122,6 +122,56 @@
                                     </div>
                                     {% endif %}
 
+                                    {% if s_category == 'cars' %}
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.model }}
+                                        <label for="icon_prefix white-text">Model</label>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if s_category == 'cars' %}
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">date_range</i>
+                                        {{ form.model_year }}
+                                        <label for="icon_prefix white-text">Model year</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">date_range</i>
+                                        {{ form.registration_year }}
+                                        <label for="icon_prefix white-text">Registration year</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        {{ form.transmission }}
+                                        <label>Select transmission type</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        {{ form.body_type }}
+                                        <label>Select body type</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        {{ form.fuel_type }}
+                                        <label>Select fuel type</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">create</i>
+                                        {{ form.engine_capacity }}
+                                        <label for="icon_prefix white-text">Engine capacity (cc)</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">create</i>
+                                        {{ form.kilometer_run }}
+                                        <label for="icon_prefix white-text">Kilometers run (KM)</label>
+                                    </div>
+
+                                    {% endif %}
+
                                     {% if s_category == 'mobile phones' %}
                                     <div class="col s12 m12 l12" style="margin-top: 20px; margin-bottom: 20px;">
                                         <h5>Features: </h5>
@@ -195,7 +245,7 @@
 
 
                                     <div class="input-field col s12 m12 l12">
-                                        <i class="material-icons prefix">account_circle</i>
+                                        <i class="material-icons prefix">create</i>
                                         {{ form.title }}
                                         <label for="icon_prefix white-text">Title</label>
                                     </div>
@@ -207,7 +257,7 @@
                                     </div>
 
 
-                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' %}
+                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}
@@ -219,6 +269,7 @@
                                         <label>Select authenticity</label>
                                     </div>
                                     {% endif %}
+
 
                                     {% if s_category == 'tvs' %}
                                     <div class="input-field col s12 m12 l12">
@@ -278,6 +329,17 @@
      $(document).ready(function() {
         $('select').material_select();
       });
+
+
+      $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        format: 'yyyy-mm-dd',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false // Close upon selecting a date,
+    });
 
 </script>
 {% endblock %}
