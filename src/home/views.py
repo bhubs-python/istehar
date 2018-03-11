@@ -194,6 +194,11 @@ class PostDetails(View):
             form = forms.TruckVanBusForm()
 
 
+        #tructor and heavy duty
+        elif s_category == 'tractors & heavy-duty':
+            form = forms.TructorHeavyDutyForm()
+
+
         #===============================================
         #       end cars and vehicles category
         #===============================================
@@ -366,6 +371,15 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #tructor and heavy duty
+        elif s_category == 'tractors & heavy-duty':
+            form = forms.TructorHeavyDutyForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
 
         #===============================================
