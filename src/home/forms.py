@@ -671,6 +671,43 @@ class BicycleThreeWheelerForm(MobilePhoneAccessoriesForm):
         deploy.save()
 
 
+
+#truck van bus
+class TruckVanBusForm(MobilePhoneAccessoriesForm):
+    model_year = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+
+    brand = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    model = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    kilometer_run = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        brand = self.cleaned_data.get('brand')
+        model = self.cleaned_data.get('model')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        model_year = self.cleaned_data.get('model_year')
+        kilometer_run = self.cleaned_data.get('kilometer_run')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, model=model, price=price, phone_number=phone_number)
+
+        truck_van_bus = models.TruckVanBus(model_year=model_year, kilometer_run=kilometer_run)
+        truck_van_bus.save()
+
+        deploy.product_object = truck_van_bus
+        deploy.save()
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end cars and vehicles

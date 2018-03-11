@@ -207,7 +207,14 @@ class BicycleThreeWheeler(models.Model):
         return str(self.id)
 
 
+#truck van bus
+class TruckVanBus(models.Model):
+    model_year = models.DateTimeField(null=True, blank=True)
+    kilometer_run = models.FloatField(null=True, blank=True)
 
+
+    def __str__(self):
+        return str(self.id)
 
 
 #======================================================================================

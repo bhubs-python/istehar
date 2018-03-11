@@ -189,6 +189,11 @@ class PostDetails(View):
             form = forms.BicycleThreeWheelerForm()
 
 
+        #truck van bus
+        elif s_category == 'trucks, vans & buses':
+            form = forms.TruckVanBusForm()
+
+
         #===============================================
         #       end cars and vehicles category
         #===============================================
@@ -352,6 +357,15 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+        #truck van bus
+        elif s_category == 'trucks, vans & buses':
+            form = forms.TruckVanBusForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
