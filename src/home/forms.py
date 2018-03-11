@@ -637,6 +637,39 @@ class MotorbikeScooterForm(MobilePhoneAccessoriesForm):
         deploy.save()
 
 
+#bicycle and three wheelers
+vehicle_type_list = (
+    ('bicycle', 'Bicycle'),
+    ('threewheeler_cng', 'Three Wheeler / CNG'),
+)
+class BicycleThreeWheelerForm(MobilePhoneAccessoriesForm):
+    brand = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    vehicle_type = forms.ChoiceField(choices=vehicle_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        brand = self.cleaned_data.get('brand')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        vehicle_type = self.cleaned_data.get('vehicle_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, brand=brand, title=title, description=description, price=price, phone_number=phone_number)
+
+        bicycle = models.BicycleThreeWheeler(vehicle_type=vehicle_type)
+        bicycle.save()
+
+        deploy.product_object = bicycle
+        deploy.save()
+
 
 #======================================================================================
 #======================================================================================

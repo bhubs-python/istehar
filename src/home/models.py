@@ -199,6 +199,14 @@ class MotorbikeScooter(models.Model):
 
 
 
+#bicycle and three wheelers
+class BicycleThreeWheeler(models.Model):
+    vehicle_type = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 
 
