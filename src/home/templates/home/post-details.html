@@ -122,21 +122,21 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if s_category == 'cars' %}
+                                    {% if s_category == 'cars' or s_category == 'motorbikes & scooters' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}
                                         <label for="icon_prefix white-text">Model</label>
                                     </div>
-                                    {% endif %}
 
-                                    {% if s_category == 'cars' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">date_range</i>
                                         {{ form.model_year }}
                                         <label for="icon_prefix white-text">Model year</label>
                                     </div>
+                                    {% endif %}
 
+                                    {% if s_category == 'cars' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">date_range</i>
                                         {{ form.registration_year }}
@@ -157,7 +157,9 @@
                                         {{ form.fuel_type }}
                                         <label>Select fuel type</label>
                                     </div>
+                                    {% endif %}
 
+                                    {% if s_category == 'cars' or s_category == 'motorbikes & scooters' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">create</i>
                                         {{ form.engine_capacity }}
@@ -257,7 +259,7 @@
                                     </div>
 
 
-                                    {% if s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
+                                    {% if s_category != 'motorbikes & scooters' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}

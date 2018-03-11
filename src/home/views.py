@@ -179,6 +179,11 @@ class PostDetails(View):
             form = forms.CarForm()
 
 
+        #motorbike and scooter
+        elif s_category == 'motorbikes & scooters':
+            form = forms.MotorbikeScooterForm()
+
+
         #===============================================
         #       end cars and vehicles category
         #===============================================
@@ -327,6 +332,12 @@ class PostDetails(View):
                 form.deploy(request, subcategory, location)
 
 
+        #motorbike and scooter
+        elif s_category == 'motorbikes & scooters':
+            form = forms.MotorbikeScooterForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
         #===============================================
         #       end cars and vehicles category

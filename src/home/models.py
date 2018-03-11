@@ -186,13 +186,25 @@ class Car(models.Model):
         return str(self.id)
 
 
+#motorbike and scooter
+class MotorbikeScooter(models.Model):
+    model_year = models.DateTimeField(null=True, blank=True)
+
+    engine_capacity = models.FloatField(null=True, blank=True)
+    kilometer_run = models.FloatField(null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 
 
 
 #======================================================================================
 #======================================================================================
-#                              start cars and vehicles
+#                              end cars and vehicles
 #======================================================================================
 #======================================================================================
 
