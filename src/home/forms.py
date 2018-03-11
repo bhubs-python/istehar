@@ -790,6 +790,11 @@ class AutoPartAccessoryForm(MobilePhoneAccessoriesForm):
 
 
 
+#boats and water transport
+class BoatWaterTransportForm(TructorHeavyDutyForm):
+   pass
+
+
 #======================================================================================
 #======================================================================================
 #                              end cars and vehicles

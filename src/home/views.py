@@ -204,6 +204,10 @@ class PostDetails(View):
             form = forms.AutoPartAccessoryForm()
 
 
+        #boats and water transport
+        elif s_category == 'boats & water transport':
+            form = forms.BoatWaterTransportForm()
+
         #===============================================
         #       end cars and vehicles category
         #===============================================
@@ -392,6 +396,15 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #boats and water transport
+        elif s_category == 'boats & water transport':
+            form = forms.BoatWaterTransportForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
 
         #===============================================
