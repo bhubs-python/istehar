@@ -208,6 +208,13 @@ class PostDetails(View):
         elif s_category == 'boats & water transport':
             form = forms.BoatWaterTransportForm()
 
+
+        #auto services
+        elif s_category == 'auto services':
+            form = forms.AutoServiceForm()
+
+
+
         #===============================================
         #       end cars and vehicles category
         #===============================================
@@ -405,6 +412,13 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #auto services
+        elif s_category == 'auto services':
+            form = forms.AutoServiceForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================

@@ -225,6 +225,16 @@ class AutoPartAccessory(models.Model):
     def __str__(self):
         return str(self.item_type)
 
+
+#category :::::::::::::::::: auto service
+class AutoService(models.Model):
+    item_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.item_type)
+
+
 #======================================================================================
 #======================================================================================
 #                              end cars and vehicles

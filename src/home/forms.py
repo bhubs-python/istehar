@@ -754,6 +754,7 @@ class TructorHeavyDutyForm(forms.Form):
 
 
 
+#auto parts and accessory form
 auto_part_type_list = (
     ('auto_part', 'Auto Part'),
     ('car_audio_video', 'Car audio / video'),
@@ -793,6 +794,44 @@ class AutoPartAccessoryForm(MobilePhoneAccessoriesForm):
 #boats and water transport
 class BoatWaterTransportForm(TructorHeavyDutyForm):
    pass
+
+
+
+
+#auto service form
+auto_service_type_list = (
+    ('car_rental', 'Car Rentals'),
+    ('commercial_vehicle_rental', 'Commercial vehicle rentals'),
+    ('car_maintenance', 'Car maintenance'),
+    ('two_wheeler_maintenance', 'Two wheelar maintenance'),
+    ('other', 'Other services'),
+)
+class AutoServiceForm(MobilePhoneAccessoriesForm):
+    item_type = forms.ChoiceField(choices=auto_service_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        auto_service = models.AutoService(item_type=item_type)
+        auto_service.save()
+
+        deploy.product_object = auto_service
+        deploy.save()
+
 
 
 #======================================================================================
