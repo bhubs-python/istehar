@@ -199,6 +199,11 @@ class PostDetails(View):
             form = forms.TructorHeavyDutyForm()
 
 
+        #auto parts and accessories
+        elif s_category == 'auto parts & accessories':
+            form = forms.AutoPartAccessoryForm()
+
+
         #===============================================
         #       end cars and vehicles category
         #===============================================
@@ -380,6 +385,13 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #auto parts and accessories
+        elif s_category == 'auto parts & accessories':
+            form = forms.AutoPartAccessoryForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================

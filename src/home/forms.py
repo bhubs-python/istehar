@@ -754,6 +754,41 @@ class TructorHeavyDutyForm(forms.Form):
 
 
 
+auto_part_type_list = (
+    ('auto_part', 'Auto Part'),
+    ('car_audio_video', 'Car audio / video'),
+    ('maintenance_repair', 'Maintenance / repair'),
+    ('security_safety', 'Security / safety'),
+    ('tyres_rims', 'Tyres / rims'),
+    ('other', 'Other accessory'),
+)
+class AutoPartAccessoryForm(MobilePhoneAccessoriesForm):
+    item_type = forms.ChoiceField(choices=auto_part_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        #category_obj = models.Catagory.objects.get(id=category)
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        auto_part_acc = models.AutoPartAccessory(item_type=item_type)
+        auto_part_acc.save()
+
+        deploy.product_object = auto_part_acc
+        deploy.save()
+
+
 
 #======================================================================================
 #======================================================================================

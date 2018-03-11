@@ -217,6 +217,14 @@ class TruckVanBus(models.Model):
         return str(self.id)
 
 
+#category :::::::::::::::::: auto parts and accessories
+class AutoPartAccessory(models.Model):
+    item_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.item_type)
+
 #======================================================================================
 #======================================================================================
 #                              end cars and vehicles
