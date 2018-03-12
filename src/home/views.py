@@ -229,6 +229,11 @@ class PostDetails(View):
             form = forms.ApartmentFlatForm()
 
 
+        #houses
+        elif s_category == 'houses':
+            form = forms.HouseForm()
+
+
 
         #===============================================
         #       end property category
@@ -450,6 +455,15 @@ class PostDetails(View):
         elif s_category == 'apartments & flats':
             form = forms.ApartmentFlatForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #houses
+        elif s_category == 'houses':
+            form = forms.HouseForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)

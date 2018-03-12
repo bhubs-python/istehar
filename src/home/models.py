@@ -264,6 +264,23 @@ class ApartmentFlat(models.Model):
         return str(self.id)
 
 
+#houses
+class House(models.Model):
+    bed = models.IntegerField(null=True, blank=True)
+    bath = models.IntegerField(null=True, blank=True)
+
+    land_size = models.FloatField(null=True, blank=True)
+    land_size_scale = models.CharField(max_length=20, null=True, blank=True)
+
+    house_size = models.FloatField(null=True, blank=True)
+    house_size_scale = models.CharField(max_length=20, null=True, blank=True)
+
+    address = models.TextField(max_length=1000, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
 
 
 #======================================================================================
