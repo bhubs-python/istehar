@@ -235,6 +235,11 @@ class PostDetails(View):
 
 
 
+        #plot and land
+        elif s_category == 'plots & land':
+            form = forms.LandPlotForm()
+
+
         #===============================================
         #       end property category
         #===============================================
@@ -467,6 +472,16 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #plot and land
+        elif s_category == 'plots & land':
+            form = forms.LandPlotForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
         #===============================================
         #       end property category

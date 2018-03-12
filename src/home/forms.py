@@ -1035,6 +1035,82 @@ class HouseForm(forms.Form):
 
 
 
+#land and plot
+land_type_list = (
+    ('agriculture', 'Agriculture'),
+    ('commercial', 'Commercial'),
+    ('residential', 'Residential'),
+    ('other', 'Other'),
+)
+class LandPlotForm(forms.Form):
+    photos = forms.ImageField(required=False)
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    land_type = forms.ChoiceField(choices=land_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    land_size = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    land_size_scale = forms.ChoiceField(choices=land_size_scale, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    address = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+
+
+
+
+    def clean(self):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        land_type = self.cleaned_data.get('land_type')
+        land_size = self.cleaned_data.get('land_size')
+        land_size_scale = self.cleaned_data.get('land_size_scale')
+
+        address = self.cleaned_data.get('address')
+
+        if photos == None:
+            raise forms.ValidationError('Select product photo!')
+        else:
+            if price == None:
+                raise forms.ValidationError('Enter product price!')
+            else:
+                if len(phone_number) == 0:
+                    raise forms.ValidationError('Enter phone number!')
+                else:
+                    if len(address) == 0:
+                        raise forms.ValidationError('Enter street address, building no and floor!')
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        land_type = self.cleaned_data.get('land_type')
+        land_size = self.cleaned_data.get('land_size')
+        land_size_scale = self.cleaned_data.get('land_size_scale')
+
+        address = self.cleaned_data.get('address')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        plot_land = models.PlotLand(land_type=land_type, land_size=land_size, land_size_scale=land_size_scale, address=address)
+        plot_land.save()
+
+        deploy.product_object = plot_land
+        deploy.save()
+
+
+
 
 #======================================================================================
 #======================================================================================

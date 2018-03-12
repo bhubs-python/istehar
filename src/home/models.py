@@ -282,6 +282,20 @@ class House(models.Model):
         return str(self.id)
 
 
+#plot and lands
+class PlotLand(models.Model):
+    land_type = models.CharField(max_length=50, null=True, blank=True)
+
+    land_size = models.FloatField(null=True, blank=True)
+    land_size_scale = models.CharField(max_length=20, null=True, blank=True)
+
+    address = models.TextField(max_length=1000, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 #======================================================================================
 #======================================================================================
