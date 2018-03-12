@@ -79,10 +79,38 @@
                                         </div>
                                     </div>
 
+
+                                    {% if s_category == 'apartments & flats' %}
+                                    <div class="input-field col s12 m12 l12">
+                                        {{ form.bed }}
+                                        <label>Beds</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        {{ form.bath }}
+                                        <label>Baths</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">create</i>
+                                        {{ form.size }}
+                                        <label for="icon_prefix white-text">Size (sqft)</label>
+                                    </div>
+
+                                    <div style="" class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">location_on</i>
+                                        {{ form.address }}
+                                        <label for="icon_prefix white-text">Address</label>
+                                    </div>
+                                    {% endif %}
+
+
+                                    {% if s_category != 'apartments & flats' %}
                                     <div class="input-field col s12 m12 l12">
                                         {{ form.condition }}
                                         <label>Select condition</label>
                                     </div>
+                                    {% endif %}
 
                                     {% if s_category == 'bicycles and three wheelers' %}
                                     <div class="input-field col s12 m12 l12">
@@ -129,7 +157,7 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tv & video accessories' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' %}
+                                    {% if s_category != 'apartments & flats' and s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tv & video accessories' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.brand }}
@@ -281,7 +309,7 @@
                                     </div>
 
 
-                                    {% if s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and  s_category != 'trucks, vans & buses' and s_category != 'bicycles and three wheelers' and s_category != 'motorbikes & scooters' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
+                                    {% if s_category != 'apartments & flats' and s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and  s_category != 'trucks, vans & buses' and s_category != 'bicycles and three wheelers' and s_category != 'motorbikes & scooters' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}

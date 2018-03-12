@@ -214,9 +214,24 @@ class PostDetails(View):
             form = forms.AutoServiceForm()
 
 
-
         #===============================================
         #       end cars and vehicles category
+        #===============================================
+
+
+        #===============================================
+        #       start property category
+        #===============================================
+
+
+        #apartment and flat
+        elif s_category == 'apartments & flats':
+            form = forms.ApartmentFlatForm()
+
+
+
+        #===============================================
+        #       end property category
         #===============================================
 
 
@@ -423,6 +438,24 @@ class PostDetails(View):
 
         #===============================================
         #       end cars and vehicles category
+        #===============================================
+
+
+        #===============================================
+        #       start property category
+        #===============================================
+
+
+        #apartment and flat
+        elif s_category == 'apartments & flats':
+            form = forms.ApartmentFlatForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+        #===============================================
+        #       end property category
         #===============================================
 
 
