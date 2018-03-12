@@ -240,6 +240,11 @@ class PostDetails(View):
             form = forms.LandPlotForm()
 
 
+        #garages
+        elif s_category == 'garages':
+            form = forms.GarageForm()
+
+
         #===============================================
         #       end property category
         #===============================================
@@ -482,6 +487,13 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #garages
+        elif s_category == 'garages':
+            form = forms.GarageForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
         #===============================================
         #       end property category

@@ -296,6 +296,14 @@ class PlotLand(models.Model):
         return str(self.id)
 
 
+#garage
+class Garage(models.Model):
+    address = models.TextField(max_length=1000, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 #======================================================================================
 #======================================================================================
