@@ -1165,6 +1165,88 @@ class GarageForm(forms.Form):
 
 
 
+
+#commercial property
+property_type_list = (
+    ('building', 'building'),
+    ('factory_mill', 'Factory / mill'),
+    ('hotel', 'Hotel'),
+    ('office', 'Office'),
+    ('restaurent', 'Restaurent'),
+    ('shop', 'Shop'),
+    ('warehouse', 'Warehouse'),
+    ('other', 'Other'),
+)
+class CommercialPropertyForm(forms.Form):
+    photos = forms.ImageField(required=False)
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    property_type = forms.ChoiceField(choices=property_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    size = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    size_scale = forms.ChoiceField(choices=land_size_scale, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    address = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+
+
+
+
+    def clean(self):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        property_type = self.cleaned_data.get('property_type')
+        size = self.cleaned_data.get('size')
+        size_scale = self.cleaned_data.get('size_scale')
+
+        address = self.cleaned_data.get('address')
+
+        if photos == None:
+            raise forms.ValidationError('Select product photo!')
+        else:
+            if price == None:
+                raise forms.ValidationError('Enter product price!')
+            else:
+                if len(phone_number) == 0:
+                    raise forms.ValidationError('Enter phone number!')
+                else:
+                    if len(address) == 0:
+                        raise forms.ValidationError('Enter street address, building no and floor!')
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        property_type = self.cleaned_data.get('property_type')
+        size = self.cleaned_data.get('size')
+        size_scale = self.cleaned_data.get('size_scale')
+
+        address = self.cleaned_data.get('address')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        commercial_property = models.CommercialProperty(property_type=property_type, size=size, size_scale=size_scale, address=address)
+        commercial_property.save()
+
+        deploy.product_object = commercial_property
+        deploy.save()
+
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end property

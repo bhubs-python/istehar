@@ -245,6 +245,11 @@ class PostDetails(View):
             form = forms.GarageForm()
 
 
+        #commercial property
+        elif s_category == 'commercial property':
+            form = forms.CommercialPropertyForm()
+
+
         #===============================================
         #       end property category
         #===============================================
@@ -494,6 +499,17 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+
+        #commercial property
+        elif s_category == 'commercial property':
+            form = forms.CommercialPropertyForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
 
         #===============================================
         #       end property category
