@@ -265,6 +265,11 @@ class PostDetails(View):
             form = forms.BusinessTechnicalForm()
 
 
+        #travel and visa form
+        elif s_category == 'travel & visa':
+            form = forms.TravelVisaForm()
+
+
         #===============================================
         #       end service
         #===============================================
@@ -544,6 +549,13 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #travel and visa form
+        elif s_category == 'travel & visa':
+            form = forms.TravelVisaForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
