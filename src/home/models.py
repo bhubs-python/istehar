@@ -364,6 +364,15 @@ class Ticket(models.Model):
         return str(self.id)
 
 
+#events and hospitality
+class EventHospitality(models.Model):
+    service_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 #======================================================================================
 #======================================================================================

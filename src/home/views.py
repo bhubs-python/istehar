@@ -275,6 +275,11 @@ class PostDetails(View):
             form = forms.TicketForm()
 
 
+        #events and hospitality
+        elif s_category == 'events & hospitality':
+            form = forms.EventHospitalityForm()
+
+
         #===============================================
         #       end service
         #===============================================
@@ -571,7 +576,16 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
-                
+
+        #events and hospitality
+        elif s_category == 'events & hospitality':
+            form = forms.EventHospitalityForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
 
         #===============================================
         #       end service
