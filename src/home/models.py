@@ -374,6 +374,16 @@ class EventHospitality(models.Model):
 
 
 
+#domestic and personal
+class DomesticPersonal(models.Model):
+    service_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end services

@@ -280,6 +280,10 @@ class PostDetails(View):
             form = forms.EventHospitalityForm()
 
 
+        #domestic and personal
+        elif s_category == 'domestic & personal':
+            form = forms.DomesticPersonalForm()
+
         #===============================================
         #       end service
         #===============================================
@@ -580,6 +584,16 @@ class PostDetails(View):
         #events and hospitality
         elif s_category == 'events & hospitality':
             form = forms.EventHospitalityForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #domestic and personal
+        elif s_category == 'domestic & personal':
+            form = forms.DomesticPersonalForm(request.POST or None, request.FILES)
 
 
             if form.is_valid():

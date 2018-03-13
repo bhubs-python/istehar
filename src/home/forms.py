@@ -1433,6 +1433,38 @@ class EventHospitalityForm(BusinessTechnicalForm):
 
 
 
+
+#domestic and personal
+domestic_personal_type_list = (
+    ('drying_cleaning', 'Drying & Cleaning'),
+    ('home_service', 'Home Services'),
+    ('pest_control', 'Pest Control'),
+)
+
+class DomesticPersonalForm(BusinessTechnicalForm):
+    service_type = forms.ChoiceField(choices=domestic_personal_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        service_type = self.cleaned_data.get('service_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        domestic = models.DomesticPersonal(service_type=service_type)
+        domestic.save()
+
+        deploy.product_object = domestic
+        deploy.save()
+
+
 #======================================================================================
 #======================================================================================
 #                              end services
