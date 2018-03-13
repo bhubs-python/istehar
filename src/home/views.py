@@ -270,6 +270,11 @@ class PostDetails(View):
             form = forms.TravelVisaForm()
 
 
+        #tickets
+        elif s_category == 'tickets':
+            form = forms.TicketForm()
+
+
         #===============================================
         #       end service
         #===============================================
@@ -557,6 +562,16 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #tickets
+        elif s_category == 'tickets':
+            form = forms.TicketForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+                
 
         #===============================================
         #       end service

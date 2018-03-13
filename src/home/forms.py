@@ -1365,6 +1365,41 @@ class TravelVisaForm(BusinessTechnicalForm):
         deploy.save()
 
 
+
+
+#ticket
+ticket_type_list = (
+    ('air_ticket', 'Air tickets'),
+    ('bus_train_ticket', 'Bus & train tickets'),
+    ('event_ticket', 'Event tickets'),
+    ('movie_tickets', 'Movie tickets'),
+    ('sport_ticket', 'Sport tickets'),
+)
+class TicketForm(BusinessTechnicalForm):
+    service_type = forms.ChoiceField(choices=ticket_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        service_type = self.cleaned_data.get('service_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        ticket = models.Ticket(service_type=service_type)
+        ticket.save()
+
+        deploy.product_object = ticket
+        deploy.save()
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end services

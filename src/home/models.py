@@ -353,6 +353,18 @@ class TravelVisa(models.Model):
         return str(self.id)
 
 
+
+
+#business and technical services
+class Ticket(models.Model):
+    service_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end services
