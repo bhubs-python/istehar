@@ -284,6 +284,13 @@ class PostDetails(View):
         elif s_category == 'domestic & personal':
             form = forms.DomesticPersonalForm()
 
+
+        #health and lifestyle
+        elif s_category == 'health & lifestyle':
+            form = forms.HealthLifestyleForm()
+
+
+
         #===============================================
         #       end service
         #===============================================
@@ -599,6 +606,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #health and lifestyle
+        elif s_category == 'health & lifestyle':
+            form = forms.HealthLifestyleForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
