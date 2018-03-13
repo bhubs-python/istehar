@@ -255,6 +255,21 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #       start service
+        #===============================================
+
+
+        #business and technical
+        elif s_category == 'business & technical services':
+            form = forms.BusinessTechnicalForm()
+
+
+        #===============================================
+        #       end service
+        #===============================================
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -513,6 +528,26 @@ class PostDetails(View):
 
         #===============================================
         #       end property category
+        #===============================================
+
+
+        #===============================================
+        #       start service
+        #===============================================
+
+
+        #business and technical
+        elif s_category == 'business & technical services':
+            form = forms.BusinessTechnicalForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       end service
         #===============================================
 
 

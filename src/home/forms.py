@@ -1252,3 +1252,90 @@ class CommercialPropertyForm(forms.Form):
 #                              end property
 #======================================================================================
 #======================================================================================
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start services
+#======================================================================================
+#======================================================================================
+
+
+#business and technical form
+business_service_type_list = (
+    ('computer_laptop', 'Computers & Laptops'),
+    ('electrical_carpentry', 'Electricals & Carpentry'),
+    ('electronics_engineering', 'Electronics & Engineering'),
+    ('facility_management', 'Facility Management'),
+    ('financial_legal', 'Financial & Legal'),
+    ('interior_design', 'Interior Design'),
+    ('marketing_social_media', 'Marketing & Social Media'),
+    ('masonry_civil_works', 'Masonry & Civil Works'),
+    ('mobile_phone', 'Mobile Phone'),
+    ('packers_movers', 'Packers & Movers'),
+    ('photography', 'Photography'),
+    ('plumbing_maintenance', 'Plumbing & Maintenance'),
+    ('printing', 'Printing'),
+    ('rental_services', 'Rental Services'),
+    ('repair_services', 'Repair Servcies'),
+    ('security', 'Security'),
+    ('software_web_development', 'Software & Web Development'),
+)
+class BusinessTechnicalForm(forms.Form):
+    photos = forms.ImageField(required=False)
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    service_type = forms.ChoiceField(choices=business_service_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def clean(self):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        service_type = self.cleaned_data.get('service_type')
+
+        if photos == None:
+            raise forms.ValidationError('Select product photo!')
+        else:
+            if price == None:
+                raise forms.ValidationError('Enter product price!')
+            else:
+                if len(phone_number) == 0:
+                    raise forms.ValidationError('Enter phone number!')
+                else:
+                    if service_type == None:
+                        raise forms.ValidationError('Select service type!')
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        service_type = self.cleaned_data.get('service_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        business = models.BusinessTechnical(service_type=service_type)
+        business.save()
+
+        deploy.product_object = business
+        deploy.save()
+
+
+#======================================================================================
+#======================================================================================
+#                              end services
+#======================================================================================
+#======================================================================================
