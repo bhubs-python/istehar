@@ -378,6 +378,11 @@ class PostDetails(View):
             form = forms.OtherPersonalItemForm()
 
 
+        #health and beauty product
+        elif s_category == 'health & beauty products':
+            form = forms.HealthBeautyForm()
+
+
         #===============================================
         #       end cloth health and beauty
         #===============================================
@@ -842,6 +847,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #health and beauty product
+        elif s_category == 'health & beauty products':
+            form = forms.HealthBeautyForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
