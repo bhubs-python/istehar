@@ -362,6 +362,11 @@ class PostDetails(View):
             form = forms.BagForm()
 
 
+        #wholesale bulk
+        elif s_category == 'wholesale - bulk':
+            form = forms.WholesaleBulkForm()
+
+
 
         #===============================================
         #       end cloth health and beauty
@@ -799,6 +804,15 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #wholesale bulk
+        elif s_category == 'wholesale - bulk':
+            form = forms.WholesaleBulkForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
 
         #===============================================
