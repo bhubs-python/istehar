@@ -351,6 +351,11 @@ class PostDetails(View):
             form = forms.OpticalItemForm()
 
 
+        #watches
+        elif s_category == 'watches':
+            form = forms.WatchForm()
+
+
 
         #===============================================
         #       end cloth health and beauty
@@ -770,6 +775,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #watches
+        elif s_category == 'watches':
+            form = forms.WatchForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
         #===============================================
         #       start cloth health and beauty
