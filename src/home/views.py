@@ -368,6 +368,11 @@ class PostDetails(View):
 
 
 
+        #other fashion accessory
+        elif s_category == 'other fashion accessories':
+            form = forms.OtherFashionAccessoryForm()
+
+
         #===============================================
         #       end cloth health and beauty
         #===============================================
@@ -809,6 +814,16 @@ class PostDetails(View):
         #wholesale bulk
         elif s_category == 'wholesale - bulk':
             form = forms.WholesaleBulkForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #other fashion accessory
+        elif s_category == 'other fashion accessories':
+            form = forms.OtherFashionAccessoryForm(request.POST or None, request.FILES)
+
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
