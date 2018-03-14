@@ -317,6 +317,10 @@ class PostDetails(View):
             form = forms.ElectricityACBathroomGardenForm()
 
 
+        #other home item
+        elif s_category == 'other home items':
+            form = forms.OtherHomeItemForm()
+
         #===============================================
         #       end home and gardern
         #===============================================
@@ -673,6 +677,16 @@ class PostDetails(View):
         #Electricity, AC, Bathroom & Garden
         elif s_category == 'electricity, ac, bathroom & garden':
             form = forms.ElectricityACBathroomGardenForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #other home item
+        elif s_category == 'other home items':
+            form = forms.OtherHomeItemForm(request.POST or None, request.FILES)
 
 
             if form.is_valid():

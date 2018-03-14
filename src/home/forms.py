@@ -1652,6 +1652,50 @@ class ElectricityACBathroomGardenForm(FurnitureForm):
         deploy.product_object = home_appliance
         deploy.save()
 
+
+#other home item
+class OtherHomeItemForm(forms.Form):
+    photos = forms.ImageField(required=False)
+    condition = forms.ChoiceField(choices=condition_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    def clean(self):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+
+        if photos == None:
+            raise forms.ValidationError('Select product photo!')
+        else:
+            if price == None:
+                raise forms.ValidationError('Enter product price!')
+            else:
+                if len(phone_number) == 0:
+                    raise forms.ValidationError('Enter phone number!')
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+        deploy.save()
+
+
 #======================================================================================
 #======================================================================================
 #                              end home and garden
