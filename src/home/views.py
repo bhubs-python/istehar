@@ -326,6 +326,19 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #       start cloth health and beauty
+        #===============================================
+
+        #cloth
+        elif s_category == 'clothing':
+            form = forms.ClothForm()
+
+        #===============================================
+        #       end cloth health and beauty
+        #===============================================
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -696,6 +709,26 @@ class PostDetails(View):
 
         #===============================================
         #       end home and garden
+        #===============================================
+
+
+        #===============================================
+        #       start cloth health and beauty
+        #===============================================
+
+
+        #cloth
+        elif s_category == 'clothing':
+            form = forms.ClothForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       start cloth health and beauty
         #===============================================
 
 

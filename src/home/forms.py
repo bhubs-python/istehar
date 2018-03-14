@@ -1701,3 +1701,52 @@ class OtherHomeItemForm(forms.Form):
 #                              end home and garden
 #======================================================================================
 #======================================================================================
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start cloth health and beauty
+#======================================================================================
+#======================================================================================
+
+
+#clothing
+gender_list = (
+    ('men', 'Men'),
+    ('women', 'Women'),
+    ('unisex', 'Unisex'),
+)
+
+class ClothForm(FurnitureForm):
+    gender = forms.ChoiceField(choices=gender_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        gender = self.cleaned_data.get('gender')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        cloth = models.Cloth(gender=gender)
+        cloth.save()
+
+        deploy.product_object = cloth
+        deploy.save()
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end cloth health and beauty
+#======================================================================================
+#======================================================================================
