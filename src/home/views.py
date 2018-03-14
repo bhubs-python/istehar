@@ -344,6 +344,14 @@ class PostDetails(View):
         elif s_category == 'jewellery':
             form = forms.JeweleryForm()
 
+
+
+        #optical items
+        elif s_category == 'optical items':
+            form = forms.OpticalItemForm()
+
+
+
         #===============================================
         #       end cloth health and beauty
         #===============================================
@@ -750,6 +758,14 @@ class PostDetails(View):
         elif s_category == 'jewellery':
             form = forms.JeweleryForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #optical items
+        elif s_category == 'optical items':
+            form = forms.OpticalItemForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
