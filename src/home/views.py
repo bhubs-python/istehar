@@ -373,6 +373,11 @@ class PostDetails(View):
             form = forms.OtherFashionAccessoryForm()
 
 
+        #other personal item
+        elif s_category == 'other personal items':
+            form = forms.OtherPersonalItemForm()
+
+
         #===============================================
         #       end cloth health and beauty
         #===============================================
@@ -824,6 +829,15 @@ class PostDetails(View):
         elif s_category == 'other fashion accessories':
             form = forms.OtherFashionAccessoryForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #other personal item
+        elif s_category == 'other personal items':
+            form = forms.OtherPersonalItemForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
