@@ -357,6 +357,12 @@ class PostDetails(View):
 
 
 
+        #bag
+        elif s_category == 'bags':
+            form = forms.BagForm()
+
+
+
         #===============================================
         #       end cloth health and beauty
         #===============================================
@@ -783,6 +789,17 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+
+        #bag
+        elif s_category == 'bags':
+            form = forms.BagForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
         #===============================================
         #       start cloth health and beauty
