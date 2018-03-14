@@ -307,6 +307,11 @@ class PostDetails(View):
             form = forms.FurnitureForm()
 
 
+        #home appliance
+        elif s_category == 'home appliances':
+            form = forms.HomeApplianceForm()
+
+
         #===============================================
         #       end home and gardern
         #===============================================
@@ -632,15 +637,6 @@ class PostDetails(View):
                 form.deploy(request, subcategory, location)
 
 
-        #furniture
-        elif s_category == 'furniture':
-            form = forms.FurnitureForm(request.POST or None, request.FILES)
-
-
-            if form.is_valid():
-                form.deploy(request, subcategory, location)
-
-
         #===============================================
         #       end service
         #===============================================
@@ -651,9 +647,26 @@ class PostDetails(View):
         #===============================================
 
 
+        #furniture
+        elif s_category == 'furniture':
+            form = forms.FurnitureForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+        #home appliance
+        elif s_category == 'home appliances':
+            form = forms.HomeApplianceForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
 
         #===============================================
-        #       end service
+        #       end home and garden
         #===============================================
 
 

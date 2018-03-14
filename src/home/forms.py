@@ -1554,9 +1554,6 @@ class FurnitureForm(forms.Form):
             else:
                 if len(phone_number) == 0:
                     raise forms.ValidationError('Enter phone number!')
-                else:
-                    if furniture_type == None:
-                        raise forms.ValidationError('Select service type!')
 
 
     def deploy(self, request, subcategory, location):
@@ -1581,6 +1578,43 @@ class FurnitureForm(forms.Form):
         deploy.save()
 
 
+
+#home appliance
+home_appliance_type_list = (
+    ('dryer_cleaner', 'Dryer / cleaner'),
+    ('kitchen_dining', 'Kitchen / dining'),
+    ('maker_toaster', 'Maker / toaster'),
+    ('refrigerator_freezer', 'Refrigerator / freezer'),
+    ('stove_oven_microwave', 'Stove / oven / microwave'),
+    ('utensil_cooker', 'Utensil / cooker'),
+    ('washing_machine_dishwasher', 'Washing machine / dishwasher'),
+    ('water_purifier', 'Water purifier'),
+    ('other_appliance', 'Other appliance'),
+)
+
+class HomeApplianceForm(FurnitureForm):
+    item_type = forms.ChoiceField(choices=home_appliance_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        home_appliance = models.HomeAppliance(item_type=item_type)
+        home_appliance.save()
+
+        deploy.product_object = home_appliance
+        deploy.save()
 
 #======================================================================================
 #======================================================================================

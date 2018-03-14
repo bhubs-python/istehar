@@ -420,6 +420,15 @@ class Furniture(models.Model):
         return str(self.id)
 
 
+#
+class HomeAppliance(models.Model):
+    item_type = models.CharField(max_length=100, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 #======================================================================================
 #======================================================================================
