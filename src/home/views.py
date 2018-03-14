@@ -296,6 +296,22 @@ class PostDetails(View):
         #===============================================
 
 
+
+        #===============================================
+        #       start home and gardern
+        #===============================================
+
+
+        #furniture
+        elif s_category == 'furniture':
+            form = forms.FurnitureForm()
+
+
+        #===============================================
+        #       end home and gardern
+        #===============================================
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -614,6 +630,26 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+        #furniture
+        elif s_category == 'furniture':
+            form = forms.FurnitureForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #===============================================
+        #       end service
+        #===============================================
+
+
+        #===============================================
+        #       start home and garden
+        #===============================================
+
 
 
         #===============================================
