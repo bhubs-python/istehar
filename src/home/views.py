@@ -334,6 +334,11 @@ class PostDetails(View):
         elif s_category == 'clothing':
             form = forms.ClothForm()
 
+
+        #shoe footware
+        elif s_category == 'shoes & footwear':
+            form = forms.ShoeFootwareForm()
+
         #===============================================
         #       end cloth health and beauty
         #===============================================
@@ -725,6 +730,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+        #shoe footware
+        elif s_category == 'shoes & footwear':
+            form = forms.ShoeFootwareForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================

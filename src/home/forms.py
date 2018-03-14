@@ -1745,6 +1745,36 @@ class ClothForm(FurnitureForm):
 
 
 
+#shoe footware
+class ShoeFootwareForm(FurnitureForm):
+    gender = forms.ChoiceField(choices=gender_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    size = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        gender = self.cleaned_data.get('gender')
+        size = self.cleaned_data.get('size')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        shoe = models.ShoeFootware(gender=gender, size=size)
+        shoe.save()
+
+        deploy.product_object = shoe
+        deploy.save()
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end cloth health and beauty
