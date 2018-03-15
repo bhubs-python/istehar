@@ -2091,6 +2091,43 @@ class AntiqueArtCollectibleForm(MobilePhoneAccessoriesForm):
         deploy.save()
 
 
+
+#Music, Books & Movies
+music_book_movie_type_list = (
+    ('book_novel', 'Book / Novel'),
+    ('cd', 'CD'),
+    ('dvd', 'DVD'),
+    ('game_board_game', 'Game / Board Game'),
+    ('magazine_comic', 'Magazine / Comic'),
+    ('other', 'Other'),
+)
+
+class MusicBookMovieForm(FurnitureForm):
+    item_type = forms.ChoiceField(choices=music_book_movie_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        music_book_movie = models.MusicBookMovie(item_type=item_type)
+        music_book_movie.save()
+
+        deploy.product_object = music_book_movie
+        deploy.save()
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end Hobby, Sport & Kids

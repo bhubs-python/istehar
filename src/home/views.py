@@ -414,6 +414,12 @@ class PostDetails(View):
             form = forms.AntiqueArtCollectibleForm()
 
 
+
+        #music book movie
+        elif s_category == 'music, books & movies':
+            form = forms.MusicBookMovieForm()
+
+
         #===============================================
         #       end Hobby, Sport & Kids
         #===============================================
@@ -935,6 +941,16 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+
+        #music book movie
+        elif s_category == 'music, books & movies':
+            form = forms.MusicBookMovieForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
 
         #===============================================
