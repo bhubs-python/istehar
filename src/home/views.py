@@ -403,6 +403,11 @@ class PostDetails(View):
             form = forms.SportEquipmentForm()
 
 
+        #handicraft and decoration
+        elif s_category == 'handicrafts & decoration':
+            form = forms.HandicraftDecorationForm()
+
+
         #===============================================
         #       end Hobby, Sport & Kids
         #===============================================
@@ -900,6 +905,16 @@ class PostDetails(View):
         #sports equipment
         elif s_category == 'sports equipment':
             form = forms.SportEquipmentForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #handicraft and decoration
+        elif s_category == 'handicrafts & decoration':
+            form = forms.HandicraftDecorationForm(request.POST or None, request.FILES)
 
 
             if form.is_valid():

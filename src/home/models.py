@@ -522,6 +522,15 @@ class SportEquipment(models.Model):
         return str(self.id)
 
 
+#Handicrafts & Decoration
+class HandicraftDecoration(models.Model):
+    item_type = models.CharField(max_length=20, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
 
 #======================================================================================
 #======================================================================================

@@ -2037,6 +2037,40 @@ class SportEquipmentForm(FurnitureForm):
 
 
 
+
+#sport equipment
+handycraft_decoration_type_list = (
+    ('clothing_bag_accessory', 'Clothing / bag / accessory'),
+    ('nokshi_katha', 'Nokshi Kantha'),
+    ('other', 'Other Handicraft'),
+)
+
+class HandicraftDecorationForm(FurnitureForm):
+    item_type = forms.ChoiceField(choices=handycraft_decoration_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        handicraft = models.HandicraftDecoration(item_type=item_type)
+        handicraft.save()
+
+        deploy.product_object = handicraft
+        deploy.save()
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end Hobby, Sport & Kids
