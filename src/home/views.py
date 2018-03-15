@@ -426,6 +426,11 @@ class PostDetails(View):
             form = forms.ChildrenItemForm()
 
 
+        #other hobby sports kids
+        elif s_category == 'other hobby, sport & kids items':
+            form = forms.OtherHobbySportKidForm()
+
+
         #===============================================
         #       end Hobby, Sport & Kids
         #===============================================
@@ -965,6 +970,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+        #other hobby sports kids
+        elif s_category == 'other hobby, sport & kids items':
+            form = forms.OtherHobbySportKidForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
