@@ -1949,3 +1949,57 @@ class HealthBeautyForm(FurnitureForm):
 #                              end cloth health and beauty
 #======================================================================================
 #======================================================================================
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start Hobby, Sport & Kids
+#======================================================================================
+#======================================================================================
+
+
+#musical instrument
+musical_instrument_type_list = (
+    ('keyboard_piano', 'Keyboard / Piano'),
+    ('percussion_drums', 'Percussion / drums'),
+    ('sheet_music', 'Sheet Music'),
+    ('string_instrument_amplifier', 'String Instrument / Amplifier'),
+    ('studio_live_music_equipment', 'Studio / Live Music Equipment'),
+    ('vinyl', 'Vinyl'),
+    ('woodwind_brass', 'Woodwind / brass'),
+    ('other', 'Other Instrument'),
+)
+
+class MusicalInstrumentForm(FurnitureForm):
+    instrument_type = forms.ChoiceField(choices=musical_instrument_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        instrument_type = self.cleaned_data.get('instrument_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        musical_instrument = models.MusicalInstrument(instrument_type=instrument_type)
+        musical_instrument.save()
+
+        deploy.product_object = musical_instrument
+        deploy.save()
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end Hobby, Sport & Kids
+#======================================================================================
+#======================================================================================

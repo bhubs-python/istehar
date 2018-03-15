@@ -388,6 +388,21 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #       start Hobby, Sport & Kids
+        #===============================================
+
+
+        #musical instrument
+        elif s_category == 'musical instruments':
+            form = forms.MusicalInstrumentForm()
+
+
+        #===============================================
+        #       end Hobby, Sport & Kids
+        #===============================================
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -858,7 +873,27 @@ class PostDetails(View):
 
 
         #===============================================
-        #       start cloth health and beauty
+        #       end cloth health and beauty
+        #===============================================
+
+
+        #===============================================
+        #       start Hobby, Sport & Kids
+        #===============================================
+
+
+        #musical instrument
+        elif s_category == 'musical instruments':
+            form = forms.MusicalInstrumentForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       end Hobby, Sport & Kids
         #===============================================
 
 
