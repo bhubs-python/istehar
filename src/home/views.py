@@ -408,6 +408,12 @@ class PostDetails(View):
             form = forms.HandicraftDecorationForm()
 
 
+
+        #antique art and collectible
+        elif s_category == 'antique, art & collectibles':
+            form = forms.AntiqueArtCollectibleForm()
+
+
         #===============================================
         #       end Hobby, Sport & Kids
         #===============================================
@@ -915,6 +921,16 @@ class PostDetails(View):
         #handicraft and decoration
         elif s_category == 'handicrafts & decoration':
             form = forms.HandicraftDecorationForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #antique art and collectible
+        elif s_category == 'antique, art & collectibles':
+            form = forms.AntiqueArtCollectibleForm(request.POST or None, request.FILES)
 
 
             if form.is_valid():
