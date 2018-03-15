@@ -2128,6 +2128,52 @@ class MusicBookMovieForm(FurnitureForm):
 
 
 
+
+#children item
+children_item_type_list = (
+    ('baby_item', 'Baby item'),
+    ('car_seat_carrier', 'Car seat / carrier'),
+    ('cloth_shoe', 'Clothes / shoes'),
+    ('furniture', 'Furniture'),
+    ('pram_stroller', 'Pram / stroller'),
+    ('toy', 'Toy'),
+    ('other', 'Other'),
+)
+
+children_item_gender_list = (
+    ('boys', 'Boys'),
+    ('girls', 'Girls'),
+    ('baby', 'Baby'),
+    ('unisex', 'Unisex'),
+)
+
+class ChildrenItemForm(FurnitureForm):
+    item_type = forms.ChoiceField(choices=children_item_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    gender = forms.ChoiceField(choices=children_item_gender_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        item_type = self.cleaned_data.get('item_type')
+        gender = self.cleaned_data.get('gender')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        children_item = models.ChildrenItem(item_type=item_type, gender=gender)
+        children_item.save()
+
+        deploy.product_object = children_item
+        deploy.save()
+
+
 #======================================================================================
 #======================================================================================
 #                              end Hobby, Sport & Kids

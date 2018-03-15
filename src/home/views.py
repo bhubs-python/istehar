@@ -420,6 +420,12 @@ class PostDetails(View):
             form = forms.MusicBookMovieForm()
 
 
+
+        #children item
+        elif s_category == 'childrens items':
+            form = forms.ChildrenItemForm()
+
+
         #===============================================
         #       end Hobby, Sport & Kids
         #===============================================
@@ -889,6 +895,14 @@ class PostDetails(View):
         elif s_category == 'health & beauty products':
             form = forms.HealthBeautyForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #children item
+        elif s_category == 'childrens items':
+            form = forms.ChildrenItemForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
