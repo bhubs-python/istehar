@@ -443,17 +443,24 @@ class PostDetails(View):
 
         ##Office Supplies & Stationary
         elif s_category == 'office supplies & stationary':
-            form = forms.OfficeSuppliesStationary()
+            form = forms.OfficeSuppliesStationaryForm()
 
 
         #Industry Machinery & Tools
         elif s_category == 'industry machinery & tools':
-            form = forms.IndustryMachineryTool()
+            form = forms.IndustryMachineryToolForm()
 
 
         #raw materials & industrial supplies
         elif s_category == 'raw materials & industrial supplies':
-            form = forms.RawMaterialIndustrialSupply()
+            form = forms.RawMaterialIndustrialSupplyForm()
+
+
+
+        #licences, titles & tenders
+        elif s_category == 'licences, titles & tenders':
+            form = forms.LicencesTitleTenderForm()
+
 
 
         #===============================================
@@ -1018,7 +1025,7 @@ class PostDetails(View):
 
         ##Office Supplies & Stationary
         elif s_category == 'office supplies & stationary':
-            form = forms.OfficeSuppliesStationary(request.POST or None, request.FILES)
+            form = forms.OfficeSuppliesStationaryForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
@@ -1028,7 +1035,7 @@ class PostDetails(View):
 
         #Industry Machinery & Tools
         elif s_category == 'industry machinery & tools':
-            form = forms.IndustryMachineryTool(request.POST or None, request.FILES)
+            form = forms.IndustryMachineryToolForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
@@ -1037,10 +1044,21 @@ class PostDetails(View):
 
         #raw materials & industrial supplies
         elif s_category == 'raw materials & industrial supplies':
-            form = forms.RawMaterialIndustrialSupply(request.POST or None, request.FILES)
+            form = forms.RawMaterialIndustrialSupplyForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+
+        #licences, titles & tenders
+        elif s_category == 'licences, titles & tenders':
+            form = forms.LicencesTitleTenderForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
 
 
         #===============================================
