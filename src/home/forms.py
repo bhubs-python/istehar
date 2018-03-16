@@ -2228,6 +2228,11 @@ class OfficeSuppliesStationary(MobilePhoneAccessoriesForm):
         deploy.save()
 
 
+#Industry Machinery & Tools
+class IndustryMachineryTool(OfficeSuppliesStationary):
+    pass
+
+
 
 #======================================================================================
 #======================================================================================

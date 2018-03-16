@@ -446,6 +446,11 @@ class PostDetails(View):
             form = forms.OfficeSuppliesStationary()
 
 
+        #Industry Machinery & Tools
+        elif s_category == 'industry machinery & tools':
+            form = forms.IndustryMachineryTool()
+
+
         #===============================================
         #       end Business & Industry
         #===============================================
@@ -1013,6 +1018,15 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+
+        #Industry Machinery & Tools
+        elif s_category == 'industry machinery & tools':
+            form = forms.IndustryMachineryTool(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
 
