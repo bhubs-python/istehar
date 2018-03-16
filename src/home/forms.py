@@ -2239,8 +2239,6 @@ class RawMaterialIndustrialSupplyForm(OfficeSuppliesStationaryForm):
     pass
 
 
-
-
 #Licences, Titles & Tenders
 class LicencesTitleTenderForm(forms.Form):
     photos = forms.ImageField(required=False)
@@ -2278,6 +2276,11 @@ class LicencesTitleTenderForm(forms.Form):
 
         deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
         deploy.save()
+
+
+#Medical Equipment & Supplies
+class MedicalEquipmentSupplyForm(OfficeSuppliesStationaryForm):
+    pass
 
 
 #======================================================================================

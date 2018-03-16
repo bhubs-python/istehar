@@ -463,6 +463,11 @@ class PostDetails(View):
 
 
 
+        #medical equipment & supplies
+        elif s_category == 'medical equipment & supplies':
+            form = forms.MedicalEquipmentSupplyForm()
+
+
         #===============================================
         #       end Business & Industry
         #===============================================
@@ -1058,6 +1063,15 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+        #medical equipment & supplies
+        elif s_category == 'medical equipment & supplies':
+            form = forms.MedicalEquipmentSupplyForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
 
