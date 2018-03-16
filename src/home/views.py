@@ -436,6 +436,21 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #       start Business & Industry
+        #===============================================
+
+
+        ##Office Supplies & Stationary
+        elif s_category == 'office supplies & stationary':
+            form = forms.OfficeSuppliesStationary()
+
+
+        #===============================================
+        #       end Business & Industry
+        #===============================================
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -982,6 +997,27 @@ class PostDetails(View):
 
         #===============================================
         #       end Hobby, Sport & Kids
+        #===============================================
+
+
+        #===============================================
+        #       start Business & Industry
+        #===============================================
+
+
+
+        ##Office Supplies & Stationary
+        elif s_category == 'office supplies & stationary':
+            form = forms.OfficeSuppliesStationary(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+
+        #===============================================
+        #       end Business & Industry
         #===============================================
 
 
