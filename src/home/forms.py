@@ -2234,6 +2234,12 @@ class IndustryMachineryTool(OfficeSuppliesStationary):
 
 
 
+#raw materials & industrial supplies
+class RawMaterialIndustrialSupply(OfficeSuppliesStationary):
+    pass
+
+
+
 #======================================================================================
 #======================================================================================
 #                              start Business & Industry

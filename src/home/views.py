@@ -451,6 +451,11 @@ class PostDetails(View):
             form = forms.IndustryMachineryTool()
 
 
+        #raw materials & industrial supplies
+        elif s_category == 'raw materials & industrial supplies':
+            form = forms.RawMaterialIndustrialSupply()
+
+
         #===============================================
         #       end Business & Industry
         #===============================================
@@ -1028,6 +1033,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+        #raw materials & industrial supplies
+        elif s_category == 'raw materials & industrial supplies':
+            form = forms.RawMaterialIndustrialSupply(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
