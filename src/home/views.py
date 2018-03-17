@@ -488,6 +488,11 @@ class PostDetails(View):
             form = forms.TutionForm()
 
 
+        #study abroad
+        elif s_category == 'study abroad':
+            form = forms.StudyAbroadForm()
+
+
         #===============================================
         #       end Education
         #===============================================
@@ -1126,6 +1131,19 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+
+
+        #study abroad
+        elif s_category == 'study abroad':
+            form = forms.StudyAbroadForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
 
 
         #===============================================
