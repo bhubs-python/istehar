@@ -615,6 +615,16 @@ class Pet(models.Model):
         return str(self.animal_type)
 
 
+#farm animal
+class FarmAnimal(models.Model):
+    animal_type = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.animal_type)
+
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end Pets & Animals

@@ -515,8 +515,14 @@ class PostDetails(View):
             form = forms.PetForm()
 
 
+
+        #farm animal
+        elif s_category == 'farm animals':
+            form = forms.FarmAnimalForm()
+
+
         #===============================================
-        #       start pets and animal
+        #       end pets and animal
         #===============================================
 
 
@@ -1196,6 +1202,18 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)
+
+
+
+
+        #farm animal
+        elif s_category == 'farm animals':
+            form = forms.FarmAnimalForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
 
 
 
