@@ -2285,8 +2285,59 @@ class MedicalEquipmentSupplyForm(OfficeSuppliesStationaryForm):
 
 #======================================================================================
 #======================================================================================
-#                              start Business & Industry
+#                              end Business & Industry
 #======================================================================================
 #======================================================================================
 
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start Education
+#======================================================================================
+#======================================================================================
+
+
+
+#textbook
+
+textbook_type_list = (
+    ('college_university', 'College / University'),
+    ('school', 'School'),
+    ('other', 'Other'),
+)
+
+class TextbookForm(FurnitureForm):
+    textbook_type = forms.ChoiceField(choices=textbook_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        textbook_type = self.cleaned_data.get('textbook_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        textbook = models.Textbook(textbook_type=textbook_type)
+        textbook.save()
+
+        deploy.product_object = textbook
+        deploy.save()
+
+
+#======================================================================================
+#======================================================================================
+#                              end Education
+#======================================================================================
+#======================================================================================
 

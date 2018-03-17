@@ -473,6 +473,24 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #       start Education
+        #===============================================
+
+
+        #textbooks
+        elif s_category == 'textbooks':
+            form = forms.TextbookForm()
+
+
+
+        #===============================================
+        #       end Education
+        #===============================================
+
+
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -1078,6 +1096,28 @@ class PostDetails(View):
         #===============================================
         #       end Business & Industry
         #===============================================
+
+
+
+        #===============================================
+        #       start Education
+        #===============================================
+
+
+        #textbooks
+        elif s_category == 'textbooks':
+            form = forms.TextbookForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       end Education
+        #===============================================
+
 
 
 
