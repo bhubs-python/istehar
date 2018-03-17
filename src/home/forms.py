@@ -2501,6 +2501,10 @@ class FarmAnimalForm(FurnitureForm):
 
 
 
+#Pet & Animal Accessories
+class PetAnimalAccessoryForm(OfficeSuppliesStationaryForm):
+    pass
+
 
 
 #======================================================================================

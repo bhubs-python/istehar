@@ -521,6 +521,13 @@ class PostDetails(View):
             form = forms.FarmAnimalForm()
 
 
+
+        #pet & animal accessories
+        elif s_category == 'pet & animal accessories':
+            form = forms.PetAnimalAccessoryForm()
+
+
+
         #===============================================
         #       end pets and animal
         #===============================================
@@ -1214,6 +1221,15 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+        #pet & animal accessories
+        elif s_category == 'pet & animal accessories':
+            form = forms.PetAnimalAccessoryForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
 
