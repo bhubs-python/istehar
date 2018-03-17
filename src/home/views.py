@@ -483,6 +483,10 @@ class PostDetails(View):
             form = forms.TextbookForm()
 
 
+        #tution
+        elif s_category == 'tuition':
+            form = forms.TutionForm()
+
 
         #===============================================
         #       end Education
@@ -1112,6 +1116,16 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+
+        #tution
+        elif s_category == 'tuition':
+            form = forms.TutionForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================

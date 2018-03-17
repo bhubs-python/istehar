@@ -580,6 +580,16 @@ class Textbook(models.Model):
 
 
 
+#tution
+class Tution(models.Model):
+    tution_type = models.CharField(max_length=20, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end Education

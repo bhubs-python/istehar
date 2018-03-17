@@ -2302,7 +2302,6 @@ class MedicalEquipmentSupplyForm(OfficeSuppliesStationaryForm):
 
 
 #textbook
-
 textbook_type_list = (
     ('college_university', 'College / University'),
     ('school', 'School'),
@@ -2333,6 +2332,42 @@ class TextbookForm(FurnitureForm):
 
         deploy.product_object = textbook
         deploy.save()
+
+
+
+#tution
+tution_type_list = (
+    ('bangla_medium', 'Bangla medium'),
+    ('english_medium', 'English medium'),
+    ('private_lesson', 'Private lesson'),
+    ('other', 'Other'),
+)
+
+class TutionForm(FurnitureForm):
+    tution_type = forms.ChoiceField(choices=tution_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        tution_type = self.cleaned_data.get('tution_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        tution = models.Tution(tution_type=tution_type)
+        tution.save()
+
+        deploy.product_object = tution
+        deploy.save()
+
 
 
 #======================================================================================
