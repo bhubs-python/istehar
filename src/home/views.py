@@ -528,6 +528,12 @@ class PostDetails(View):
 
 
 
+        #other pets & animals
+        elif s_category == 'other pets & animals':
+            form = forms.OtherPetAnimalForm()
+
+
+
         #===============================================
         #       end pets and animal
         #===============================================
@@ -1231,6 +1237,16 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+
+        #other pets & animals
+        elif s_category == 'other pets & animals':
+            form = forms.OtherPetAnimalForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================

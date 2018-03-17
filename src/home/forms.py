@@ -2506,6 +2506,11 @@ class PetAnimalAccessoryForm(OfficeSuppliesStationaryForm):
     pass
 
 
+#Other Pets & Animals
+class OtherPetAnimalForm(OtherEducationForm):
+    pass
+
+
 
 #======================================================================================
 #======================================================================================
