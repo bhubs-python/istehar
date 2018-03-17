@@ -505,6 +505,22 @@ class PostDetails(View):
 
 
 
+        #===============================================
+        #       start pets and animal
+        #===============================================
+
+
+        #pets
+        elif s_category == 'pets':
+            form = forms.PetForm()
+
+
+        #===============================================
+        #       start pets and animal
+        #===============================================
+
+
+
 
         variables = {
             'type': type,
@@ -1165,6 +1181,29 @@ class PostDetails(View):
         #===============================================
         #       end Education
         #===============================================
+
+
+        #===============================================
+        #       start pets and animal
+        #===============================================
+
+
+
+        #pets
+        elif s_category == 'pets':
+            form = forms.PetForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       end pets and animal
+        #===============================================
+
+
 
 
 

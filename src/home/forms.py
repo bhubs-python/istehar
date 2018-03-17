@@ -2413,3 +2413,68 @@ class OtherEducationForm(MobilePhoneAccessoriesForm):
 #======================================================================================
 #======================================================================================
 
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start Pets & Animals
+#======================================================================================
+#======================================================================================
+
+
+
+
+#tution
+animal_type_list = (
+    ('bird', 'Bird'),
+    ('cat', 'Cat'),
+    ('dog', 'Dog'),
+    ('fish', 'Fish'),
+    ('gunea_pig_mouse', 'Guinea pig / mouse'),
+    ('rabbit', 'Rabbit'),
+    ('reptile', 'Reptile'),
+    ('other', 'Other'),
+)
+
+class PetForm(FurnitureForm):
+    animal_type = forms.ChoiceField(choices=animal_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        condition = self.cleaned_data.get('condition')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        animal_type = self.cleaned_data.get('animal_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, condition=condition, title=title, description=description, price=price, phone_number=phone_number)
+
+        pet = models.Pet(animal_type=animal_type)
+        pet.save()
+
+        deploy.product_object = pet
+        deploy.save()
+
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end Pets & Animals
+#======================================================================================
+#======================================================================================
+
+
+
+
