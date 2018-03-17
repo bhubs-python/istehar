@@ -2388,6 +2388,24 @@ class StudyAbroadForm(MobilePhoneAccessoriesForm):
 
 
 
+#other education
+class OtherEducationForm(MobilePhoneAccessoriesForm):
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+        deploy.save()
+
+
+
 
 #======================================================================================
 #======================================================================================
