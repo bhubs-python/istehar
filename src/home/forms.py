@@ -2521,3 +2521,55 @@ class OtherPetAnimalForm(OtherEducationForm):
 
 
 
+#======================================================================================
+#======================================================================================
+#                              start food and agriculture
+#======================================================================================
+#======================================================================================
+
+
+
+
+#pet
+food_type_list = (
+    ('fish', 'Fish'),
+    ('fruit', 'Fruit'),
+    ('meat', 'Meat'),
+    ('vegetable', 'Vegetable'),
+    ('other', 'Other'),
+)
+
+class FoodForm(FurnitureForm):
+    food_type = forms.ChoiceField(choices=food_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+    def deploy(self, request, subcategory, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        food_type = self.cleaned_data.get('food_type')
+
+        subcategory_obj = models.SubCatagory.objects.get(id=subcategory)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, subcategory=subcategory_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        food = models.Food(food_type=food_type)
+        food.save()
+
+        deploy.product_object = food
+        deploy.save()
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end food and agriculture
+#======================================================================================
+#======================================================================================
+

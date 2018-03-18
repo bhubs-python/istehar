@@ -541,6 +541,24 @@ class PostDetails(View):
 
 
 
+        #===============================================
+        #       start food and agriculture
+        #===============================================
+
+
+        #food
+        elif s_category == 'food':
+            form = forms.FoodForm()
+
+
+
+        #===============================================
+        #       end food and agriculture
+        #===============================================
+
+
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
@@ -1251,6 +1269,27 @@ class PostDetails(View):
 
         #===============================================
         #       end pets and animal
+        #===============================================
+
+
+
+        #===============================================
+        #       start food and agriculture
+        #===============================================
+
+
+        #food
+        elif s_category == 'food':
+            form = forms.FoodForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #===============================================
+        #       end food and agriculture
         #===============================================
 
 
