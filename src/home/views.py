@@ -551,6 +551,10 @@ class PostDetails(View):
             form = forms.FoodForm()
 
 
+        #crops, seeds & plants
+        elif s_category == 'crops, seeds & plants':
+            form = forms.CropSeedPlantForm()
+
 
         #===============================================
         #       end food and agriculture
@@ -1286,6 +1290,16 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, subcategory, location)
 
+
+
+
+        #crops, seeds & plants
+        elif s_category == 'crops, seeds & plants':
+            form = forms.CropSeedPlantForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
 
 
         #===============================================
