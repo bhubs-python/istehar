@@ -562,6 +562,12 @@ class PostDetails(View):
             form = forms.FarmingToolMachineryForm()
 
 
+
+        #other food & agriculture
+        elif s_category == 'other food & agriculture':
+            form = forms.OtherFoodAgricultureForm()
+
+
         #===============================================
         #       end food and agriculture
         #===============================================
@@ -1312,6 +1318,16 @@ class PostDetails(View):
         #farming tools & machinery
         elif s_category == 'farming tools & machinery':
             form = forms.FarmingToolMachineryForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #other food & agriculture
+        elif s_category == 'other food & agriculture':
+            form = forms.OtherFoodAgricultureForm(request.POST or None, request.FILES)
+
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)

@@ -2591,6 +2591,10 @@ class FarmingToolMachineryForm(OfficeSuppliesStationaryForm):
 
 
 
+#Other Food & Agriculture
+class OtherFoodAgricultureForm(OtherEducationForm):
+    pass
+
 
 #======================================================================================
 #======================================================================================
