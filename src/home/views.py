@@ -568,10 +568,26 @@ class PostDetails(View):
             form = forms.OtherFoodAgricultureForm()
 
 
+
         #===============================================
         #       end food and agriculture
         #===============================================
 
+
+
+        #===============================================
+        #       start other
+        #===============================================
+
+
+        #other
+        elif s_category == 'other':
+            form = forms.OtherForm()
+
+
+        #===============================================
+        #       end other
+        #===============================================
 
 
 
@@ -1335,6 +1351,24 @@ class PostDetails(View):
 
         #===============================================
         #       end food and agriculture
+        #===============================================
+
+
+        #===============================================
+        #       start other
+        #===============================================
+
+
+        #other
+        elif s_category == 'other':
+            form = forms.OtherForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+        #===============================================
+        #       end other
         #===============================================
 
 
