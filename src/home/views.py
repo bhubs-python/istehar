@@ -556,6 +556,12 @@ class PostDetails(View):
             form = forms.CropSeedPlantForm()
 
 
+
+        #farming tools & machinery
+        elif s_category == 'farming tools & machinery':
+            form = forms.FarmingToolMachineryForm()
+
+
         #===============================================
         #       end food and agriculture
         #===============================================
@@ -1297,6 +1303,15 @@ class PostDetails(View):
         elif s_category == 'crops, seeds & plants':
             form = forms.CropSeedPlantForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, subcategory, location)
+
+
+
+        #farming tools & machinery
+        elif s_category == 'farming tools & machinery':
+            form = forms.FarmingToolMachineryForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, subcategory, location)

@@ -2585,6 +2585,13 @@ class CropSeedPlantForm(MobilePhoneAccessoriesForm):
 
 
 
+#Farming Tools & Machinery
+class FarmingToolMachineryForm(OfficeSuppliesStationaryForm):
+    pass
+
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end food and agriculture
