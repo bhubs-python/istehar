@@ -646,6 +646,13 @@ class PostDetails(View):
             form = forms.RentRoomForm()
 
 
+
+        #garage
+        elif m_category == 'garages':
+            form = forms.RentGarageForm()
+
+
+
         #===============================================
         #       end Offer a property for rent
         #===============================================
@@ -1489,6 +1496,17 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, category_id, location)
+
+
+
+        #garage
+        elif m_category == 'garages':
+            form = forms.RentGarageForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
 
 
         #===============================================

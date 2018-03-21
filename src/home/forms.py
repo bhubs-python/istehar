@@ -2761,6 +2761,31 @@ class RentRoomForm(MobilePhoneAccessoriesForm):
         deploy.save()
 
 
+
+#rent garage
+class RentGarageForm(GarageForm):
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        address = self.cleaned_data.get('address')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        garage = models.RentGarage(address=address)
+        garage.save()
+
+        deploy.product_object = garage
+        deploy.save()
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end Offer a property for rent
