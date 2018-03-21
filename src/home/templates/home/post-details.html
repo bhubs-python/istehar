@@ -551,7 +551,12 @@
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.price }}
+
+                                        {% if type == 'offer_property_for_rent' %}
+                                        <label for="icon_prefix white-text">Rent price / month</label>
+                                        {% else %}
                                         <label for="icon_prefix white-text">Price</label>
+                                        {% endif %}
                                     </div>
 
                                     <h5 class="col s12 m12 l12" style="margin-top: 30px; margin-bottom: 10px;">Contact details</h5>
