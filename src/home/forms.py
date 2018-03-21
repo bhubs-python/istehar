@@ -2668,6 +2668,36 @@ class RentApartmentFlatForm(ApartmentFlatForm):
 
 
 
+#rent house
+class RentHouseForm(HouseForm):
+
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        bed = self.cleaned_data.get('bed')
+        bath = self.cleaned_data.get('bath')
+        land_size = self.cleaned_data.get('land_size')
+        land_size_scale = self.cleaned_data.get('land_size_scale')
+        house_size = self.cleaned_data.get('house_size')
+        house_size_scale = self.cleaned_data.get('house_size_scale')
+        address = self.cleaned_data.get('address')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        houses = models.RentHouse(bed=bed, bath=bath, land_size=land_size, land_size_scale=land_size_scale, house_size=house_size, house_size_scale=house_size_scale, address=address)
+        houses.save()
+
+        deploy.product_object = houses
+        deploy.save()
+
+
 
 
 #======================================================================================

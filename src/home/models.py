@@ -699,6 +699,14 @@ class RentApartmentFlat(ApartmentFlat):
 
 
 
+#Apartments & Flats
+class RentHouse(House):
+
+    def __str__(self):
+        return str(self.id)
+
+
+
 
 #======================================================================================
 #======================================================================================

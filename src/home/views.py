@@ -628,6 +628,12 @@ class PostDetails(View):
             form = forms.RentApartmentFlatForm()
 
 
+
+        #rent house
+        elif m_category == 'houses':
+            form = forms.RentHouseForm()
+
+
         #===============================================
         #       end Offer a property for rent
         #===============================================
@@ -1443,6 +1449,16 @@ class PostDetails(View):
 
             if form.is_valid():
                 form.deploy(request, category_id, location)
+
+
+
+        #rent house
+        elif m_category == 'houses':
+            form = forms.RentHouseForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
 
 
         #===============================================
