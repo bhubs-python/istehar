@@ -3,6 +3,7 @@ from django.contrib import admin
 from . import models
 
 
+admin.site.register(models.Type)
 admin.site.register(models.Catagory)
 admin.site.register(models.SubCatagory)
 admin.site.register(models.Product)
@@ -45,3 +46,4 @@ admin.site.register(models.Tution)
 admin.site.register(models.Pet)
 admin.site.register(models.FarmAnimal)
 admin.site.register(models.Food)
+admin.site.register(models.RentApartmentFlat)

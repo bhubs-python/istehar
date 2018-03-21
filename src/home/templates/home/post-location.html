@@ -182,6 +182,7 @@
 
                 for(i=0; i<length; i++){
                     container.append('\
+                        {% if subcategory %}\
                         <a class="" href="{% url 'home:post-details' %}?type={{ type }}&subcategory={{ subcategory }}&location='+ data[i].id +'">\
                             <div class="col s12 m12 l12" style="margin-top: 10px;">\
                                 <p id="thana" class="left" style="font-size: 12px;">\
@@ -191,6 +192,19 @@
                                 <p class="right"> > </p>\
                             </div>\
                         </a>\
+                        {% endif %}\
+                        \
+                        {% if category %}\
+                        <a class="" href="{% url 'home:post-details' %}?type={{ type }}&category={{ category }}&location='+ data[i].id +'">\
+                            <div class="col s12 m12 l12" style="margin-top: 10px;">\
+                                <p id="thana" class="left" style="font-size: 12px;">\
+                                    ' + data[i].name + '\
+                                </p>\
+                                \
+                                <p class="right"> > </p>\
+                            </div>\
+                        </a>\
+                        {% endif %}\
                         <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>\
                     ');
                 };

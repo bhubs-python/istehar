@@ -46,20 +46,58 @@
 
                                     <div class="col s12 m12 l12 divider" style=""></div>
 
-                                    {% for category in categories %}
-                                        {% if category.name == 'other' %}
+                                    {% if type == 'offer_property_for_rent' %}
+                                        {% for category in categories %}
                                             {% if location %}
-                                            <a  href="{% url 'home:post-location' %}?type={{ type }}&subcategory=70&location={{ location }}" class="" style="cursor: pointer;">
-                                                <div class="col s12 m12 l12" style="margin-top: 10px;">
-                                                    <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
-                                                        {{ category.name | title }}
-                                                    </p>
+                                                <a href="{% url 'home:post-location' %}?type={{ type }}&category={{ category.id }}&location={{ location }}" style="cursor: pointer;">
+                                                    <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                                        <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
+                                                            {{ category.name | title }}
+                                                        </p>
 
-                                                    <p class="right"> > </p>
-                                                </div>
-                                            </a>
+                                                        <p class="right"> > </p>
+                                                    </div>
+                                                </a>
                                             {% else %}
-                                            <a  href="{% url 'home:post-location' %}?type={{ type }}&subcategory=70" class="" style="cursor: pointer;">
+                                                <a href="{% url 'home:post-location' %}?type={{ type }}&category={{ category.id }}" style="cursor: pointer;">
+                                                    <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                                        <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
+                                                            {{ category.name | title }}
+                                                        </p>
+
+                                                        <p class="right"> > </p>
+                                                    </div>
+                                                </a>
+                                            {% endif %}
+
+                                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for category in categories %}
+                                            {% if category.name == 'other' %}
+                                                {% if location %}
+                                                <a  href="{% url 'home:post-location' %}?type={{ type }}&subcategory=70&location={{ location }}" class="" style="cursor: pointer;">
+                                                    <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                                        <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
+                                                            {{ category.name | title }}
+                                                        </p>
+
+                                                        <p class="right"> > </p>
+                                                    </div>
+                                                </a>
+                                                {% else %}
+                                                <a  href="{% url 'home:post-location' %}?type={{ type }}&subcategory=70" class="" style="cursor: pointer;">
+                                                    <div class="col s12 m12 l12" style="margin-top: 10px;">
+                                                        <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
+                                                            {{ category.name | title }}
+                                                        </p>
+
+                                                        <p class="right"> > </p>
+                                                    </div>
+                                                </a>
+                                                {% endif %}
+                                            {% else %}
+                                            <a class="" style="cursor: pointer;">
                                                 <div class="col s12 m12 l12" style="margin-top: 10px;">
                                                     <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
                                                         {{ category.name | title }}
@@ -69,20 +107,10 @@
                                                 </div>
                                             </a>
                                             {% endif %}
-                                        {% else %}
-                                        <a class="" style="cursor: pointer;">
-                                            <div class="col s12 m12 l12" style="margin-top: 10px;">
-                                                <p class="left main_category" id="{{ category.id }}" value="{{ category.id }}" style="font-size: 14px;">
-                                                    {{ category.name | title }}
-                                                </p>
 
-                                                <p class="right"> > </p>
-                                            </div>
-                                        </a>
-                                        {% endif %}
-
-                                        <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
-                                    {% endfor %}
+                                            <div class="col s12 m12 l12 divider" style="margin-top: 10px;"></div>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                             </div>
                             <!--end category-->

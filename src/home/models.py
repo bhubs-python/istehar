@@ -7,11 +7,24 @@ from staff import models as staff_model
 
 
 
+#type
+class Type(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.name)
+
 
 #catagory
 class Catagory(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
-    type_of = models.CharField(max_length=255, null=True, blank=True)
+    type = models.ForeignKey(Type, on_delete=None, null=True, blank=True)
+
+    sell_item_or_service = models.BooleanField(default=False)
+    offer_property_for_rent = models.BooleanField(default=False)
+    post_job_vacancy = models.BooleanField(default=False)
+    look_for_property_to_rent = models.BooleanField(default=False)
+    look_for_something_to_buy = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.name)
@@ -34,6 +47,7 @@ class SubCatagory(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     subcategory = models.ForeignKey(SubCatagory, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Catagory, on_delete=models.CASCADE, null=True, blank=True)
     location = models.ForeignKey(staff_model.Thana, on_delete=None, blank=True, null=True)
 
     """
@@ -656,9 +670,38 @@ class Food(models.Model):
 
 
 
-
 #======================================================================================
 #======================================================================================
 #                              end food and agriculture
+#======================================================================================
+#======================================================================================
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start Offer a property for rent
+#======================================================================================
+#======================================================================================
+
+
+
+
+#Apartments & Flats
+class RentApartmentFlat(ApartmentFlat):
+    feature = models.CharField(max_length=50, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.id)
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end Offer a property for rent
 #======================================================================================
 #======================================================================================

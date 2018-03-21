@@ -2621,3 +2621,57 @@ class OtherForm(OfficeSuppliesStationaryForm):
 #======================================================================================
 #======================================================================================
 
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start Offer a property for rent
+#======================================================================================
+#======================================================================================
+
+
+
+#Apartments & Flats
+rent_apartment_flat_feature = (
+    ('full_furnished', 'Full-Furnished'),
+    ('semi_furnished', 'Semi-Furnished'),
+    ('not_furnished', 'Not Furnished'),
+)
+class RentApartmentFlatForm(ApartmentFlatForm):
+    feature = forms.ChoiceField(choices=rent_apartment_flat_feature, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        bed = self.cleaned_data.get('bed')
+        feature = self.cleaned_data.get('feature')
+        bath = self.cleaned_data.get('bath')
+        size = self.cleaned_data.get('size')
+        address = self.cleaned_data.get('address')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        rent_apartment_flat = models.RentApartmentFlat(bed=bed, bath=bath, size=size, address=address, feature=feature)
+        rent_apartment_flat.save()
+
+        deploy.product_object = rent_apartment_flat
+        deploy.save()
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end Offer a property for rent
+#======================================================================================
+#======================================================================================

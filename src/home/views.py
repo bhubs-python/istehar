@@ -37,7 +37,18 @@ class PostCategory(View):
 
         categories = None
         if type:
-            categories = models.Catagory.objects.filter(type_of=type)
+            if type == 'sell_item_or_service':
+                categories = models.Catagory.objects.filter(sell_item_or_service=True)
+            elif type == 'offer_property_for_rent':
+                categories = models.Catagory.objects.filter(offer_property_for_rent=True)
+            elif type == 'post_job_vacancy':
+                categories = models.Catagory.objects.filter(post_job_vacancy=True)
+            elif type == 'look_for_property_to_rent':
+                categories = models.Catagory.objects.filter(look_for_property_to_rent=True)
+            elif type == 'look_for_something_to_buy':
+                categories = models.Catagory.objects.filter(look_for_something_to_buy=True)
+
+
 
         variables = {
             'type': type,
@@ -57,12 +68,18 @@ class PostLocation(View):
 
         type = request.GET.get('type')
         subcategory = request.GET.get('subcategory')
+        category = request.GET.get('category')
 
         location = request.GET.get('location')
 
         if location:
-            url = '/post-ad/details/?type=' + type + '&subcategory='+ subcategory + '&location=' + location
-            return HttpResponseRedirect(url)
+            if subcategory:
+                url = '/post-ad/details/?type=' + type + '&subcategory='+ subcategory + '&location=' + location
+                return HttpResponseRedirect(url)
+
+            if category:
+                url = '/post-ad/details/?type=' + type + '&category='+ category + '&location=' + location
+                return HttpResponseRedirect(url)
 
         subcategories = None
         if subcategory:
@@ -76,6 +93,7 @@ class PostLocation(View):
         variables = {
             'type': type,
             'subcategory': subcategory,
+            'category': category,
 
             'divisions': divisions,
 
@@ -94,6 +112,7 @@ class PostDetails(View):
 
         type = request.GET.get('type')
         subcategory = request.GET.get('subcategory')
+        category = request.GET.get('category')
         location = request.GET.get('location')
 
         subcategories = None
@@ -104,6 +123,14 @@ class PostDetails(View):
             for sub_category in subcategories:
                 s_category = sub_category.name
 
+
+        categories = None
+        m_category = None
+        if category:
+            categories = models.Catagory.objects.filter(id=category)
+
+            for category in categories:
+                m_category = category.name
 
         locations = None
         if location:
@@ -591,16 +618,35 @@ class PostDetails(View):
 
 
 
+        #===============================================
+        #       start Offer a property for rent
+        #===============================================
+
+
+        #rent apartments & flats
+        elif m_category == 'apartments & flats':
+            form = forms.RentApartmentFlatForm()
+
+
+        #===============================================
+        #       end Offer a property for rent
+        #===============================================
+
+
+
         variables = {
             'type': type,
             'subcategory': subcategory,
+            'category': category,
             'location': location,
 
             'subcategories': subcategories,
+            'categories': categories,
             'locations': locations,
 
             'form': form,
             's_category': s_category,
+            'm_category': m_category,
         }
 
         return render(request, self.template_name, variables)
@@ -609,6 +655,8 @@ class PostDetails(View):
 
         type = request.GET.get('type')
         subcategory = request.GET.get('subcategory')
+        category = request.GET.get('category')
+        category_id = request.GET.get('category')
         location = request.GET.get('location')
 
         subcategories = None
@@ -618,6 +666,16 @@ class PostDetails(View):
 
             for sub_category in subcategories:
                 s_category = sub_category.name
+
+
+        categories = None
+        m_category = None
+        if category:
+            categories = models.Catagory.objects.filter(id=category)
+
+            for category in categories:
+                m_category = category.name
+
 
 
         locations = None
@@ -1374,18 +1432,39 @@ class PostDetails(View):
 
 
 
+        #===============================================
+        #       start Offer a property for rent
+        #===============================================
+
+
+        #rent apartments & flats
+        elif m_category == 'apartments & flats':
+            form = forms.RentApartmentFlatForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
+
+        #===============================================
+        #       end Offer a property for rent
+        #===============================================
+
+
 
 
         variables = {
             'type': type,
             'subcategory': subcategory,
+            'category': category,
             'location': location,
 
             'subcategories': subcategories,
+            'categories': categories,
             'locations': locations,
 
             'form': form,
             's_category': s_category,
+            'm_category': m_category,
         }
 
         return render(request, self.template_name, variables)
