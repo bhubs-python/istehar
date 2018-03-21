@@ -634,6 +634,12 @@ class PostDetails(View):
             form = forms.RentHouseForm()
 
 
+
+        #plot and land
+        elif m_category == 'plots & land':
+            form = forms.RentPlotLandForm()
+
+
         #===============================================
         #       end Offer a property for rent
         #===============================================
@@ -1455,6 +1461,16 @@ class PostDetails(View):
         #rent house
         elif m_category == 'houses':
             form = forms.RentHouseForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
+
+
+        #plot and land
+        elif m_category == 'plots & land':
+            form = forms.RentPlotLandForm(request.POST or None, request.FILES)
+
 
             if form.is_valid():
                 form.deploy(request, category_id, location)

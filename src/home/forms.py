@@ -2699,6 +2699,35 @@ class RentHouseForm(HouseForm):
 
 
 
+#rent plot and land
+class RentPlotLandForm(LandPlotForm):
+
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        land_type = self.cleaned_data.get('land_type')
+        land_size = self.cleaned_data.get('land_size')
+        land_size_scale = self.cleaned_data.get('land_size_scale')
+
+        address = self.cleaned_data.get('address')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        plot_land = models.RentPlotLand(land_type=land_type, land_size=land_size, land_size_scale=land_size_scale, address=address)
+        plot_land.save()
+
+        deploy.product_object = plot_land
+        deploy.save()
+
+
+
 
 #======================================================================================
 #======================================================================================
