@@ -2786,6 +2786,35 @@ class RentGarageForm(GarageForm):
 
 
 
+#rent commercial property
+class RentCommercialProperty(CommercialPropertyForm):
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        property_type = self.cleaned_data.get('property_type')
+        size = self.cleaned_data.get('size')
+        size_scale = self.cleaned_data.get('size_scale')
+
+        address = self.cleaned_data.get('address')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        commercial_property = models.RentCommercialProperty(property_type=property_type, size=size, size_scale=size_scale, address=address)
+        commercial_property.save()
+
+        deploy.product_object = commercial_property
+        deploy.save()
+
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end Offer a property for rent

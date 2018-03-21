@@ -728,6 +728,11 @@ class RentGarage(Garage):
     pass
 
 
+#rent commercial property
+class RentCommercialProperty(CommercialProperty):
+    pass
+
+
 
 #======================================================================================
 #======================================================================================

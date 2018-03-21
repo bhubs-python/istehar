@@ -653,6 +653,12 @@ class PostDetails(View):
 
 
 
+        #commercial & property
+        elif m_category == 'commercial & property':
+            form = forms.RentCommercialProperty()
+
+
+
         #===============================================
         #       end Offer a property for rent
         #===============================================
@@ -1503,6 +1509,15 @@ class PostDetails(View):
         elif m_category == 'garages':
             form = forms.RentGarageForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
+
+
+        #commercial & property
+        elif m_category == 'commercial & property':
+            form = forms.RentCommercialProperty(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, category_id, location)
