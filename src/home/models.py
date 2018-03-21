@@ -689,7 +689,7 @@ class Food(models.Model):
 
 
 
-#Apartments & Flats
+#rent Apartments & Flats
 class RentApartmentFlat(ApartmentFlat):
     feature = models.CharField(max_length=50, null=True, blank=True)
 
@@ -699,7 +699,7 @@ class RentApartmentFlat(ApartmentFlat):
 
 
 
-#Apartments & Flats
+#rent Apartments & Flats
 class RentHouse(House):
 
     def __str__(self):
@@ -707,12 +707,20 @@ class RentHouse(House):
 
 
 
-#plot and lands
+#rent plot and lands
 class RentPlotLand(PlotLand):
 
     def __str__(self):
         return str(self.id)
 
+
+#rent room
+class RentRoom(models.Model):
+    property_type = models.CharField(max_length=50, null=True, blank=True)
+    address = models.TextField(max_length=1000, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
 
 
 

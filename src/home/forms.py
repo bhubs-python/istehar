@@ -2728,6 +2728,38 @@ class RentPlotLandForm(LandPlotForm):
 
 
 
+#rent room
+rent_room_type = (
+    ('apartment', 'Apartment'),
+    ('house', 'House'),
+    ('other', 'Other'),
+)
+class RentRoomForm(MobilePhoneAccessoriesForm):
+    property_type = forms.ChoiceField(choices=rent_room_type, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    address = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        property_type = self.cleaned_data.get('property_type')
+        address = self.cleaned_data.get('address')
+
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        rent_room = models.RentRoom(property_type=property_type, address=address)
+        rent_room.save()
+
+        deploy.product_object = rent_room
+        deploy.save()
+
 
 #======================================================================================
 #======================================================================================

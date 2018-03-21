@@ -640,6 +640,12 @@ class PostDetails(View):
             form = forms.RentPlotLandForm()
 
 
+
+        #rooms
+        elif m_category == 'rooms':
+            form = forms.RentRoomForm()
+
+
         #===============================================
         #       end Offer a property for rent
         #===============================================
@@ -1475,6 +1481,14 @@ class PostDetails(View):
             if form.is_valid():
                 form.deploy(request, category_id, location)
 
+
+
+        #rooms
+        elif m_category == 'rooms':
+            form = forms.RentRoomForm(request.POST or None, request.FILES)
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
 
 
         #===============================================
