@@ -779,6 +779,19 @@ class JobBangladesh(models.Model):
 
 
 
+#Overseas Jobs
+class OverseasJob(models.Model):
+    job_type = models.CharField(max_length=50, null=True, blank=True)
+    industry = models.CharField(max_length=100, null=True, blank=True)
+    apply_via = models.CharField(max_length=100, null=True, blank=True)
+    company_website = models.URLField(max_length=100, null=True, blank=True)
+    application_deadline = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
+
 
 #======================================================================================
 #======================================================================================

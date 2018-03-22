@@ -2948,6 +2948,65 @@ class JobBangladeshForm(forms.Form):
 
 
 
+#overseas job
+class OverseasJobForm(forms.Form):
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    job_type = forms.ChoiceField(choices=job_bd_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    industry = forms.ChoiceField(choices=current_industry_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    apply_via = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    company_website = forms.URLField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    application_deadline = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+
+
+    def clean(self):
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        job_type = self.cleaned_data.get('job_type')
+        industry = self.cleaned_data.get('industry')
+        apply_via = self.cleaned_data.get('apply_via')
+        company_website = self.cleaned_data.get('company_website')
+        application_deadline = self.cleaned_data.get('application_deadline')
+
+        if price == None:
+            raise forms.ValidationError('Enter product price!')
+        else:
+            if len(phone_number) == 0:
+                raise forms.ValidationError('Enter phone number!')
+
+
+    def deploy(self, request, category, location):
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        job_type = self.cleaned_data.get('job_type')
+        industry = self.cleaned_data.get('industry')
+        apply_via = self.cleaned_data.get('apply_via')
+        company_website = self.cleaned_data.get('company_website')
+        application_deadline = self.cleaned_data.get('application_deadline')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, title=title, description=description, price=price, phone_number=phone_number)
+
+        overseas_job = models.OverseasJob(job_type=job_type, industry=industry, apply_via=apply_via, company_website=company_website, application_deadline=application_deadline)
+        overseas_job.save()
+
+        deploy.product_object = overseas_job
+        deploy.save()
+
+
+
+
 #======================================================================================
 #======================================================================================
 #                              end jobs

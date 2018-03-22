@@ -675,6 +675,10 @@ class PostDetails(View):
             form = forms.JobBangladeshForm()
 
 
+        #overseas job
+        elif m_category == 'overseas job':
+            form = forms.OverseasJobForm()
+
         #===============================================
         #                   end jobs
         #===============================================
@@ -1555,6 +1559,15 @@ class PostDetails(View):
         elif m_category == 'jobs in bd':
             form = forms.JobBangladeshForm(request.POST or None, request.FILES)
 
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
+
+
+        #overseas job
+        elif m_category == 'overseas job':
+            form = forms.OverseasJobForm(request.POST or None, request.FILES)
 
             if form.is_valid():
                 form.deploy(request, category_id, location)
