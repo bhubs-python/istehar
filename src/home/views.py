@@ -113,6 +113,7 @@ class PostDetails(View):
         type = request.GET.get('type')
         subcategory = request.GET.get('subcategory')
         category = request.GET.get('category')
+        category_id = request.GET.get('category')
         location = request.GET.get('location')
 
         subcategories = None
@@ -664,11 +665,27 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #                   start jobs
+        #===============================================
+
+
+        #jobs in bd
+        elif m_category == 'jobs in bd':
+            form = forms.JobBangladeshForm()
+
+
+        #===============================================
+        #                   end jobs
+        #===============================================
+
+
 
         variables = {
             'type': type,
             'subcategory': subcategory,
             'category': category,
+            'category_id': category_id,
             'location': location,
 
             'subcategories': subcategories,
@@ -1529,12 +1546,32 @@ class PostDetails(View):
         #===============================================
 
 
+        #===============================================
+        #                   start jobs
+        #===============================================
+
+
+        #jobs in bd
+        elif m_category == 'jobs in bd':
+            form = forms.JobBangladeshForm(request.POST or None, request.FILES)
+
+
+            if form.is_valid():
+                form.deploy(request, category_id, location)
+
+
+        #===============================================
+        #                   end jobs
+        #===============================================
+
+
 
 
         variables = {
             'type': type,
             'subcategory': subcategory,
             'category': category,
+            'category_id': category_id,
             'location': location,
 
             'subcategories': subcategories,

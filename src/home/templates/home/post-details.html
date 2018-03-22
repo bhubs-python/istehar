@@ -42,7 +42,7 @@
                                 {% if categories %}
                                     {% for s in categories %}
                                         <p class="col s12 m12 l12" style="color: gray;">
-                                            1. Category: {{ s.name | title }} <a href="{% url 'home:post-category' %}?type={{ type }}&category={{ category }}&location={{ location }}">Change</a>
+                                            1. Category: {{ s.name | title }} <a href="{% url 'home:post-category' %}?type={{ type }}&category={{ category_id }}&location={{ location }}">Change</a>
                                         </p>
                                     {% endfor %}
                                 {% endif %}
@@ -52,6 +52,7 @@
                                     {% if subcategories %}
                                         {% for l in locations %}
                                             <p class="col s12 m12 l12" style="color: gray;">
+                                                {{ category_id }}
                                                 2. Location: {{ l.district.division.name | title }} -> {{ l.district.name | title }} -> {{ l.name | title }} <a href="{% url 'home:post-location' %}?type={{ type }}&subcategory={{ subcategory }}">Change</a>
                                             </p>
                                         {% endfor %}
@@ -60,7 +61,7 @@
                                     {% if categories %}
                                         {% for l in locations %}
                                             <p class="col s12 m12 l12" style="color: gray;">
-                                                2. Location: {{ l.district.division.name | title }} -> {{ l.district.name | title }} -> {{ l.name | title }} <a href="{% url 'home:post-location' %}?type={{ type }}&category={{ category }}">Change</a>
+                                                2. Location: {{ l.district.division.name | title }} -> {{ l.district.name | title }} -> {{ l.name | title }} <a href="{% url 'home:post-location' %}?type={{ type }}&category={{ category_id }}">Change</a>
                                             </p>
                                         {% endfor %}
                                     {% endif %}
@@ -79,11 +80,19 @@
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
 
+                                    {% if type == 'sell_item_or_service' or type == 'offer_property_for_rent' %}
                                     <h5 class="col s12 m12 l12" style="margin-top: 10px; margin-bottom: 10px;">Fill in the details</h5>
+                                    {% endif %}
+
+                                    {% if type == 'post_job_vacancy' %}
+                                    <h5 class="col s12 m12 l12" style="margin-top: 10px; margin-bottom: 10px;">About the job</h5>
+                                    {% endif %}
+
                                     <div class="col s12 m12 l12 divider">
 
                                     </div>
 
+                                    {% if type != 'post_job_vacancy' %}
                                     <h5 class="col s12 m12 l12" style="margin-top: 30px;" style="">Add Photo: </h5>
                                     <div class="input-field col s12 m12 l12">
                                         <div class="file-field input-field">
@@ -97,6 +106,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% endif %}
 
 
                                     {% if m_category == 'rooms' %}
@@ -256,7 +266,7 @@
                                     {% endif %}
 
 
-                                    {% if m_category != 'commercial & property' and m_category != 'garages' and m_category != 'rooms' and m_category != 'plots & land' and m_category != 'houses' and m_category != 'apartments & flats' and s_category != 'other food & agriculture' and s_category != 'crops, seeds & plants' and s_category != 'food' and s_category != 'other pets & animals' and s_category != 'farm animals' and s_category != 'pets' and s_category != 'other education' and s_category != 'study abroad' and s_category != 'tuition' and s_category != 'licences, titles & tenders' and s_category != 'health & lifestyle' and s_category != 'domestic & personal' and s_category != 'events & hospitality' and s_category != 'tickets' and s_category != 'travel & visa' and s_category != 'business & technical services' and s_category != 'commercial property' and s_category != 'garages' and s_category != 'plots & land' and s_category != 'houses' and s_category != 'apartments & flats' %}
+                                    {% if m_category != 'jobs in bd' and m_category != 'commercial & property' and m_category != 'garages' and m_category != 'rooms' and m_category != 'plots & land' and m_category != 'houses' and m_category != 'apartments & flats' and s_category != 'other food & agriculture' and s_category != 'crops, seeds & plants' and s_category != 'food' and s_category != 'other pets & animals' and s_category != 'farm animals' and s_category != 'pets' and s_category != 'other education' and s_category != 'study abroad' and s_category != 'tuition' and s_category != 'licences, titles & tenders' and s_category != 'health & lifestyle' and s_category != 'domestic & personal' and s_category != 'events & hospitality' and s_category != 'tickets' and s_category != 'travel & visa' and s_category != 'business & technical services' and s_category != 'commercial property' and s_category != 'garages' and s_category != 'plots & land' and s_category != 'houses' and s_category != 'apartments & flats' %}
                                     <div class="input-field col s12 m12 l12">
                                         {{ form.condition }}
                                         <label>Select condition</label>
@@ -379,7 +389,7 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if m_category != 'commercial & property' and m_category != 'garages' and m_category != 'rooms' and m_category != 'plots & land' and m_category != 'houses' and m_category != 'apartments & flats' and s_category != 'other' and s_category != 'other food & agriculture' and s_category != 'farming tools & machinery' and s_category != 'crops, seeds & plants' and s_category != 'food' and s_category != 'other pets & animals' and s_category != 'pet & animal accessories' and s_category != 'farm animals' and s_category != 'pets' and s_category != 'other education' and s_category != 'study abroad' and s_category != 'tuition' and s_category != 'textbooks' and s_category != 'medical equipment & supplies' and s_category != 'licences, titles & tenders' and s_category != 'raw materials & industrial supplies' and s_category != 'industry machinery & tools' and s_category != 'office supplies & stationary' and s_category != 'other hobby, sport & kids items' and s_category != 'childrens items' and s_category != 'music, books & movies' and s_category != 'antique, art & collectibles' and s_category != 'handicrafts & decoration' and s_category != 'sports equipment' and s_category != 'musical instruments' and s_category != 'health & beauty products' and s_category != 'other personal items' and s_category != 'other fashion accessories' and s_category != 'wholesale - bulk' and s_category != 'bags' and s_category != 'watches' and s_category != 'optical items' and s_category != 'jewellery' and s_category != 'shoes & footwear' and s_category != 'clothing' and s_category != 'other home items' and s_category != 'electricity, ac, bathroom & garden' and s_category != 'home appliances' and s_category != 'furniture' and s_category != 'health & lifestyle' and s_category != 'domestic & personal' and s_category != 'events & hospitality' and s_category != 'tickets' and s_category != 'travel & visa' and s_category != 'business & technical services' and s_category != 'commercial property' and s_category != 'garages' and s_category != 'plots & land' and s_category != 'houses' and s_category != 'apartments & flats' and s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tv & video accessories' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' %}
+                                    {% if m_category != 'jobs in bd' and m_category != 'commercial & property' and m_category != 'garages' and m_category != 'rooms' and m_category != 'plots & land' and m_category != 'houses' and m_category != 'apartments & flats' and s_category != 'other' and s_category != 'other food & agriculture' and s_category != 'farming tools & machinery' and s_category != 'crops, seeds & plants' and s_category != 'food' and s_category != 'other pets & animals' and s_category != 'pet & animal accessories' and s_category != 'farm animals' and s_category != 'pets' and s_category != 'other education' and s_category != 'study abroad' and s_category != 'tuition' and s_category != 'textbooks' and s_category != 'medical equipment & supplies' and s_category != 'licences, titles & tenders' and s_category != 'raw materials & industrial supplies' and s_category != 'industry machinery & tools' and s_category != 'office supplies & stationary' and s_category != 'other hobby, sport & kids items' and s_category != 'childrens items' and s_category != 'music, books & movies' and s_category != 'antique, art & collectibles' and s_category != 'handicrafts & decoration' and s_category != 'sports equipment' and s_category != 'musical instruments' and s_category != 'health & beauty products' and s_category != 'other personal items' and s_category != 'other fashion accessories' and s_category != 'wholesale - bulk' and s_category != 'bags' and s_category != 'watches' and s_category != 'optical items' and s_category != 'jewellery' and s_category != 'shoes & footwear' and s_category != 'clothing' and s_category != 'other home items' and s_category != 'electricity, ac, bathroom & garden' and s_category != 'home appliances' and s_category != 'furniture' and s_category != 'health & lifestyle' and s_category != 'domestic & personal' and s_category != 'events & hospitality' and s_category != 'tickets' and s_category != 'travel & visa' and s_category != 'business & technical services' and s_category != 'commercial property' and s_category != 'garages' and s_category != 'plots & land' and s_category != 'houses' and s_category != 'apartments & flats' and s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tv & video accessories' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.brand }}
@@ -530,8 +540,49 @@
                                         <label for="icon_prefix white-text">Description</label>
                                     </div>
 
+                                    {% if type == 'post_job_vacancy' %}
+                                    <div class="input-field col s12 m6 l6">
+                                        {{ form.job_type }}
+                                        <label>Job type</label>
+                                    </div>
 
-                                    {% if m_category != 'commercial & property' and m_category != 'garages' and m_category != 'rooms' and m_category != 'plots & land' and m_category != 'houses' and m_category != 'apartments & flats' and s_category != 'other' and s_category != 'other food & agriculture' and s_category != 'farming tools & machinery' and s_category != 'crops, seeds & plants' and s_category != 'food' and s_category != 'other pets & animals' and s_category != 'pet & animal accessories' and s_category != 'farm animals' and s_category != 'pets' and s_category != 'other education' and s_category != 'study abroad' and s_category != 'tuition' and s_category != 'textbooks' and s_category != 'medical equipment & supplies' and s_category != 'licences, titles & tenders' and s_category != 'raw materials & industrial supplies' and s_category != 'industry machinery & tools' and s_category != 'office supplies & stationary' and s_category != 'other hobby, sport & kids items' and s_category != 'childrens items' and s_category != 'music, books & movies' and s_category != 'antique, art & collectibles' and s_category != 'handicrafts & decoration' and s_category != 'sports equipment' and s_category != 'musical instruments' and s_category != 'health & beauty products' and s_category != 'other personal items' and s_category != 'other fashion accessories' and s_category != 'wholesale - bulk' and s_category != 'bags' and s_category != 'watches' and s_category != 'optical items' and s_category != 'jewellery' and s_category != 'shoes & footwear' and s_category != 'clothing' and s_category != 'other home items' and s_category != 'electricity, ac, bathroom & garden' and s_category != 'home appliances' and s_category != 'furniture' and s_category != 'health & lifestyle' and s_category != 'domestic & personal' and s_category != 'events & hospitality' and s_category != 'tickets' and s_category != 'travel & visa' and s_category != 'business & technical services' and s_category != 'commercial property' and s_category != 'garages' and s_category != 'plots & land' and s_category != 'houses' and s_category != 'apartments & flats' and s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and  s_category != 'trucks, vans & buses' and s_category != 'bicycles and three wheelers' and s_category != 'motorbikes & scooters' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
+                                    <div class="input-field col s12 m6 l6">
+                                        {{ form.industry }}
+                                        <label>Industry</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l6">
+                                        {{ form.business_function }}
+                                        <label>Business function</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l6">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.role_designation }}
+                                        <label for="icon_prefix white-text">Role / designation</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l6">
+                                        {{ form.receive_applications_via }}
+                                        <label>Receive application via</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m6 l6">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.total_vacancy }}
+                                        <label for="icon_prefix white-text">Total vacancies</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">date_range</i>
+                                        {{ form.application_deadline }}
+                                        <label for="icon_prefix white-text">Application deadline</label>
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    {% if m_category != 'jobs in bd' and m_category != 'commercial & property' and m_category != 'garages' and m_category != 'rooms' and m_category != 'plots & land' and m_category != 'houses' and m_category != 'apartments & flats' and s_category != 'other' and s_category != 'other food & agriculture' and s_category != 'farming tools & machinery' and s_category != 'crops, seeds & plants' and s_category != 'food' and s_category != 'other pets & animals' and s_category != 'pet & animal accessories' and s_category != 'farm animals' and s_category != 'pets' and s_category != 'other education' and s_category != 'study abroad' and s_category != 'tuition' and s_category != 'textbooks' and s_category != 'medical equipment & supplies' and s_category != 'licences, titles & tenders' and s_category != 'raw materials & industrial supplies' and s_category != 'industry machinery & tools' and s_category != 'office supplies & stationary' and s_category != 'other hobby, sport & kids items' and s_category != 'childrens items' and s_category != 'music, books & movies' and s_category != 'antique, art & collectibles' and s_category != 'handicrafts & decoration' and s_category != 'sports equipment' and s_category != 'musical instruments' and s_category != 'health & beauty products' and s_category != 'other personal items' and s_category != 'other fashion accessories' and s_category != 'wholesale - bulk' and s_category != 'bags' and s_category != 'watches' and s_category != 'optical items' and s_category != 'jewellery' and s_category != 'shoes & footwear' and s_category != 'clothing' and s_category != 'other home items' and s_category != 'electricity, ac, bathroom & garden' and s_category != 'home appliances' and s_category != 'furniture' and s_category != 'health & lifestyle' and s_category != 'domestic & personal' and s_category != 'events & hospitality' and s_category != 'tickets' and s_category != 'travel & visa' and s_category != 'business & technical services' and s_category != 'commercial property' and s_category != 'garages' and s_category != 'plots & land' and s_category != 'houses' and s_category != 'apartments & flats' and s_category != 'auto services' and s_category != 'boats & water transport' and s_category != 'auto parts & accessories' and s_category != 'tractors & heavy-duty' and  s_category != 'trucks, vans & buses' and s_category != 'bicycles and three wheelers' and s_category != 'motorbikes & scooters' and s_category != 'mobile phone accessories' and s_category != 'computer accessories' and s_category != 'tvs' and s_category != 'tv & video accessories' and s_category != 'cameras & camcorders' and s_category != 'audio & MP3' and s_category != 'lighting' and s_category != 'video games & consoles' and s_category != 'other electronics' and s_category != 'cars' %}
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">account_circle</i>
                                         {{ form.model }}
@@ -568,10 +619,92 @@
 
                                         {% if type == 'offer_property_for_rent' %}
                                         <label for="icon_prefix white-text">Rent price / month</label>
-                                        {% else %}
+                                        {% endif %}
+
+                                        {% if type == 'sell_item_or_service' %}
                                         <label for="icon_prefix white-text">Price</label>
                                         {% endif %}
+
+                                        {% if type == 'post_job_vacancy' %}
+                                        <label for="icon_prefix white-text">Salary</label>
+                                        {% endif %}
                                     </div>
+
+
+
+                                    {% if type == 'post_job_vacancy' %}
+
+                                    <h5 class="col s12 m12 l12" style="margin-top: 30px; margin-bottom: 10px;">About the company / employer</h5>
+
+                                    <div class="col s12 m12 l12 divider">
+
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.company_employer }}
+                                        <label for="icon_prefix white-text">Company / employer</label>
+                                    </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>Logo</span>
+                                                {{ form.photos }}
+                                            </div>
+
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="col s12 m12 l12" style="margin-top: 30px; margin-bottom: 10px;">Candidate preferences</h5>
+
+                                    <div class="col s12 m12 l12 divider">
+
+                                    </div>
+
+
+                                    <div style="margin-top: 50px;" class="input-field col s12 m6 l6">
+                                        {{ form.minimum_qualification }}
+                                        <label>Minimum qualification</label>
+                                    </div>
+
+                                    <div style="margin-top: 50px;" class="input-field col s12 m6 l6">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.required_experience }}
+                                        <label for="icon_prefix white-text">Required experience</label>
+                                    </div>
+
+
+                                    <div style="margin-top: 50px;" class="input-field col s12 m6 l6">
+                                        {{ form.educational_specialization }}
+                                        <label>Educational specialization</label>
+                                    </div>
+
+                                    <div style="margin-top: 50px;" class="input-field col s12 m6 l6">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.skill }}
+                                        <label for="icon_prefix white-text">Skills</label>
+                                    </div>
+
+
+                                    <div style="margin-top: 50px;" class="input-field col s12 m6 l6">
+                                        {{ form.gender_preference }}
+                                        <label>Gender preference</label>
+                                    </div>
+
+                                    <div style="margin-top: 50px;" class="input-field col s12 m6 l6">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        {{ form.maximum_age }}
+                                        <label for="icon_prefix white-text">Maximum age</label>
+                                    </div>
+
+
+                                    {% endif %}
+
+
 
                                     <h5 class="col s12 m12 l12" style="margin-top: 30px; margin-bottom: 10px;">Contact details</h5>
                                     <div class="col s12 m12 l12 divider">

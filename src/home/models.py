@@ -739,3 +739,49 @@ class RentCommercialProperty(CommercialProperty):
 #                              end Offer a property for rent
 #======================================================================================
 #======================================================================================
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start jobs
+#======================================================================================
+#======================================================================================
+
+
+
+
+#jobs in bangladesh
+class JobBangladesh(models.Model):
+    job_type = models.CharField(max_length=50, null=True, blank=True)
+    industry = models.CharField(max_length=100, null=True, blank=True)
+    business_function = models.CharField(max_length=100, null=True, blank=True)
+    role_designation = models.CharField(max_length=100, null=True, blank=True)
+    receive_applications_via = models.CharField(max_length=100, null=True, blank=True)
+    total_vacancy = models.IntegerField(null=True, blank=True)
+    application_deadline = models.DateField(auto_now_add=True)
+
+    company_employer = models.CharField(max_length=100, null=True, blank=True)
+
+    minimum_qualification = models.CharField(max_length=100, null=True, blank=True)
+    required_experience = models.FloatField(null=True, blank=True)
+    educational_specialization = models.CharField(max_length=100, null=True, blank=True)
+    skill = models.CharField(max_length=255, null=True, blank=True)
+    maximum_age = models.IntegerField(null=True, blank=True)
+    gender_preference = models.CharField(max_length=20, null=True, blank=True)
+
+
+
+    def __str__(self):
+        return str(self.id)
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end jobs
+#======================================================================================
+#======================================================================================

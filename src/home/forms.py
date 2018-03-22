@@ -2820,3 +2820,137 @@ class RentCommercialProperty(CommercialPropertyForm):
 #                              end Offer a property for rent
 #======================================================================================
 #======================================================================================
+
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              start jobs
+#======================================================================================
+#======================================================================================
+
+
+
+
+#jobs in bangladesh
+job_bd_type_list = (
+    ('full_time', 'Full Time'),
+    ('part_time', 'Part Time'),
+    ('contractual', 'Contractual'),
+    ('internship', 'Internship'),
+)
+
+receive_application_via_list = (
+    ('employer_dashboard', 'Employer dashboard'),
+    ('phone', 'Phone'),
+    ('email', 'Email'),
+)
+
+from account.forms import current_industry_list, current_business_function_list, education_level, educational_specialization, gender_list
+
+class JobBangladeshForm(forms.Form):
+    photos = forms.ImageField(required=False)
+    title = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    description = forms.CharField( required=False, max_length= 1000 ,widget=forms.Textarea(attrs={'class': 'validate materialize-textarea'}) )
+    price = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    phone_number = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    job_type = forms.ChoiceField(choices=job_bd_type_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    industry = forms.ChoiceField(choices=current_industry_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    business_function = forms.ChoiceField(choices=current_business_function_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    role_designation = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    receive_applications_via = forms.ChoiceField(choices=receive_application_via_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    total_vacancy = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    application_deadline = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate datepicker'}))
+
+    company_employer = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+
+    minimum_qualification = forms.ChoiceField(choices=education_level, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    required_experience = forms.FloatField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    educational_specialization = forms.ChoiceField(choices=educational_specialization, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+    skill = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    maximum_age = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
+    gender_preference = forms.ChoiceField(choices=gender_list, required=False, widget=forms.Select(attrs={'class': 'validate'}))
+
+
+
+    def clean(self):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        job_type = self.cleaned_data.get('job_type')
+        industry = self.cleaned_data.get('industry')
+        business_function = self.cleaned_data.get('business_function')
+        role_designation = self.cleaned_data.get('role_designation')
+        receive_applications_via = self.cleaned_data.get('receive_applications_via')
+        total_vacancy = self.cleaned_data.get('total_vacancy')
+        application_deadline = self.cleaned_data.get('application_deadline')
+
+        company_employer = self.cleaned_data.get('company_employer')
+
+        minimum_qualification = self.cleaned_data.get('minimum_qualification')
+        required_experience = self.cleaned_data.get('required_experience')
+        educational_specialization = self.cleaned_data.get('educational_specialization')
+        skill = self.cleaned_data.get('skill')
+        maximum_age = self.cleaned_data.get('maximum_age')
+        gender_preference = self.cleaned_data.get('gender_preference')
+
+        if photos == None:
+            raise forms.ValidationError('Select product photo!')
+        else:
+            if price == None:
+                raise forms.ValidationError('Enter product price!')
+            else:
+                if len(phone_number) == 0:
+                    raise forms.ValidationError('Enter phone number!')
+
+
+    def deploy(self, request, category, location):
+        photos = self.cleaned_data.get('photos')
+        title = self.cleaned_data.get('title')
+        description = self.cleaned_data.get('description')
+        price = self.cleaned_data.get('price')
+        phone_number = self.cleaned_data.get('phone_number')
+
+        job_type = self.cleaned_data.get('job_type')
+        industry = self.cleaned_data.get('industry')
+        business_function = self.cleaned_data.get('business_function')
+        role_designation = self.cleaned_data.get('role_designation')
+        receive_applications_via = self.cleaned_data.get('receive_applications_via')
+        total_vacancy = self.cleaned_data.get('total_vacancy')
+        application_deadline = self.cleaned_data.get('application_deadline')
+
+        company_employer = self.cleaned_data.get('company_employer')
+
+        minimum_qualification = self.cleaned_data.get('minimum_qualification')
+        required_experience = self.cleaned_data.get('required_experience')
+        educational_specialization = self.cleaned_data.get('educational_specialization')
+        skill = self.cleaned_data.get('skill')
+        maximum_age = self.cleaned_data.get('maximum_age')
+        gender_preference = self.cleaned_data.get('gender_preference')
+
+        category_obj = models.Catagory.objects.get(id=category)
+        location_obj = staff_model.Thana.objects.get(id=location)
+
+        deploy = models.Product(user=request.user, category=category_obj, location=location_obj, photos=photos, title=title, description=description, price=price, phone_number=phone_number)
+
+        job_bd = models.JobBangladesh(job_type=job_type, industry=industry, business_function=business_function, role_designation=role_designation, receive_applications_via=receive_applications_via, total_vacancy=total_vacancy, application_deadline=application_deadline, company_employer=company_employer, minimum_qualification=minimum_qualification, required_experience=required_experience, educational_specialization=educational_specialization, skill=skill, maximum_age=maximum_age, gender_preference=gender_preference)
+        job_bd.save()
+
+        deploy.product_object = job_bd
+        deploy.save()
+
+
+
+
+#======================================================================================
+#======================================================================================
+#                              end jobs
+#======================================================================================
+#======================================================================================
+
