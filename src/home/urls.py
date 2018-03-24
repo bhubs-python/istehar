@@ -12,4 +12,7 @@ urlpatterns = [
     url(r'^post-ad/location/$', views.PostLocation.as_view(), name='post-location'),
 
     url(r'^post-ad/details/$', views.PostDetails.as_view(), name='post-details'),
+
+    #view ads
+    #url(r'^ads/$', views.PostDetails.as_view(), name='post-details'),
 ]

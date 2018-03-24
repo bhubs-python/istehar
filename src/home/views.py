@@ -13,8 +13,43 @@ class Home(View):
     template_name = 'home/index.html'
 
     def get(self, request):
+        divisions = staff_model.Division.objects.all()
 
-        return render(request, self.template_name)
+        electronics_count = models.Product.objects.filter(subcategory__catagory__name='electronics').count()
+        home_garden_count = models.Product.objects.filter(subcategory__catagory__name='home & garder').count()
+        car_vehicles_count = models.Product.objects.filter(subcategory__catagory__name='cars & vehicles').count()
+        property_count = models.Product.objects.filter(subcategory__catagory__name='property').count()
+        cloth_health_beauty_count = models.Product.objects.filter(subcategory__catagory__name='clothing, health & beauty').count()
+        pet_animal_count = models.Product.objects.filter(subcategory__catagory__name='pets & animals').count()
+        hobby_sport_kid_count = models.Product.objects.filter(subcategory__catagory__name='hobby, sport & kids').count()
+        service_count = models.Product.objects.filter(subcategory__catagory__name='services').count()
+        job_bd_count = models.Product.objects.filter(category__name='jobs in bd').count()
+        education_count = models.Product.objects.filter(subcategory__catagory__name='education').count()
+        business_industry_count = models.Product.objects.filter(subcategory__catagory__name='business & industry').count()
+        other_count = models.Product.objects.filter(subcategory__catagory__name='other').count()
+        food_agriculture_count = models.Product.objects.filter(subcategory__catagory__name='food & agriculture').count()
+        overseas_job_count = models.Product.objects.filter(category__name='overseas job').count()
+
+
+
+        variables = {
+            'divisions': divisions,
+            'electronics_count': electronics_count,
+            'home_garden_count': home_garden_count,
+            'car_vehicles_count': car_vehicles_count,
+            'property_count': property_count,
+            'cloth_health_beauty_count': cloth_health_beauty_count,
+            'pet_animal_count': pet_animal_count,
+            'hobby_sport_kid_count': hobby_sport_kid_count,
+            'service_count': service_count,
+            'job_bd_count': job_bd_count,
+            'education_count': education_count,
+            'business_industry_count': business_industry_count,
+            'other_count': other_count,
+            'food_agriculture_count': food_agriculture_count,
+            'overseas_job_count': overseas_job_count,
+        }
+        return render(request, self.template_name, variables)
 
 
 #post add
