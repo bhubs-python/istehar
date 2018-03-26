@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
+from django.db.models import Q
 
 from . import models
 from staff import models as staff_model
@@ -1632,6 +1633,62 @@ class PostDetails(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+
+#========================================================================
+#========================================================================
+#                      start ads listing
+#========================================================================
+#========================================================================
+
+
+
+#ads list
+class AdsList(View):
+    template_name = 'home/ads-list.html'
+
+    def get(self, request, location, category):
+
+        location = location
+        category = category
+
+        categories = models.Catagory.objects.filter(id=category)
+
+        m_category = None
+        for main_catgeory in categories:
+            m_category = main_catgeory.name
+
+
+
+        if location == 'bd':
+            if m_category == 'jobs in bd':
+                products = models.Product.objects.filter(category__id=category)
+            elif m_category == 'overseas job':
+                products = models.Product.objects.filter(category__id=category)
+            else:
+                products = models.Product.objects.filter(subcategory__catagory__id=category)
+        else:
+            products = models.Product.objects.filter(Q(location__name=location) & Q(subcategory__catagory__id=category))
+
+        variables = {
+            'products': products,
+
+            'm_category': m_category,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#========================================================================
+#========================================================================
+#                      end ads listing
+#========================================================================
+#========================================================================
+
+
 
 
 

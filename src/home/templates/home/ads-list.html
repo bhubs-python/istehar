@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Ads | Istehar{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <!--start category-->
+        <div class="col s12 m8 offset-m2 l8 offset-l2 white" style="margin-top: 40px; margin-bottom: 50px; padding: 20px;">
+            <!--sort menu left-->
+            <div class="col l3" style="border: 1px solid red;">
+                sort option
+            </div>
+            <!--end sort menu left-->
+
+
+            <!--main product side-->
+            <div class="col l9" style="">
+                <div class="col s12 m12" style="padding: 0px;">
+                    {% for product in products %}
+                    <div class="card darken-1">
+                        <div class="card-content black-text" style="padding: 0px;">
+                            <div class="row" style="padding: 0px;">
+                                <div class="col m2" style="">
+                                    <img style="padding: 5px;" src="{{ product.photos.url }}" alt="" height="100%" width="100%">
+                                </div>
+
+                                <div class="col m9" style="padding: 5px;">
+                                    <span style="color: navy; font-size: 16px;">{{ product.title | title }}</span>
+
+                                    <br>
+                                    <br>
+                                    <span style="color: gray;">{{ product.location | title }}, {{ product.location.district | title }},</span>
+
+                                    {% if product.subcategory %}
+                                        <span style="color: gray;">{{ product.subcategory.name | title }}</span>
+                                    {% endif %}
+
+                                    {% if product.category %}
+                                        <span style="color: gray;">{{ product.category.name | title }}</span>
+                                    {% endif %}
+
+                                    <br>
+                                    <span style="color: black;">Tk {{ product.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--main product side-->
+
+
+        </div>
+
+    </div>
+{% endblock %}

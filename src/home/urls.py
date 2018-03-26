@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^post-ad/details/$', views.PostDetails.as_view(), name='post-details'),
 
     #view ads
-    #url(r'^ads/$', views.PostDetails.as_view(), name='post-details'),
+    url(r'^ads/(?P<location>[a-zA-Z0-9-_]+)/(?P<category>[0-9]+)/$', views.AdsList.as_view(), name='ads-list'),
 ]

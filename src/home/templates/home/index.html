@@ -55,7 +55,7 @@
 
                 <!--right side bar-->
                 <div class="col m4 l4" style="margin-top: 40px;">
-                    <div class="right">
+                    <div class="right right-align">
                     <h5>Divisions</h5>
                     {% for division in divisions %}
                         {% if division.name == 'none' %}
@@ -67,13 +67,51 @@
                     {% endfor %}
                     </div>
                 </div>
+
+                <div class="col m4 l4" style="margin-top: 40px;">
+                    <div class="right right-align">
+                        <h5>Popular city</h5>
+
+                        <a href="#">
+                            Dhaka
+                        </a><br>
+
+                        <a href="#">
+                            Chittagong
+                        </a><br>
+
+                        <a href="#">
+                            Sylhet
+                        </a><br>
+
+                        <a href="#">
+                            Rajshahi
+                        </a><br>
+
+                        <a href="#">
+                            Mymensingh
+                        </a><br>
+
+                        <a href="#">
+                            Khulna
+                        </a><br>
+
+                        <a href="#">
+                            Barisal
+                        </a><br>
+
+                        <a href="#">
+                            Rangpur
+                        </a><br>
+                    </div>
+                </div>
                 <!--right side bar-->
             </div>
 
         </div>
         <!--end top head-->
 
-        <div class="col s12 m12 l12 divider gray">
+        <div class="col s12 m12 l12 divider" style="border: 1px solid gray;">
 
         </div>
 
@@ -82,7 +120,7 @@
             <div class="row">
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">phone_android</i><br>
-                    <a href="#">Electronics</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=1 %}">Electronics</a><br>
                     <span style="color: gray;">( {{ electronics_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Find great deals for used electronics in Bangladesh including mobile phones, computers, laptops, TVs, cameras and much more.
@@ -91,7 +129,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">home</i><br>
-                    <a href="#">Home & Garden</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=5 %}">Home & Garden</a><br>
                     <span style="color: gray;">( {{ home_garden_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Buy and sell new and used home appliances including furniture, kitchen items, gardening products and other items for your garden.
@@ -100,7 +138,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">directions_car</i><br>
-                    <a href="#">Cars & Vehicles</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=2 %}">Cars & Vehicles</a><br>
                     <span style="color: gray;">( {{ car_vehicles_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Buy and sell used cars, motorbikes and other vehicles in Bangladesh. Choose from top brands including Toyota, Nissan, Honda and Suzuki.
@@ -109,7 +147,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">home</i><br>
-                    <a href="#">Property</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=3 %}">Property</a><br>
                     <span style="color: gray;">( {{ property_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         View listings for property in Bangladesh. Find the cheapest rates for apartments, commercial and residential properties, as well as for land and plots.
@@ -120,7 +158,7 @@
             <div class="row">
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">watch</i><br>
-                    <a href="#">Clothing, Health & Beauty</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=6 %}">Clothing, Health & Beauty</a><br>
                     <span style="color: gray;">( {{ cloth_health_beauty_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Buy and sell clothing, garments, shoes and other personal items including handbags, perfumes, children's toys and hand made items in Bangladesh.
@@ -129,7 +167,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">pets</i><br>
-                    <a href="#">Pets & Animals</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=10 %}">Pets & Animals</a><br>
                     <span style="color: gray;">( {{ pet_animal_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Search from the widest variety of pets in Bangladesh . Select from dogs, puppies, cats, kittens, birds and other domesticated animals.
@@ -138,7 +176,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">filter_tilt_shift</i><br>
-                    <a href="#">Hobby, Sport & Kids</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=7 %}">Hobby, Sport & Kids</a><br>
                     <span style="color: gray;">( {{ hobby_sport_kid_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Buy and sell used musical instruments, sports gear and accessories, art and collectibles and items for kids here.
@@ -147,7 +185,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">local_dining</i><br>
-                    <a href="#">Services</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=4 %}">Services</a><br>
                     <span style="color: gray;">( {{ service_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Browse through a range of service offerings to businesses and consumers alike.
@@ -158,7 +196,7 @@
             <div class="row">
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">work</i><br>
-                    <a href="#">Jobs in Bangladesh</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=19 %}">Jobs in Bangladesh</a><br>
                     <span style="color: gray;">( {{ job_bd_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Post and apply for jobs and career opportunities in Bangladesh. Search for job vacancies in your city.
@@ -167,7 +205,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">school</i><br>
-                    <a href="#">Education</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=9 %}">Education</a><br>
                     <span style="color: gray;">( {{ education_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Buy and sell books and magazines, find tuition, classes and other educational resources in Bangladesh.
@@ -176,7 +214,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">account_balance</i><br>
-                    <a href="#">Business & Industry</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=8 %}">Business & Industry</a><br>
                     <span style="color: gray;">( {{ business_industry_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         This is where businesses in Bangladesh trade, numerous business and industry services offered to trade and consumers.
@@ -185,7 +223,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">apps</i><br>
-                    <a href="#">Other</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=12 %}">Other</a><br>
                     <span style="color: gray;">( {{ other_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Classified ads for miscellaneous products and items all over Bangladesh. Buy and sell almost anything.
@@ -196,7 +234,7 @@
             <div class="row">
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">build</i><br>
-                    <a href="#">Food & Agriculture</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=11 %}">Food & Agriculture</a><br>
                     <span style="color: gray;">( {{ food_agriculture_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Find food and edible products, including fresh fruits and vegetables, meats, fish, seafood, crop seeds, plants and other agricultural products in Bangladesh.
@@ -205,7 +243,7 @@
 
                 <div class="col s3 center-align" style="">
                     <i style="font-size: 30px;" class="material-icons">language</i><br>
-                    <a href="#">Overseas Jobs</a><br>
+                    <a href="{% url 'home:ads-list' location='bd' category=20 %}">Overseas Jobs</a><br>
                     <span style="color: gray;">( {{ overseas_job_count }} )</span><br>
                     <p style="font-size: 12px; color: gray;">
                         Apply for overseas jobs, browse a range of quality international job vacancies in your dream location.
@@ -213,7 +251,7 @@
                 </div>
             </div>
         </div>
-        <!--start category-->
+        <!--end category-->
 
         <!--post add text-->
 
