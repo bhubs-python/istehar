@@ -15,4 +15,5 @@ urlpatterns = [
 
     #view ads
     url(r'^ads/(?P<location>[a-zA-Z0-9-_]+)/(?P<category>[0-9]+)/$', views.AdsList.as_view(), name='ads-list'),
+    url(r'^ads/(?P<location>[a-zA-Z0-9-_]+)/(?P<category>[0-9]+)/(?P<subcategory>[0-9]+)/$', views.AdsListBySubcategory.as_view(), name='ads-list-by-subcategory'),
 ]

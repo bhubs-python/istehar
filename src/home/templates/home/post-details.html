@@ -52,7 +52,6 @@
                                     {% if subcategories %}
                                         {% for l in locations %}
                                             <p class="col s12 m12 l12" style="color: gray;">
-                                                {{ category_id }}
                                                 2. Location: {{ l.district.division.name | title }} -> {{ l.district.name | title }} -> {{ l.name | title }} <a href="{% url 'home:post-location' %}?type={{ type }}&subcategory={{ subcategory }}">Change</a>
                                             </p>
                                         {% endfor %}

@@ -22,16 +22,15 @@
 
                 </div>
 
-                <div style="margin-top: 20px;">
-                    <p style="margin-bottom: 10px;">
-                        <a class="black-text" href="#">{{ m_category | title }}</a>
+                <div style="margin-top: 30px;">
+                    <p style="">
+                        <a class="" href="{% url 'home:ads-list' location=location category=category %}">< {{ m_category | title }}</a>
                     </p>
 
-                    {% for s_category in s_categories %}
-                        <p class="col s12 m12 l12" style="margin-bottom: 10px;">
-                            <a class="" href="{% url 'home:ads-list-by-subcategory' location=location category=category subcategory=s_category.id %}">{{ s_category.name | title }}</a>
-                        </p>
-                    {% endfor %}
+                    <p style="margin-top: 10px;" class="col s12 m12 l12">
+                        <a class="black-text" href="#">{{ s_category_name | title }}</a>
+                    </p>
+
                 </div>
             </div>
             <!--end sort menu left-->

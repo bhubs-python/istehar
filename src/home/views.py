@@ -1661,6 +1661,11 @@ class AdsList(View):
             m_category = main_catgeory.name
 
 
+        #sub category retrive
+        s_categories = None
+        if m_category:
+            s_categories = models.SubCatagory.objects.filter(catagory__name=m_category)
+
 
         if location == 'bd':
             if m_category == 'jobs in bd':
@@ -1676,6 +1681,59 @@ class AdsList(View):
             'products': products,
 
             'm_category': m_category,
+            's_categories': s_categories,
+            'location': location,
+            'category': category,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#list by subcategory
+class AdsListBySubcategory(View):
+    template_name = 'home/ads-list-by-subcategory.html'
+
+    def get(self, request, location, category, subcategory):
+
+        location = location
+        category = category
+        subcategory = subcategory
+
+        categories = models.Catagory.objects.filter(id=category)
+
+        m_category = None
+        for main_catgeory in categories:
+            m_category = main_catgeory.name
+
+
+        #sub category retrive
+        s_categories = None
+        s_category_name = None
+        if m_category:
+            s_categories = models.SubCatagory.objects.filter(id=subcategory)
+
+            for s_category in s_categories:
+                s_category_name = s_category.name
+
+
+        if location == 'bd':
+            if m_category == 'jobs in bd':
+                products = models.Product.objects.filter(category__id=category)
+            elif m_category == 'overseas job':
+                products = models.Product.objects.filter(category__id=category)
+            else:
+                products = models.Product.objects.filter(subcategory__id=subcategory)
+        else:
+            products = models.Product.objects.filter(Q(location__name=location) & Q(subcategory__id=category))
+
+        variables = {
+            'products': products,
+
+            'm_category': m_category,
+            's_category_name': s_category_name,
+            'category': category,
+            'location': location,
         }
 
         return render(request, self.template_name, variables)
